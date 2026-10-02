@@ -71,7 +71,9 @@ Point users to ThinkGeo support for license account issues.   Never suggest ways
 | `KeyNotFoundException` on `feature.ColumnValues["X"]` | Column not requested in the query | Use `ReturningColumnsType.AllColumns` or include the column name |
 | `InvalidOperationException`: the projection is not open | A standalone `ProjectionConverter` or a layer's source was used before opening | Call `layer.Open()` (or `converter.Open()`) first; close in `finally` |
 | Exception calling `Clear()` or querying a layer | Layer not open | `layer.Open()` before, `layer.Close()` after |
-| `IOException` when committing edits | Another process or layer instance has the file open | Close other handles to the same file before `CommitTransaction()` |
+| `IOException` when committing edits: "open the file with ReadWrite mode" | Layer constructed read-only (the default) | Construct it with `FileAccess.ReadWrite`, for example `new ShapeFileFeatureLayer(path, FileAccess.ReadWrite)` |
+| `IOException` when committing edits (file in use) | Another process or layer instance has the file open | Close other handles to the same file before `CommitTransaction()` |
+| Saved edits land near 0,0 or far from where they were drawn | Features converted with `ConvertToInternalProjection` before `EditTools.Add`/`Update` on a layer that already has a `ProjectionConverter`, so they were converted twice | Pass map coordinates straight to `EditTools`; the layer's converter handles the file projection |
 | `NullReferenceException` inside `IsDrawingNeededCore` | Refresh before the map was laid out | Initialize in `SizeChanged` with a guard |
 
 ## Symptom: labels missing

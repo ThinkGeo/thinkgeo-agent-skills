@@ -137,7 +137,11 @@ The "Edit Map Events" sample shows the full event set.   Use `tg_find_sample("Ed
 Feature layers that support editing expose `EditTools`, which work in a transaction:
 
 ```csharp
-var target = new ShapeFileFeatureLayer(@".\Data\Parcels.shp");
+// ReadWrite is required; the default is read-only and CommitTransaction throws.
+var target = new ShapeFileFeatureLayer(@".\Data\Parcels.shp", FileAccess.ReadWrite);
+// Same converter as the display layer (file EPSG, map EPSG), so edits in map coordinates
+// are written back in the file's projection.
+target.FeatureSource.ProjectionConverter = new ProjectionConverter(2276, 3857);
 target.Open();
 try
 {
@@ -156,8 +160,8 @@ finally
 
 Notes:
 
-- The `ShapeFileReadWriteMode` enum from the old MapSuite API does not exist in `ThinkGeo.Core`.   Construct the layer with its path; no mode flag is needed.
-- Committing throws an `IOException` if another process or another layer instance holds the `.shp`/`.dbf` open.   Close display layers on the same file, or edit a separate layer instance and refresh the display afterwards.
-- **Projection on save:** edited geometry is in map coordinates (usually EPSG:3857), while the file may be in another projection.   Test a round trip on a copy of the data before shipping: save one edited feature, reload the file, and confirm it lands in the same place.   If it doesn't, convert features with `ProjectionConverter.ConvertToInternalProjection` before calling `Add` / `Update`.
+- **Open the layer read-write.**   Pass `FileAccess.ReadWrite` (from `System.IO`) to the constructor.   Without it, `CommitTransaction` throws an `IOException` saying to open the file in ReadWrite mode.   The `ShapeFileReadWriteMode` enum from the old MapSuite API does not exist in `ThinkGeo.Core`; `FileAccess` replaces it.
+- Committing also throws an `IOException` if another process or another layer instance holds the `.shp`/`.dbf` open.   Close display layers on the same file, or edit a separate layer instance and refresh the display afterwards.
+- **Projection on save:** if the layer's `FeatureSource` has a `ProjectionConverter`, pass features to `Add` and `Update` in **map coordinates**, exactly as they come from `TrackOverlay` or `EditOverlay`.   `EditTools` converts them back to the file's projection on commit (verified on 14.5.3 with a 4326 shapefile and a 3857 map).   **Do not** call `ConvertToInternalProjection` yourself first: the features get converted twice and land near 0,0.   Only convert manually if you write to a layer that has no converter while the file and map projections differ; setting the converter on that layer is simpler.
 - Preserve attribute values by copying `ColumnValues` from the original feature into the edited one before updating.
 - Back up user data or write to a copy first when building an editing workflow for the first time.
