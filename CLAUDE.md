@@ -36,6 +36,7 @@ The ThinkGeo Documentation MCP server (`https://ai.thinkgeo.com/mcp`, tools `tg_
 - **Write descriptions that name the words and symptoms users actually type,** since descriptions decide when a skill activates.
 - **Use three spaces after sentence-ending punctuation in Markdown prose** (Phil's preference).   Don't do this inside code blocks, tables, front matter, or after numbered-list markers.
 - **Bump the version in all three manifests** (`plugin.json`, `.claude-plugin/plugin.json`, `.claude-plugin/marketplace.json`) **and add a `CHANGELOG.md` entry** for every release.
+- **Tag each release with the plain version number** (for example `0.3.0`, no "v"), created with `git tag -a`, after the release commit is pushed.   The MCP server's "latest tagged release" lookup depends on this format.   Phil creates and pushes tags.
 
 ## Commands (Windows)
 
