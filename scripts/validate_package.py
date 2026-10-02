@@ -102,10 +102,14 @@ FORBIDDEN = {
     r"ShapeFileFeatureLayer\.BuildIndex\(": "use ShapeFileFeatureLayer.BuildIndexFile(...)",
     r"ShapeFileReadWriteMode": "legacy MapSuite enum, not in ThinkGeo.Core",
 }
+# Eval inputs that contain these calls on purpose (the code-review case asks the agent to find them).
+DELIBERATE_ERRORS = {"evals/code-review/prompt.md"}
 code_files = [f for f in ROOT.rglob("*") if f.suffix in {".cs", ".xaml", ".md"} and f.is_file()]
 for f in code_files:
     rel = f.relative_to(ROOT)
     if rel.parts[0] == "scripts" or rel.name in {"CHANGELOG.md", "EVALUATION.md", "CLAUDE.md"}:
+        continue
+    if rel.as_posix() in DELIBERATE_ERRORS:
         continue
     text = f.read_text(encoding="utf-8", errors="replace")
     for pattern, why in FORBIDDEN.items():

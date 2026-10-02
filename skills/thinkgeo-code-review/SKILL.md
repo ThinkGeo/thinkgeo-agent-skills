@@ -7,7 +7,19 @@ Review supplied code against current ThinkGeo evidence.
 
 1. Identify the platform, target framework, ThinkGeo package/version information, and all ThinkGeo namespaces/types/members visible in the code.
 2. Check exact type/member names with `tg_api`, then search `docs` and the relevant HowDoI namespace for current official usage patterns.   For WPF and WinForms, compare the code against the rules in the `thinkgeo-desktop-maps` skill (map unit first, converter direction, `ApplyUntilZoomLevel`, `SingleTile` for dynamic overlays, per-overlay refresh, disposal).
-3. Search changelogs or migration guides for types that appear deprecated, renamed, or version-sensitive.
+   Check enum values too, not just types and members.   `tg_api` returns an enum with an empty member list, so read the enum's page with `tg_get` (its "Fields" table) to confirm a value such as `TileType.MultiTile` exists.
+3. Search changelogs or migration guides for types that appear deprecated, renamed, or version-sensitive.   These names turn up in older code, guides, and samples but don't exist in 14.5.3 (verified against the 14.5.3 DLLs); flag each as a compile error, not a style point:
+
+   | In the code | Problem in 14.5.3 | Use instead |
+   | --- | --- | --- |
+   | `mapView.Refresh()` | Doesn't exist on the WPF `MapView`; on WinForms it compiles as `Control.Refresh()` and doesn't redraw the map | `await mapView.RefreshAsync()` |
+   | `ShapeFileFeatureLayer.BuildIndex(...)` | Doesn't exist | `ShapeFileFeatureLayer.BuildIndexFile(...)` |
+   | `ShapeFileReadWriteMode` | Doesn't exist (legacy Map Suite enum) | `FileAccess.ReadWrite` when editing; otherwise the path-only constructor |
+   | `TileType.MultipleTiles` | Doesn't exist | `TileType.MultiTile` (the default, so the line can usually go) |
+   | `VectorPmTilesAsyncLayer` | Not in 14.5.3; only in the 15.0 betas | `VectorMbTilesAsyncLayer` |
+   | `XyzFileTilesAsyncLayer`, `FleeBooleanStyle`, `DynamicPointStyle` | Not ThinkGeo classes; defined inside HowDoI samples | Copy the class from the sample, or write it |
+
+   Also check that desktop code-behind has `using ThinkGeo.UI.Wpf;` (or `ThinkGeo.UI.WinForms`); code adapted from samples often lacks it and fails with CS0246 on `LayerOverlay`.
 4. Separate review findings into:
    - Compile/API correctness.
    - Runtime/lifecycle correctness.

@@ -1,6 +1,6 @@
 ---
 description: "Test case 11: GeoPackage plus ECW needs the ThinkGeo.Gdal extension package at the same version as the UI package."
-tags: [pilot, codegen, packages, wpf]
+tags: [pilot, full, codegen, packages, wpf]
 max_turns: 40
 timeout_seconds: 900
 allowed_tools: [Read, Glob, Grep, Skill]

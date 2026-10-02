@@ -1,6 +1,6 @@
 ---
 description: "Test case 9: replace the ThinkGeo Cloud basemap for an air-gapped network on 14.5.3. Must not rely on PMTiles, which needs v15."
-tags: [pilot, offline, wpf]
+tags: [pilot, full, offline, wpf]
 max_turns: 30
 timeout_seconds: 600
 allowed_tools: [Read, Glob, Grep, Skill]

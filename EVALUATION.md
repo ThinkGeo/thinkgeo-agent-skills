@@ -29,6 +29,14 @@ claude plugin eval . --tag pilot --runs 2 --ablation none --allow-real-servers -
 
 `--keep-temp` keeps each run's folder so the generated projects can be built.   Copy only the `.csproj`, `.cs`, and `.xaml` files out of `home/cwd`, check the project files, and build the copies; don't build inside the kept folders.   Delete the kept folders afterwards.
 
+## Full suite (all 11 test cases)
+
+All 11 cases in `tests/test-cases.md` are now in `evals/` (tag `full`; the three pilot cases also keep `pilot`).   Cases 2 and 5 include the user's code in the prompt; case 5 plants four 14.5.3 errors for the review to find.
+
+Grader check, October 2, 2026 (skills arm, one run each, the 8 new cases): 7 of 8 scored 1.00 on the first run and every case loaded the expected skill.   The GIS Server project built with 0 warnings.   The code-review case missed that `TileType.MultipleTiles` doesn't exist (it called it the default).   Cause: `tg_api` returns enums with an empty member list, so the value looked fine.   After adding a known-stale-names table and an enum-checking step to `thinkgeo-code-review`, the rerun scored 1.00.
+
+To run the whole suite: replace `--tag pilot` in the command above with `--tag full`.   The full A/B (11 cases, 2 runs, both arms) has not been run yet.
+
 ## v0.2 status
 
 v0.2 merges the v0.1 workflow skills with three WPF/WinForms knowledge skills and folds the desktop troubleshooting guide into `thinkgeo-troubleshoot`.   Nothing in v0.2 has been compiled or run against real prompts yet.   One defect found during review shows why the build step matters: the v0.1 WPF project followed the official `SampleTemplate.xaml.cs` and called `mapView.Refresh()`, which the current API reference does not list.   Source verification against a sample was not enough; the member check against `tg_api` is now mandatory in `thinkgeo-code-example`.
