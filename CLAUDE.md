@@ -65,8 +65,8 @@ When the validator flags a forbidden API call, fix the code.   Only add an excep
 
 ## Next steps, in order
 
-1. Create the GitLab repo (`thinkgeo/public/thinkgeo-agent-skills`), push v0.2, and set up the GitHub push mirror.
-2. Work through the open items above, then tag v0.3.
+1. ~~Create the GitLab repo, push v0.2, and set up the GitHub push mirror.~~ Done (GitHub mirror: `ThinkGeo/thinkgeo-agent-skills`).
+2. Work through the open items above, then tag v0.3.   Open items done and versions bumped to 0.3.0 (October 2, 2026); tagging is Phil's call.
 3. Run the A/B evaluation in `EVALUATION.md`: MCP only, MCP plus workflow skills, MCP plus all skills.   Cases are in `tests/test-cases.md`; score each with the 15-point rubric there.
 4. Make the MCP server changes listed above (separate repo).
 5. Announce: link the repo from the desktop quick starts and the HowDoI READMEs, write a blog post, and pair it with the MCP server announcement.

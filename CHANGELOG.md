@@ -1,6 +1,8 @@
 # Changelog
 
-## Unreleased
+## 0.3.0
+
+First release built and tested against ThinkGeo 14.5.3: the starter and test projects compile, API and package claims were checked against the 14.5.3 DLLs, and an automated evaluation pilot compares the skills with the MCP server alone.
 
 Fixed:
 - WPF test project and WPF starter now build (missing usings; missing `App.xaml`).
