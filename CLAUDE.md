@@ -56,7 +56,7 @@ When the validator flags a forbidden API call, fix the code.   Only add an excep
 
 ## Open items to verify
 
-1. **Build everything.** Nothing has been compiled yet.   Build the two test projects and the two starter projects, and fix any errors by checking the API with `tg_api`.
+1. ~~**Build everything.**~~ Done (October 2, 2026).   All four projects build with no errors or warnings.   Builds were checked, but the apps haven't been run yet.
 2. **`package-map.md`:** confirm which types ship in `ThinkGeo.Core` and which need extension packages.   Those rows are marked "expected".
 3. **Marketplace source:** confirm `"source": "./"` in `.claude-plugin/marketplace.json` passes `claude plugin validate .` and installs correctly.
 4. **Install instructions:** `README.md` uses the GitLab address.   Add the GitHub mirror's `owner/repo` form as an alternative once the mirror exists.

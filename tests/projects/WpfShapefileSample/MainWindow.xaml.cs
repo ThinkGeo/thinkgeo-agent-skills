@@ -1,6 +1,8 @@
 using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using ThinkGeo.Core;
+using ThinkGeo.UI.Wpf;
 
 namespace WpfShapefileSample;
 
