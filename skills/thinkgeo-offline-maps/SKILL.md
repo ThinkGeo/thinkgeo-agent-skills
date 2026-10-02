@@ -15,23 +15,24 @@ Clarify these before writing code, because they change the design:
 
 1. **Never connected** (air-gapped) or **sometimes connected** (field laptop that syncs at base)?
 2. **What area and zoom range** must work offline?   A city at street level is a few hundred MB; a country at street level can be tens of GB.
-3. **What basemap source** are they licensed to use offline?   (Their own data, a purchased MBTiles/PMTiles extract, OpenMapTiles-schema data, or imagery such as GeoTIFF/ECW/MrSID.)
+3. **What basemap source** are they licensed to use offline?   (Their own data, a purchased MBTiles extract, OpenMapTiles-schema data, or imagery such as GeoTIFF/ECW/MrSID.)
 4. **How is software moved onto the machines?** (Installer, removable media, a software center.)   This affects how the runtime license and data ship.
 
 ## Step 2: choose the basemap
 
 | Option | Layer | Good for |
 | --- | --- | --- |
-| Vector tiles in one file (`.pmtiles`) | `VectorPmTilesAsyncLayer` | Large areas, small footprint, crisp at every zoom, restylable |
-| Vector tiles in SQLite (`.mbtiles`) | `VectorMbTilesAsyncLayer` | Same, with a widely supported container |
+| Vector tiles (`.mbtiles`) | `VectorMbTilesAsyncLayer` | Large areas, small footprint, crisp at every zoom, restylable |
 | Raster tiles (`.mbtiles`) | `RasterMbTilesAsyncLayer` | Pre-rendered maps or scanned charts |
-| Raster tiles in folders (z/x/y) | `XyzFileTilesAsyncLayer` | Tiles exported from QGIS or other tools |
-| Imagery (GeoTIFF, ECW, MrSID, JPEG2000) | `GeoTiffRasterLayer`, `EcwGdalRasterLayer`, `MrSidGdalRasterLayer`, `GdalRasterLayer` | Aerial or satellite imagery |
+| Raster tiles in folders (z/x/y) | A small `RasterXyzTileAsyncLayer` subclass (copy `XyzFileTilesAsyncLayer` from the sample) | Tiles exported from QGIS or other tools |
+| Imagery (GeoTIFF, ECW, MrSID, JPEG2000) | `GeoTiffRasterLayer`, `EcwGdalRasterLayer`, `MrSidGdalRasterLayer`, `Jpeg2000GdalRasterLayer` | Aerial or satellite imagery |
 | Your own vector data (shapefile, GeoPackage, SQLite, File Geodatabase) styled as a basemap | Feature layers + styles | Full control, uses data the customer already owns |
 | Nautical charts (S-57) | `NauticalChartsFeatureLayer` | Maritime |
 | Pre-generated tile cache of any overlay | `LayerOverlay` + `FileRasterTileCache` + `IsCacheOnly` | Freezing a complex, slow-to-render map into fast tiles |
 
-Vector tiles (PMTiles or MBTiles) are usually the best default for a general-purpose street basemap.   Details and code are in `references/local-basemaps.md`.
+Vector MBTiles are usually the best default for a general-purpose street basemap.   Details and code are in `references/local-basemaps.md`.
+
+**PMTiles needs ThinkGeo 15.**   `VectorPmTilesAsyncLayer` isn't in 14.5.3; it's only in 15.0 beta builds (October 2026).   If the user has `.pmtiles` data and is on 14.5.3, get the same tileset as MBTiles (most providers, including ThinkGeo Maps Streets, offer both) rather than moving to a beta.
 
 Sources for vector tile data include MapTiler, OpenMapTiles extracts, and Protomaps builds.   Most need a license for production use; confirm the user has one.
 

@@ -4,33 +4,17 @@ Sources: Vector Tiles Support guide (docs.thinkgeo.com), and the HowDoI samples 
 
 All tile layers below are async layers in EPSG:3857, so set `MapView.MapUnit = GeographyUnit.Meter`.   Call `await layer.OpenAsync()` before reading `GetBoundingBox()`.
 
-## Vector tiles: PMTiles
+## Vector tiles: MBTiles
 
 ```csharp
 MapView.MapUnit = GeographyUnit.Meter;
 
-var basemap = new VectorPmTilesAsyncLayer(
-    Path.Combine(dataDir, "region.pmtiles"),
-    Path.Combine(dataDir, "style.json"));          // optional; omit for ThinkGeo's default styling
-
-var basemapOverlay = new LayerOverlay();
-basemapOverlay.Layers.Add("Basemap", basemap);
-MapView.Overlays.Insert(0, basemapOverlay);         // bottom of the stack
-
-await basemap.OpenAsync();
-MapView.CurrentExtent = basemap.GetBoundingBox();
-await MapView.RefreshAsync();
-```
-
-## Vector tiles: MBTiles
-
-```csharp
 var basemap = new VectorMbTilesAsyncLayer(Path.Combine(dataDir, "region.mbtiles"));
 basemap.StyleJsonUri = Path.Combine(dataDir, "style.json");   // optional
 
 var basemapOverlay = new LayerOverlay();
 basemapOverlay.Layers.Add("Basemap", basemap);
-MapView.Overlays.Insert(0, basemapOverlay);
+MapView.Overlays.Insert(0, basemapOverlay);         // bottom of the stack
 
 await basemap.OpenAsync();
 MapView.CurrentExtent = basemap.GetBoundingBox();
@@ -48,7 +32,25 @@ The Style JSON follows the MapLibre Style Spec.   For offline use:
 - `sprite` (icons) must be local, or icons disappear.
 - The style's `source-layer` names must match the layer names inside the tile data.   Styles written for the OpenMapTiles schema work with OpenMapTiles-schema data.   Otherwise edit `source-layer` values (Maputnik is a common editor).
 
-Without a Style JSON, the PMTiles and MBTiles layers draw the data with ThinkGeo's built-in default line, area, and point styles.   A remote-source `MvtTilesAsyncLayer` with no Style JSON draws nothing, because the style is what tells it where the tiles are.
+Without a Style JSON, the MBTiles (and v15 PMTiles) layers draw the data with ThinkGeo's built-in default line, area, and point styles.   A remote-source `MvtTilesAsyncLayer` with no Style JSON draws nothing, because the style is what tells it where the tiles are.
+
+## Vector tiles: PMTiles (ThinkGeo 15 only)
+
+`VectorPmTilesAsyncLayer` is not in 14.5.3.   It first appears in the 15.0 beta builds (October 2026).   Use this only if the project already targets ThinkGeo 15; on 14.5.3, use MBTiles above.
+
+```csharp
+var basemap = new VectorPmTilesAsyncLayer(
+    Path.Combine(dataDir, "region.pmtiles"),
+    Path.Combine(dataDir, "style.json"));          // optional; omit for ThinkGeo's default styling
+
+var basemapOverlay = new LayerOverlay();
+basemapOverlay.Layers.Add("Basemap", basemap);
+MapView.Overlays.Insert(0, basemapOverlay);
+
+await basemap.OpenAsync();
+MapView.CurrentExtent = basemap.GetBoundingBox();
+await MapView.RefreshAsync();
+```
 
 ## Raster tiles
 
@@ -60,13 +62,13 @@ MapView.Overlays.Insert(0, overlay);
 await raster.OpenAsync();
 ```
 
-For z/x/y folder tiles exported from QGIS or similar tools, use `XyzFileTilesAsyncLayer`; read the "Display Raster from File Tiles" sample for the path template format.
+For z/x/y folder tiles exported from QGIS or similar tools, subclass `RasterXyzTileAsyncLayer` and override `GetTileAsyncCore` to read `{z}\{x}\{y}` files.   The "Display Raster from File Tiles" sample has a ready-made class, `XyzFileTilesAsyncLayer`, defined in the sample itself (it isn't part of ThinkGeo).   Copy it and adjust the file extension.
 
 Raster tiles look blurry when zoomed beyond their highest zoom level.   Check `MaxZoomOfTheData`, and use `MapView.MaximumScale` or `MinimumScale` to stop users zooming past usable detail.
 
 ## Imagery files
 
-GeoTIFF, ECW, MrSID, and JPEG2000 use `GeoTiffRasterLayer`, `EcwGdalRasterLayer`, `MrSidGdalRasterLayer`, and `GdalRasterLayer`.   If the imagery isn't in EPSG:3857, reproject it with `GdalProjectionConverter` (see the "Project a Raster" sample), or keep the map in the imagery's projection and set `MapUnit` to match.
+GeoTIFF, ECW, MrSID, and JPEG2000 use `GeoTiffRasterLayer`, `EcwGdalRasterLayer`, `MrSidGdalRasterLayer`, and `Jpeg2000GdalRasterLayer` (`GdalRasterLayer` handles other GDAL raster formats).   All but `GeoTiffRasterLayer` need `ThinkGeo.Gdal`.   If the imagery isn't in EPSG:3857, reproject it with `GdalProjectionConverter` (see the "Project a Raster" sample), or keep the map in the imagery's projection and set `MapUnit` to match.
 
 ## Pre-generating a tile cache
 

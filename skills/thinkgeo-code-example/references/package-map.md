@@ -2,7 +2,9 @@
 
 Which NuGet package a ThinkGeo type comes from.   A missing extension package is a common reason generated code fails to build.
 
-Evidence: the current WPF and WinForms HowDoI project files reference `ThinkGeo.Cad`, `ThinkGeo.FileGeoDatabase`, `ThinkGeo.Gdal`, `ThinkGeo.NauticalCharts`, `ThinkGeo.PostgreSql`, `ThinkGeo.Printers`, and `ThinkGeo.SqlServer` alongside the UI package, all at 14.5.3 (October 2026).   The type-to-package rows below follow ThinkGeo's naming; when in doubt, confirm with `tg_get` on the HowDoI project file (`wpfHowDoI:HowDoI.csproj`, `winformHowDoI:HowDoI.csproj`, `gisServerHowDoI:ThinkGeo.GisServer.Samples.csproj`) and the sample that uses the type.
+Evidence: every row below was checked against the public types in the 14.5.3 package DLLs (October 2026).   The current WPF and WinForms HowDoI project files reference the same seven extension packages alongside the UI package.   Note that extension types still use the `ThinkGeo.Core` namespace, so the namespace doesn't tell you which package a type needs.   For a type not listed here, check the HowDoI project file with `tg_get` (`wpfHowDoI:HowDoI.csproj`, `winformHowDoI:HowDoI.csproj`, `gisServerHowDoI:ThinkGeo.GisServer.Samples.csproj`) and the sample that uses the type.
+
+Some HowDoI samples define their own helper classes (for example `XyzFileTilesAsyncLayer`, `DynamicPointStyle`, `FleeBooleanStyle`, `TimeBasedPointStyle`).   These aren't in any package.   If generated code uses one, copy the class from the sample or write it.
 
 ## UI and server packages (pick one per project)
 
@@ -15,23 +17,27 @@ Evidence: the current WPF and WinForms HowDoI project files reference `ThinkGeo.
 | `ThinkGeo.GisServer` | ASP.NET Core OGC/XYZ/GeoJSON service host.   The official sample currently references a beta build; check before pinning. |
 | `ThinkGeo.Core` | Engine only, for headless tools and services |
 
-## Usually covered by ThinkGeo.Core (no extension package)
+## Covered by ThinkGeo.Core (no extension package)
 
-The HowDoI project files don't add an extension package for these, so they are expected to come with the UI package's `ThinkGeo.Core` dependency.   If a build can't find one of these types, check the sample's project file before adding packages.
+These ship in `ThinkGeo.Core`, which every UI package brings in.   If a build can't find one of these types, check for a missing `using ThinkGeo.Core;` or a version mismatch before adding packages.
 
-Shapefile, TAB, TinyGeo, GPX, SQLite, ESRI Grid, GeoJSON (via `Feature.CreateFeaturesFromGeoJson`), `InMemoryFeatureLayer`, GeoTIFF, common images (`SkiaRasterLayer`), MBTiles/PMTiles/MVT vector and raster tile layers, WMS/WMTS/WFS/OGC API layers, all styles, `ProjectionConverter`, geometry and spatial queries.
+Shapefile, TAB, TinyGeo, GPX, SQLite, ESRI Grid (`GridFeatureLayer`), GeoJSON (via `Feature.CreateFeaturesFromGeoJson`), `InMemoryFeatureLayer`, GeoTIFF (`GeoTiffRasterLayer`), common images (`SkiaRasterLayer`), MBTiles and MVT tile layers (`VectorMbTilesAsyncLayer`, `RasterMbTilesAsyncLayer`, `MvtTilesAsyncLayer`, `RasterXyzTileAsyncLayer`), WMS/WMTS/WFS/OGC API layers, all styles, `ProjectionConverter`, geometry and spatial queries.
+
+**PMTiles is not in 14.5.3.**   `VectorPmTilesAsyncLayer` first appears in `ThinkGeo.Core` 15.0.0-beta102 and isn't in any stable release yet, although the Vector Tiles Support guide describes it without a version note.   On 14.5.3, use MBTiles.
 
 ## Extension packages
 
 | Package | Types (examples) |
 | --- | --- |
-| `ThinkGeo.Gdal` | `GdalFeatureLayer` (GeoPackage and other OGR formats), `GdalRasterLayer`, `EcwGdalRasterLayer`, `MrSidGdalRasterLayer` (MrSID, JPEG2000), `KmlGdalFeatureLayer`, `GeoPdfGdalFeatureLayer`, `GdalProjectionConverter` |
+| `ThinkGeo.Gdal` | `GdalFeatureLayer` (GeoPackage and other OGR formats), `GdalRasterLayer`, `GeoTiffGdalRasterLayer`, `EcwGdalRasterLayer`, `MrSidGdalRasterLayer`, `Jpeg2000GdalRasterLayer`, `KmlGdalFeatureLayer`, `GeoPdfGdalFeatureLayer`, `PersonalGeoDatabaseGdalFeatureLayer`, `GdalProjectionConverter` |
 | `ThinkGeo.SqlServer` | `SqlServerFeatureLayer` |
 | `ThinkGeo.PostgreSql` | `PostgreSqlFeatureLayer` |
 | `ThinkGeo.FileGeoDatabase` | `FileGeoDatabaseFeatureLayer` |
 | `ThinkGeo.Cad` | `CadFeatureLayer` (.dwg, .dxf) |
 | `ThinkGeo.NauticalCharts` | `NauticalChartsFeatureLayer` (S-57) |
-| `ThinkGeo.Printers` | `MapPrinterLayer` and printing support |
+| `ThinkGeo.Printers` | `MapPrinterLayer`, `LegendPrinterLayer`, `ScaleBarPrinterLayer`, and other `...PrinterLayer` types (the `PrinterLayer` base class is in Core) |
+
+`tg_api` doesn't cover these packages yet (as of October 2026, the API reference indexes only `ThinkGeo.Core` and the UI packages), so a "no match" for one of these types doesn't mean it's wrong.   Confirm extension types with `tg_find_sample` and the sample's code, or against this table.
 
 GDAL is a third-party library with native binaries.   Publish for a specific runtime (`win-x64` is typical) and check the native DLLs reach the output folder.
 

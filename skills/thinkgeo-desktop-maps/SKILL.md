@@ -126,8 +126,8 @@ The HowDoI samples initialize in `SizeChanged` with an `_initialized` guard so t
 | GeoJSON | `Feature.CreateFeaturesFromGeoJson` into an `InMemoryFeatureLayer` | See the "Display a GeoJson File" sample |
 | SQLite / GeoPackage | `SqliteFeatureLayer` / `GdalFeatureLayer` | GeoPackage needs `ThinkGeo.Gdal` |
 | SQL Server / PostgreSQL | `SqlServerFeatureLayer` / `PostgreSqlFeatureLayer` | `ThinkGeo.SqlServer` / `ThinkGeo.PostgreSql`.   Filter in SQL where possible |
-| GeoTIFF, ECW, MrSID, JPEG2000 | `GeoTiffRasterLayer`, `EcwGdalRasterLayer`, `MrSidGdalRasterLayer`, `GdalRasterLayer` | The `...Gdal...` layers need `ThinkGeo.Gdal` |
-| Vector tiles (MBTiles / PMTiles / MVT) | `VectorMbTilesAsyncLayer`, `VectorPmTilesAsyncLayer`, `MvtTilesAsyncLayer` | Call `await layer.OpenAsync()` before reading bounds |
+| GeoTIFF, ECW, MrSID, JPEG2000 | `GeoTiffRasterLayer`, `EcwGdalRasterLayer`, `MrSidGdalRasterLayer`, `Jpeg2000GdalRasterLayer` | The `...Gdal...` layers need `ThinkGeo.Gdal` |
+| Vector tiles (MBTiles / MVT) | `VectorMbTilesAsyncLayer`, `MvtTilesAsyncLayer` | Call `await layer.OpenAsync()` before reading bounds.   PMTiles (`VectorPmTilesAsyncLayer`) needs ThinkGeo 15, not 14.5.3 |
 | WMS / WMTS / WFS / OGC API | `WmsAsyncLayer`, `WmtsAsyncLayer`, `WfsV2AsyncLayer`, `OgcApiFeatureLayer` | |
 | KML, GPX, TAB, CAD (.dwg), File Geodatabase, S-57 | `KmlGdalFeatureLayer`, `GpxFeatureLayer`, `TabFeatureLayer`, `CadFeatureLayer`, `FileGeoDatabaseFeatureLayer`, `NauticalChartsFeatureLayer` | KML needs `ThinkGeo.Gdal`; CAD, File Geodatabase and S-57 need `ThinkGeo.Cad`, `ThinkGeo.FileGeoDatabase`, `ThinkGeo.NauticalCharts` |
 

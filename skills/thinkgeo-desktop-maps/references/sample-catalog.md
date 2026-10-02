@@ -16,7 +16,7 @@ When the user asks for a feature, find the closest sample here, read it, and ada
 | Zoom to Extents | `ZoomToAsync` |
 | Vehicle Navigation (follow GPS points) | `FeatureLayerWpfDrawingOverlay` |
 | Resize the Map | `MapResizeMode` |
-| Dynamic Rendering | `DynamicPointStyle` |
+| Dynamic Rendering | `DynamicPointStyle` (defined in the sample) |
 | Overview Map | `EditOverlay` |
 | Restrict Map Extent | `RestrictExtent`, `MinimumScale`, `MaximumScale` |
 
@@ -44,7 +44,7 @@ When the user asks for a feature, find the closest sample here, read it, and ada
 | --- | --- |
 | Display a GeoPackage File | `GdalFeatureLayer` |
 | Display Raster from MBTiles | `RasterMbTilesAsyncLayer` |
-| Display Raster from File Tiles | `XyzFileTilesAsyncLayer` |
+| Display Raster from File Tiles | `XyzFileTilesAsyncLayer` (defined in the sample; subclasses `RasterXyzTileAsyncLayer`) |
 | Display Vector from MBTiles | `VectorMbTilesAsyncLayer` |
 | Display a SQLite File | `SqliteFeatureLayer` |
 | Display Common Raster Files (PNG, JPEG, BMP) | `SkiaRasterLayer` |
@@ -125,7 +125,7 @@ When the user asks for a feature, find the closest sample here, read it, and ada
 | Display ISOLine | `ClassBreakStyle` |
 | Hatch Styles | `GeoHatchStyle` |
 | Custom Styles | `TimeBasedPointStyle` (custom `Style` subclass) |
-| Create a Flee Boolean Style | `FleeBooleanStyle` |
+| Create a Flee Boolean Style | `FleeBooleanStyle` (defined in the sample) |
 | Create a Multi-Column Text Style | `TextStyle` |
 
 ## Vector Data Editing

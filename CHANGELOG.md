@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased
+
+Fixed:
+- WPF test project and WPF starter now build (missing usings; missing `App.xaml`).
+- `package-map.md` checked against the 14.5.3 package DLLs: added `Jpeg2000GdalRasterLayer`, `GeoTiffGdalRasterLayer`, and `PersonalGeoDatabaseGdalFeatureLayer`, listed the printer layers, and noted that `tg_api` doesn't cover extension packages.
+- PMTiles: `VectorPmTilesAsyncLayer` isn't in 14.5.3 (only the 15.0 betas).   The offline-maps skill now defaults to MBTiles and marks PMTiles as ThinkGeo 15 only.
+- `XyzFileTilesAsyncLayer`, `DynamicPointStyle`, and `FleeBooleanStyle` are now labeled as classes defined in HowDoI samples, not ThinkGeo APIs.
+
+Added:
+- `.gitignore` for build output and copied test data.
+
 ## 0.2.0
 
 Merged the v0.1 workflow skills with the WPF/WinForms knowledge skills.

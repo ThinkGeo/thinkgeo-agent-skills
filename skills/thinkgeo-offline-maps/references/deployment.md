@@ -33,7 +33,7 @@ C:\Program Files\YourApp\              (read-only after install)
     <runtime license file>
     ThinkGeo and other DLLs
 C:\ProgramData\YourApp\Maps\           (data, installed or updated separately)
-    region.pmtiles
+    region.mbtiles
     style.json
     fonts\, sprites\
     Shapefiles\*.shp/.shx/.dbf/.prj/.idx/.ids

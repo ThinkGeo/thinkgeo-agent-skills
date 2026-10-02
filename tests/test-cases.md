@@ -76,7 +76,7 @@ Prompt: "Our WPF app has to run on an air-gapped network.   Replace the ThinkGeo
 Expected skill behavior:
 - Activates `thinkgeo-offline-maps`.
 - Asks (or states assumptions) about area, zoom range, and licensed data source before picking a format.
-- Uses `VectorPmTilesAsyncLayer` / `VectorMbTilesAsyncLayer` (or another local layer) and removes the Cloud overlay.
+- Uses `VectorMbTilesAsyncLayer` (or another local layer) and removes the Cloud overlay.   Doesn't use `VectorPmTilesAsyncLayer`, which isn't in 14.5.3.
 - Warns that Style JSON `glyphs`, `sprite`, and `sources` must be local.
 - Covers runtime license file deployment without suggesting any license bypass.
 

@@ -28,7 +28,7 @@ The ThinkGeo Documentation MCP server (`https://ai.thinkgeo.com/mcp`, tools `tg_
 
 ## Rules for editing skills
 
-- **Verify every ThinkGeo API name with `tg_api` before adding it, even if an official sample uses it.** Samples can be stale (see the documentation issues below).
+- **Verify every ThinkGeo API name with `tg_api` before adding it, even if an official sample uses it.** Samples can be stale (see the documentation issues below).   `tg_api` doesn't cover the extension packages (`ThinkGeo.Gdal`, `ThinkGeo.SqlServer`, and so on), so check those types against the package DLL instead.
 - **Keep every ThinkGeo package on one version.** The current release is 14.5.3 (October 2026).   Don't use beta packages unless the product only ships as beta (GIS Server currently does).
 - **Use placeholder credentials only** (`YOUR_CLIENT_ID`, `YOUR_CLIENT_SECRET`).   The ThinkGeo Cloud test keys in the quick-start docs must not appear here.
 - **Never add content that bypasses, patches, or fakes ThinkGeo licensing.**
@@ -57,7 +57,7 @@ When the validator flags a forbidden API call, fix the code.   Only add an excep
 ## Open items to verify
 
 1. ~~**Build everything.**~~ Done (October 2, 2026).   All four projects build with no errors or warnings.   Builds were checked, but the apps haven't been run yet.
-2. **`package-map.md`:** confirm which types ship in `ThinkGeo.Core` and which need extension packages.   Those rows are marked "expected".
+2. ~~**`package-map.md`.**~~ Done (October 2, 2026).   Every row was checked against the public types in the 14.5.3 package DLLs.   This turned up two errors elsewhere in the skills, both fixed: `VectorPmTilesAsyncLayer` (PMTiles) is only in the 15.0 betas, and `XyzFileTilesAsyncLayer` is a class defined in a HowDoI sample, not part of ThinkGeo.
 3. ~~**Marketplace source.**~~ Done (October 2, 2026).   `"source": "./"` passes `claude plugin validate .`, and installing from the GitLab URL loads all 8 skills and the MCP server.   Because the source is the repo root, installs copy the whole repo (including `tests/`, `scripts/`, and `CLAUDE.md`), and validating `plugin.json` warns about `CLAUDE.md`.   This is expected and harmless: those files cost no tokens, and they stay in this repo on purpose.
 4. **Install instructions:** `README.md` uses the GitLab address.   Add the GitHub mirror's `owner/repo` form as an alternative once the mirror exists.
 5. **Editing round trip:** confirm whether `EditTools` reprojects geometry on save when the layer has a `ProjectionConverter`, then update `thinkgeo-desktop-interaction/references/editing.md`, which currently tells developers to test it themselves.
@@ -81,6 +81,8 @@ These were found while building the skills.   Fix them in the docs repos, then r
 3. Architecture Guide uses `ShapeFileFeatureLayer.BuildIndex`.   The method is `BuildIndexFile`.
 4. Architecture Guide uses `TileType.MultipleTiles`.   The desktop value is `TileType.MultiTile`.
 5. ProjectionConverter Guide, Pattern 4: builds `new ProjectionConverter(3857, 2276)` and then calls `ConvertToInternalProjection`, which converts the wrong way.   The arguments should be `(2276, 3857)`.
+6. Vector Tiles Support guide presents `VectorPmTilesAsyncLayer` as part of `ThinkGeo.Core` with no version note.   It isn't in 14.5.3; it first appears in 15.0.0-beta102.   Add a "ThinkGeo 15 and later" note, or hold the section until v15 ships.
+7. The API reference (and so `tg_api`) has no entries for the extension packages: `ThinkGeo.Gdal`, `ThinkGeo.SqlServer`, `ThinkGeo.PostgreSql`, `ThinkGeo.FileGeoDatabase`, `ThinkGeo.Cad`, `ThinkGeo.NauticalCharts`, and `ThinkGeo.Printers`.   Add them to the API reference, then the MCP server indexes them.
 
 ## Working with Phil
 
