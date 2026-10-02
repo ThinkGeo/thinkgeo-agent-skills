@@ -10,9 +10,11 @@ Fixed:
 
 - Editing: `EditTools` reprojects on save when the layer has a `ProjectionConverter` (tested on 14.5.3), so `editing.md` now says to pass map coordinates and not to convert first.   It previously suggested converting, which moves features twice.
 - Editing: shapefile layers must be opened with `FileAccess.ReadWrite` to commit edits.   `editing.md` previously said no mode was needed.   Added both problems to the troubleshooting symptom table.
+- Offline licensing: `thinkgeo-offline-maps` now explains that never-connected machines need no activation (the runtime license is per executable name and perpetual), replacing the advice to ask support for an install-time procedure.
 
 Added:
 - `.gitignore` for build output and copied test data.
+- `deployment.md`: logging licensing messages with `ThinkGeoDebugger` to diagnose a license watermark on locked-down machines.
 
 Changed:
 - `README.md` install instructions lead with the GitHub mirror (`/plugin marketplace add ThinkGeo/thinkgeo-agent-skills`); the GitLab address is listed as an alternative.

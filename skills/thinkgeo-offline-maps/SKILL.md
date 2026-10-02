@@ -58,7 +58,7 @@ Then test the way the user will deploy: on a machine or VM with the network adap
 
 ## Step 5: licensing on disconnected machines
 
-Read `references/deployment.md`.   In short: generate the runtime license on a connected development machine with ThinkGeo Product Center, then ship the license file next to the application executable.   Rebuild it if the executable name changes.   For a fully air-gapped installation process (for example, licensing at install time from an MSI), have the user confirm the current supported procedure with ThinkGeo support, since that procedure depends on their license type and version.   Never write code that bypasses or fakes license checks.
+Read `references/deployment.md`.   In short: generate the runtime license on a connected development machine with ThinkGeo Product Center, then ship the license file next to the application executable.   Regenerate it if the executable name changes.   Target machines need no activation and no connection: the file is tied to the executable name, not the machine, and is perpetual.   Don't generate licenses at install time on target machines; generate once and ship the file.   Never write code that bypasses or fakes license checks.
 
 ## Pre-generating a tile cache
 

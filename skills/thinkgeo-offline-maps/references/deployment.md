@@ -17,7 +17,31 @@ Symptoms on the target machine:
 | "Your subscription license has expired" message | Evaluation or subscription expired; renew and regenerate |
 | Map renders with a "days left" watermark | Running on an evaluation license |
 
-If the customer's process requires licensing at install time on machines that never connect (for example, from an MSI custom action), have them confirm the currently supported procedure with ThinkGeo support for their license type and version.   Don't invent a procedure, and never write code that bypasses, patches, or fakes license checks.
+### Machines that never connect
+
+No extra procedure is needed.   Target machines never activate anything and never contact ThinkGeo:
+
+- The runtime license is generated once, on the developer's machine, and ships as a file with the app.   ThinkGeo licenses developers, not end users, and allows unlimited deployments.
+- The file is tied to the executable's name, not to a machine, so the same file works on every target machine.
+- It's perpetual: apps keep running without a watermark after the developer subscription expires.   Regenerating it (for example, after renaming the executable) needs an active developer license.
+
+So the build machine, or any developer machine with Product Center, generates the file, and the installer copies it next to the executable.   Don't generate the license at install time on the target machine.   If Product Center can't generate the file (for example, the development network is also offline), ThinkGeo support can create one from the executable's file name.
+
+Never write code that bypasses, patches, or fakes license checks.
+
+### Diagnosing a license watermark on a locked-down machine
+
+If the watermark appears and the file looks correct, log ThinkGeo's licensing messages to a file the user can send back:
+
+```csharp
+// At startup, before the map is created
+var log = new StreamWriter(Path.Combine(logDir, "thinkgeo-license.log")) { AutoFlush = true };
+ThinkGeoDebugger.LogStreamWriter = log;
+ThinkGeoDebugger.LogType = ThinkGeoLogType.Licensing;
+ThinkGeoDebugger.LogLevel = ThinkGeoLogLevel.All;
+```
+
+Turn this off after diagnosing; logging slows rendering.   Common causes: the file isn't next to the executable, the executable was renamed after the license was generated, or a security tool or group policy blocked or altered the file during copy.
 
 ## Native dependencies
 

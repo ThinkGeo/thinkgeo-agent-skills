@@ -61,7 +61,7 @@ When the validator flags a forbidden API call, fix the code.   Only add an excep
 3. ~~**Marketplace source.**~~ Done (October 2, 2026).   `"source": "./"` passes `claude plugin validate .`, and installing from the GitLab URL loads all 8 skills and the MCP server.   Because the source is the repo root, installs copy the whole repo (including `tests/`, `scripts/`, and `CLAUDE.md`), and validating `plugin.json` warns about `CLAUDE.md`.   This is expected and harmless: those files cost no tokens, and they stay in this repo on purpose.
 4. ~~**Install instructions.**~~ Done (October 2, 2026).   `README.md` now leads with the GitHub short form (`ThinkGeo/thinkgeo-agent-skills`), with the GitLab address as the alternative.   Both install correctly.
 5. ~~**Editing round trip.**~~ Done (October 2, 2026).   Tested on 14.5.3: with a `ProjectionConverter` on the layer, `EditTools.Add` and `Update` take map coordinates and write the file's projection.   Converting first moves features twice, so `editing.md` now says not to.   The test also showed that shapefile editing needs `FileAccess.ReadWrite`, which `editing.md` had said wasn't needed.
-6. **Offline licensing:** add the supported procedure for licensing machines that never connect, if one exists, to `thinkgeo-offline-maps/references/deployment.md`.
+6. ~~**Offline licensing.**~~ Done (October 2, 2026).   No special procedure exists or is needed: the runtime license is generated on a developer machine, is tied to the executable name rather than the machine, and is perpetual, so never-connected machines just receive the file.   `deployment.md` now says so and shows how to log licensing messages with `ThinkGeoDebugger`.
 
 ## Next steps, in order
 
