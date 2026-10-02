@@ -33,9 +33,11 @@ The skills do not copy the ThinkGeo documentation corpus.   The MCP server remai
 **Claude Code (plugin):**
 
 ```
-/plugin marketplace add https://gitlab.com/thinkgeo/public/thinkgeo-agent-skills.git
+/plugin marketplace add ThinkGeo/thinkgeo-agent-skills
 /plugin install thinkgeo-developer@thinkgeo
 ```
+
+The first command uses the GitHub mirror (https://github.com/ThinkGeo/thinkgeo-agent-skills).   To install from GitLab instead, where the skills are maintained, use `/plugin marketplace add https://gitlab.com/thinkgeo/public/thinkgeo-agent-skills.git`.   Both give the same plugin.
 
 The plugin also registers the ThinkGeo Documentation MCP server through `.mcp.json`.
 
@@ -77,7 +79,7 @@ For the Claude Code plugin, also run `claude plugin validate .` from the reposit
 
 ## Real project testing
 
-The test projects are **source-verified, not compiled**.   On Windows with the .NET 8 SDK and NuGet access:
+The test projects and starter projects build against ThinkGeo 14.5.3.   On Windows with the .NET 8 SDK and NuGet access:
 
 1. Clone https://gitlab.com/thinkgeo/public/thinkgeo-desktop-maps and run `tests/projects/get-test-data.ps1 -SamplesRepo <clone path>` to copy the test shapefile.
 2. Run `dotnet build` in each test project.

@@ -11,6 +11,9 @@ Fixed:
 Added:
 - `.gitignore` for build output and copied test data.
 
+Changed:
+- `README.md` install instructions lead with the GitHub mirror (`/plugin marketplace add ThinkGeo/thinkgeo-agent-skills`); the GitLab address is listed as an alternative.
+
 ## 0.2.0
 
 Merged the v0.1 workflow skills with the WPF/WinForms knowledge skills.
