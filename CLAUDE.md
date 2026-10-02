@@ -58,7 +58,7 @@ When the validator flags a forbidden API call, fix the code.   Only add an excep
 
 1. ~~**Build everything.**~~ Done (October 2, 2026).   All four projects build with no errors or warnings.   Builds were checked, but the apps haven't been run yet.
 2. **`package-map.md`:** confirm which types ship in `ThinkGeo.Core` and which need extension packages.   Those rows are marked "expected".
-3. **Marketplace source:** confirm `"source": "./"` in `.claude-plugin/marketplace.json` passes `claude plugin validate .` and installs correctly.
+3. ~~**Marketplace source.**~~ Done (October 2, 2026).   `"source": "./"` passes `claude plugin validate .`, and installing from the GitLab URL loads all 8 skills and the MCP server.   Because the source is the repo root, installs copy the whole repo (including `tests/`, `scripts/`, and `CLAUDE.md`), and validating `plugin.json` warns about `CLAUDE.md`.   This is expected and harmless: those files cost no tokens, and they stay in this repo on purpose.
 4. **Install instructions:** `README.md` uses the GitLab address.   Add the GitHub mirror's `owner/repo` form as an alternative once the mirror exists.
 5. **Editing round trip:** confirm whether `EditTools` reprojects geometry on save when the layer has a `ProjectionConverter`, then update `thinkgeo-desktop-interaction/references/editing.md`, which currently tells developers to test it themselves.
 6. **Offline licensing:** add the supported procedure for licensing machines that never connect, if one exists, to `thinkgeo-offline-maps/references/deployment.md`.
