@@ -97,7 +97,7 @@ for md in all_md:
 # ---------------------------------------------------------------- code checks
 # Calls that are not in the current desktop API reference (verified with tg_api, Oct 2026).
 FORBIDDEN = {
-    r"\bmapView\.Refresh\(\)|\bMapView\.Refresh\(\)": "desktop MapView has RefreshAsync, not Refresh()",
+    r"\bmapView\.Refresh\(\)|\bMapView\.Refresh\(\)": "use RefreshAsync: WPF MapView has no Refresh(); on WinForms it is Control.Refresh(), which does not redraw the map",
     r"TileType\.MultipleTiles": "the desktop enum value is TileType.MultiTile",
     r"ShapeFileFeatureLayer\.BuildIndex\(": "use ShapeFileFeatureLayer.BuildIndexFile(...)",
     r"ShapeFileReadWriteMode": "legacy MapSuite enum, not in ThinkGeo.Core",

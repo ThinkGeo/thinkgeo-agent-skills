@@ -4,20 +4,21 @@
 
 Fixed:
 - WPF test project and WPF starter now build (missing usings; missing `App.xaml`).
-- `package-map.md` checked against the 14.5.3 package DLLs: added `Jpeg2000GdalRasterLayer`, `GeoTiffGdalRasterLayer`, and `PersonalGeoDatabaseGdalFeatureLayer`, listed the printer layers, and noted that `tg_api` doesn't cover extension packages.
+- `package-map.md` checked against the 14.5.3 package DLLs: added `Jpeg2000GdalRasterLayer`, `GeoTiffGdalRasterLayer`, and `PersonalGeoDatabaseGdalFeatureLayer`, listed the printer layers, and noted that the API reference (and so `tg_api`) is missing many extension-package classes.
 - PMTiles: `VectorPmTilesAsyncLayer` isn't in 14.5.3 (only the 15.0 betas).   The offline-maps skill now defaults to MBTiles and marks PMTiles as ThinkGeo 15 only.
 - `XyzFileTilesAsyncLayer`, `DynamicPointStyle`, and `FleeBooleanStyle` are now labeled as classes defined in HowDoI samples, not ThinkGeo APIs.
-
 - Editing: `EditTools` reprojects on save when the layer has a `ProjectionConverter` (tested on 14.5.3), so `editing.md` now says to pass map coordinates and not to convert first.   It previously suggested converting, which moves features twice.
 - Editing: shapefile layers must be opened with `FileAccess.ReadWrite` to commit edits.   `editing.md` previously said no mode was needed.   Added both problems to the troubleshooting symptom table.
 - Offline licensing: `thinkgeo-offline-maps` now explains that never-connected machines need no activation (the runtime license is per executable name and perpetual), replacing the advice to ask support for an install-time procedure.
 
+Changed:
+- Source ranking (`thinkgeo-docs-research`, `thinkgeo-code-example`): which source wins now depends on the question.   The API reference decides whether a member exists; current HowDoI samples rank ahead of developer guides for how to use it; guides cover concepts.   "How do I" questions search samples first.   Added the sample-defined helper class trap and the API reference gaps (extension packages, WinForms UI types).
+- `Refresh()`: confirmed by compiling against 14.5.3 that the WPF `MapView` has no `Refresh()`, and that on WinForms it compiles as `Control.Refresh()` without redrawing the map.   Updated the troubleshoot skill, `refresh-and-async.md`, and the validator message.
+- `README.md` install instructions lead with the GitHub mirror (`/plugin marketplace add ThinkGeo/thinkgeo-agent-skills`); the GitLab address is listed as an alternative.
+
 Added:
 - `.gitignore` for build output and copied test data.
 - `deployment.md`: logging licensing messages with `ThinkGeoDebugger` to diagnose a license watermark on locked-down machines.
-
-Changed:
-- `README.md` install instructions lead with the GitHub mirror (`/plugin marketplace add ThinkGeo/thinkgeo-agent-skills`); the GitLab address is listed as an alternative.
 
 ## 0.2.0
 

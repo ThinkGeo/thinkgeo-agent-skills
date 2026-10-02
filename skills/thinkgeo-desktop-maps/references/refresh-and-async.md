@@ -14,6 +14,8 @@ A `MapView` owns one `CancellationTokenSource`.   **Starting any map-level draw 
 | `await MapView.RefreshAsync(new Overlay[] { a, b })` | Several overlays changed together | Yes, but draws them together in one pass |
 | `await MapView.RefreshAsync()` | Initial load, or the whole map changed (map unit, projection, basemap) | Yes |
 
+There is no synchronous map refresh.   The WPF `MapView` has no `Refresh()`.   The WinForms `MapView` inherits the standard WinForms `Control.Refresh()`, which compiles but doesn't redraw the map's overlays; use `RefreshAsync` on both.
+
 Prefer `overlay.RefreshAsync()` after data changes.   Two independent modules that both call `MapView.RefreshAsync()` will cancel each other, and one module's changes won't appear until something else redraws the map.
 
 `overlay.RefreshAsync()` only works on an overlay that has been added to `MapView.Overlays` and drawn at least once; otherwise it silently does nothing.

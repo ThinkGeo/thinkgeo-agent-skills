@@ -37,7 +37,7 @@ Shapefile, TAB, TinyGeo, GPX, SQLite, ESRI Grid (`GridFeatureLayer`), GeoJSON (v
 | `ThinkGeo.NauticalCharts` | `NauticalChartsFeatureLayer` (S-57) |
 | `ThinkGeo.Printers` | `MapPrinterLayer`, `LegendPrinterLayer`, `ScaleBarPrinterLayer`, and other `...PrinterLayer` types (the `PrinterLayer` base class is in Core) |
 
-`tg_api` doesn't cover these packages yet (as of October 2026, the API reference indexes only `ThinkGeo.Core` and the UI packages), so a "no match" for one of these types doesn't mean it's wrong.   Confirm extension types with `tg_find_sample` and the sample's code, or against this table.
+The API reference doesn't list many classes from these packages (as of October 2026, `tg_api` finds none of the types in this table), so a "no match" for one of these types doesn't mean it's wrong.   Confirm extension types with `tg_find_sample` and the sample's code, or against this table.
 
 GDAL is a third-party library with native binaries.   Publish for a specific runtime (`win-x64` is typical) and check the native DLLs reach the output folder.
 

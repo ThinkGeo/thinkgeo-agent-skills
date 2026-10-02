@@ -28,7 +28,7 @@ The ThinkGeo Documentation MCP server (`https://ai.thinkgeo.com/mcp`, tools `tg_
 
 ## Rules for editing skills
 
-- **Verify every ThinkGeo API name with `tg_api` before adding it, even if an official sample uses it.** Samples can be stale (see the documentation issues below).   `tg_api` doesn't cover the extension packages (`ThinkGeo.Gdal`, `ThinkGeo.SqlServer`, and so on), so check those types against the package DLL instead.
+- **Verify every ThinkGeo API name with `tg_api` before adding it, even if an official sample uses it.** Samples can be stale (see the documentation issues below).   Many extension-package classes (`ThinkGeo.Gdal`, `ThinkGeo.SqlServer`, and so on) aren't in the API reference, so `tg_api` can't confirm them.   Check those types against the package DLL instead.
 - **Keep every ThinkGeo package on one version.** The current release is 14.5.3 (October 2026).   Don't use beta packages unless the product only ships as beta (GIS Server currently does).
 - **Use placeholder credentials only** (`YOUR_CLIENT_ID`, `YOUR_CLIENT_SECRET`).   The ThinkGeo Cloud test keys in the quick-start docs must not appear here.
 - **Never add content that bypasses, patches, or fakes ThinkGeo licensing.**
@@ -76,13 +76,14 @@ When the validator flags a forbidden API call, fix the code.   Only add an excep
 
 These were found while building the skills.   Fix them in the docs repos, then remove the matching workarounds and mentions here.
 
-1. WPF HowDoI `SampleTemplate.xaml.cs` calls `mapView.Refresh()`; the current API reference has only `RefreshAsync`.
+1. WPF HowDoI `SampleTemplate.xaml.cs` calls `mapView.Refresh()`, which doesn't exist on the WPF `MapView` in 14.5.3 (confirmed by compiling).   On WinForms, `mapView.Refresh()` compiles but is the inherited WinForms `Control.Refresh()`, which doesn't redraw the map.
 2. Architecture Guide says `ZoomLevel01` is the most zoomed in.   It is the most zoomed out.
 3. Architecture Guide uses `ShapeFileFeatureLayer.BuildIndex`.   The method is `BuildIndexFile`.
 4. Architecture Guide uses `TileType.MultipleTiles`.   The desktop value is `TileType.MultiTile`.
 5. ProjectionConverter Guide, Pattern 4: builds `new ProjectionConverter(3857, 2276)` and then calls `ConvertToInternalProjection`, which converts the wrong way.   The arguments should be `(2276, 3857)`.
 6. Vector Tiles Support guide presents `VectorPmTilesAsyncLayer` as part of `ThinkGeo.Core` with no version note.   It isn't in 14.5.3; it first appears in 15.0.0-beta102.   Add a "ThinkGeo 15 and later" note, or hold the section until v15 ships.
-7. The API reference (and so `tg_api`) has no entries for the extension packages: `ThinkGeo.Gdal`, `ThinkGeo.SqlServer`, `ThinkGeo.PostgreSql`, `ThinkGeo.FileGeoDatabase`, `ThinkGeo.Cad`, `ThinkGeo.NauticalCharts`, and `ThinkGeo.Printers`.   Add them to the API reference, then the MCP server indexes them.
+7. The API reference is missing classes from the extension packages (known gap, per Phil).   Through `tg_api`, none of 15 main classes checked across all seven packages (`ThinkGeo.Gdal`, `ThinkGeo.SqlServer`, `ThinkGeo.PostgreSql`, `ThinkGeo.FileGeoDatabase`, `ThinkGeo.Cad`, `ThinkGeo.NauticalCharts`, `ThinkGeo.Printers`) has an entry.   If some of these are on docs.thinkgeo.com, the MCP index is also behind the site.   Add the missing classes to the API reference so the MCP server indexes them.
+8. The API reference has no entries for the `ThinkGeo.UI.WinForms` namespace (not even `MapView` or `LayerOverlay`), so `tg_api` can't check WinForms-specific code.   The WinForms `MapView` derives from `ElementHost`, not the WPF `MapViewBase`, so the WPF pages don't fully cover it.
 
 ## Working with Phil
 

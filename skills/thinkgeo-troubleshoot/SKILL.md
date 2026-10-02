@@ -21,7 +21,7 @@ Troubleshoot from evidence before proposing broad rewrites.
    - **Likely cause**: consistent with the evidence but not proven.
    - **Diagnostic check**: a concrete test that will distinguish the remaining possibilities, with what each result would mean.
 6. **Fix minimally.** Prefer the smallest change that addresses the evidence.   Do not replace the architecture unless the existing architecture is itself the documented problem.
-7. **Verify every API you recommend** with `tg_api`, including members that appear in official samples.   Samples can be stale (for example, the WPF `SampleTemplate.xaml.cs` calls `mapView.Refresh()`, which the current API reference does not list; the desktop `MapView` exposes `RefreshAsync`).
+7. **Verify every API you recommend** with `tg_api`, including members that appear in official samples.   Samples can be stale (for example, the WPF `SampleTemplate.xaml.cs` calls `mapView.Refresh()`, which doesn't exist on the WPF `MapView`; the desktop `MapView` exposes `RefreshAsync`).   On WinForms, `mapView.Refresh()` compiles but is the standard WinForms `Control.Refresh()`, which doesn't redraw the map; if a WinForms map doesn't update after a data change, look for it.
 8. **Don't invent** internal implementation details or undocumented limitations.
 9. **If unresolved,** give the next diagnostic action and explain what result would confirm or reject the hypothesis.
 
