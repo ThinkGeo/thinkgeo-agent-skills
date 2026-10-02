@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "thinkgeo-docs": {
+      "type": "http",
+      "url": "https://ai.thinkgeo.com/mcp"
+    }
+  }
+}

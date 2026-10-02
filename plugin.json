@@ -1,0 +1,23 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "thinkgeo-developer",
+  "version": "0.2.0",
+  "description": "ThinkGeo developer skills: documentation-grounded workflows (research, code, review, architecture, troubleshooting) plus WPF/WinForms desktop, interaction, and offline mapping knowledge, backed by the ThinkGeo Documentation MCP server.",
+  "author": {
+    "name": "ThinkGeo LLC",
+    "url": "https://thinkgeo.com"
+  },
+  "homepage": "https://docs.thinkgeo.com",
+  "keywords": [
+    "thinkgeo",
+    "gis",
+    "mapping",
+    "dotnet",
+    "csharp",
+    "geospatial",
+    "wpf",
+    "winforms",
+    "offline",
+    "air-gapped"
+  ]
+}

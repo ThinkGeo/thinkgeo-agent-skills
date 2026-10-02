@@ -1,0 +1,14 @@
+interface:
+  display_name: "ThinkGeo Documentation Research"
+  short_description: "Research current ThinkGeo APIs and product behavior"
+  default_prompt: "Use current ThinkGeo documentation to answer this question."
+policy:
+  products: [CHAT, CODEX]
+  allow_implicit_invocation: true
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "thinkgeo-docs"
+      description: "Search and retrieve current ThinkGeo documentation and official sample source."
+      transport: "streamable_http"
+      url: "https://ai.thinkgeo.com/mcp"

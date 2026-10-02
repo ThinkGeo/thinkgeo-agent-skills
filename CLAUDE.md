@@ -1,0 +1,89 @@
+# ThinkGeo Agent Skills: Project Context
+
+This repo holds ThinkGeo's public Agent Skills: instructions that help AI coding assistants build, review, and debug apps using ThinkGeo products.   Phil Thomas (owner, ThinkGeo LLC) maintains it, occasionally rather than on a release schedule.   Keep changes small, verified, and easy for one person to review.
+
+## How the skills are organized
+
+Two layers, eight skills under `skills/`:
+
+- **Workflow skills** (all ThinkGeo products): `thinkgeo-docs-research`, `thinkgeo-code-example`, `thinkgeo-code-review`, `thinkgeo-architecture`, `thinkgeo-troubleshoot`.   These say how to search and verify.
+- **Knowledge skills** (WPF and WinForms only, so far): `thinkgeo-desktop-maps`, `thinkgeo-desktop-interaction`, `thinkgeo-offline-maps`.   These hold stable patterns and common mistakes.
+
+`thinkgeo-troubleshoot` merges the evidence-first workflow with the desktop symptom guide in `references/desktop-symptoms.md`.   Don't re-split it.
+
+The ThinkGeo Documentation MCP server (`https://ai.thinkgeo.com/mcp`, tools `tg_search`, `tg_find_sample`, `tg_api`, `tg_get`, `tg_index_stats`) is the source of truth for API details.   Skills point to it rather than copying the docs.   Its source code lives in a **separate repo**.
+
+## Decisions already made
+
+- **Audience:** ThinkGeo customers.   Public repo, for marketing value.
+- **Hosting:** this GitLab repo is the only place skills are edited.   Push-mirror it to GitHub automatically, since most skill installers and directories expect GitHub.
+- **Claude Code distribution:** the repo is also a Claude Code plugin catalog (`.claude-plugin/plugin.json`, `.claude-plugin/marketplace.json`, `.mcp.json`).
+- **Other assistants:** root `plugin.json`, `mcp.json`, and `skills/*/agents/openai.yaml` keep the portable Agent Plugins / OpenAI layout.   Keep both layouts in sync, with the same version in each manifest.
+- **MCP server:** serves copies of the skills, never hosts the originals.   Planned changes, in the MCP server repo:
+  1. Index the latest **tagged release** of this repo (not `main`) as a new `skills` namespace.
+  2. Add `tg_list_skills` and `tg_get_skill(name)` tools that return a skill's `SKILL.md` and reference files.
+  3. Add one sentence to the server instructions: the skills exist, how to install them, and that `tg_get_skill` is available otherwise.
+  4. Optional: expose each skill as an MCP prompt for tools that show prompts as slash commands.
+- **Not doing now:** NuGet packaging or a separate download page.   Too much release overhead for an occasionally maintained project.
+
+## Rules for editing skills
+
+- **Verify every ThinkGeo API name with `tg_api` before adding it, even if an official sample uses it.** Samples can be stale (see the documentation issues below).
+- **Keep every ThinkGeo package on one version.** The current release is 14.5.3 (October 2026).   Don't use beta packages unless the product only ships as beta (GIS Server currently does).
+- **Use placeholder credentials only** (`YOUR_CLIENT_ID`, `YOUR_CLIENT_SECRET`).   The ThinkGeo Cloud test keys in the quick-start docs must not appear here.
+- **Never add content that bypasses, patches, or fakes ThinkGeo licensing.**
+- **Keep each `SKILL.md` under ~500 lines.** Move detail into `references/`.
+- **Write descriptions that name the words and symptoms users actually type,** since descriptions decide when a skill activates.
+- **Use three spaces after sentence-ending punctuation in Markdown prose** (Phil's preference).   Don't do this inside code blocks, tables, front matter, or after numbered-list markers.
+- **Bump the version in all three manifests** (`plugin.json`, `.claude-plugin/plugin.json`, `.claude-plugin/marketplace.json`) **and add a `CHANGELOG.md` entry** for every release.
+
+## Commands (Windows)
+
+```powershell
+python scripts/validate_package.py          # must pass before every commit
+claude plugin validate .                     # Claude Code plugin/marketplace check
+
+# Test projects (need the .NET 8 SDK, NuGet access, and a ThinkGeo dev license from Product Center)
+git clone https://gitlab.com/thinkgeo/public/thinkgeo-desktop-maps.git ..\thinkgeo-desktop-maps
+.\tests\projects\get-test-data.ps1 -SamplesRepo ..\thinkgeo-desktop-maps
+dotnet build tests\projects\WpfShapefileSample
+dotnet build tests\projects\GisServerShapefileSample
+dotnet build skills\thinkgeo-desktop-maps\assets\wpf-starter
+dotnet build skills\thinkgeo-desktop-maps\assets\winforms-starter
+```
+
+When the validator flags a forbidden API call, fix the code.   Only add an exception if the line is explaining that the call is wrong.
+
+## Open items to verify
+
+1. **Build everything.** Nothing has been compiled yet.   Build the two test projects and the two starter projects, and fix any errors by checking the API with `tg_api`.
+2. **`package-map.md`:** confirm which types ship in `ThinkGeo.Core` and which need extension packages.   Those rows are marked "expected".
+3. **Marketplace source:** confirm `"source": "./"` in `.claude-plugin/marketplace.json` passes `claude plugin validate .` and installs correctly.
+4. **Install instructions:** `README.md` uses the GitLab address.   Add the GitHub mirror's `owner/repo` form as an alternative once the mirror exists.
+5. **Editing round trip:** confirm whether `EditTools` reprojects geometry on save when the layer has a `ProjectionConverter`, then update `thinkgeo-desktop-interaction/references/editing.md`, which currently tells developers to test it themselves.
+6. **Offline licensing:** add the supported procedure for licensing machines that never connect, if one exists, to `thinkgeo-offline-maps/references/deployment.md`.
+
+## Next steps, in order
+
+1. Create the GitLab repo (`thinkgeo/public/thinkgeo-agent-skills`), push v0.2, and set up the GitHub push mirror.
+2. Work through the open items above, then tag v0.3.
+3. Run the A/B evaluation in `EVALUATION.md`: MCP only, MCP plus workflow skills, MCP plus all skills.   Cases are in `tests/test-cases.md`; score each with the 15-point rubric there.
+4. Make the MCP server changes listed above (separate repo).
+5. Announce: link the repo from the desktop quick starts and the HowDoI READMEs, write a blog post, and pair it with the MCP server announcement.
+6. Later: knowledge skills for Blazor, MAUI, and GIS Server, built the same way as the desktop ones.
+
+## Documentation issues found in ThinkGeo's own docs
+
+These were found while building the skills.   Fix them in the docs repos, then remove the matching workarounds and mentions here.
+
+1. WPF HowDoI `SampleTemplate.xaml.cs` calls `mapView.Refresh()`; the current API reference has only `RefreshAsync`.
+2. Architecture Guide says `ZoomLevel01` is the most zoomed in.   It is the most zoomed out.
+3. Architecture Guide uses `ShapeFileFeatureLayer.BuildIndex`.   The method is `BuildIndexFile`.
+4. Architecture Guide uses `TileType.MultipleTiles`.   The desktop value is `TileType.MultiTile`.
+5. ProjectionConverter Guide, Pattern 4: builds `new ProjectionConverter(3857, 2276)` and then calls `ConvertToInternalProjection`, which converts the wrong way.   The arguments should be `(2276, 3857)`.
+
+## Working with Phil
+
+- Ask clarifying questions before giving a long or detailed answer.
+- Explain decisions in plain terms.   Phil runs the company; he isn't reviewing every line of code.
+- Don't push or tag without confirming first.

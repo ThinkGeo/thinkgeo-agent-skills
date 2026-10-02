@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "thinkgeo",
+  "owner": {
+    "name": "ThinkGeo LLC",
+    "url": "https://thinkgeo.com"
+  },
+  "description": "ThinkGeo AI developer tools.",
+  "plugins": [
+    {
+      "name": "thinkgeo-developer",
+      "source": "./",
+      "description": "ThinkGeo developer skills: documentation-grounded workflows (research, code, review, architecture, troubleshooting) plus WPF/WinForms desktop, interaction, and offline mapping knowledge, backed by the ThinkGeo Documentation MCP server.",
+      "version": "0.2.0"
+    }
+  ]
+}

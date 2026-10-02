@@ -1,0 +1,14 @@
+interface:
+  display_name: "ThinkGeo Offline Maps"
+  short_description: "Build ThinkGeo desktop maps that run without internet"
+  default_prompt: "Help me make this ThinkGeo app work offline."
+policy:
+  products: [CHAT, CODEX]
+  allow_implicit_invocation: true
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "thinkgeo-docs"
+      description: "Search and retrieve current ThinkGeo documentation and official sample source."
+      transport: "streamable_http"
+      url: "https://ai.thinkgeo.com/mcp"
