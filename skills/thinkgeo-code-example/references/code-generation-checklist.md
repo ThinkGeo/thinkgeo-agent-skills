@@ -7,6 +7,8 @@ Use this checklist before calling a ThinkGeo implementation complete.
 - Required ThinkGeo package names are verified.
 - No unnecessary ThinkGeo extension packages are included.
 - UI control namespace/XAML namespace is verified when applicable.
+- Desktop code-behind has `using ThinkGeo.UI.Wpf;` (or `ThinkGeo.UI.WinForms`) as well as `using ThinkGeo.Core;`.   Sample code doesn't show the UI using because samples live inside `namespace ThinkGeo.UI.Wpf.HowDoI`.
+- WPF files that use `Path` or `File` have `using System.IO;`.
 - Map unit is set before map content that depends on it.
 - Data CRS and map CRS have been considered.
 - `ProjectionConverter` is configured when required.

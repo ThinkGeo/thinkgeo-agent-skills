@@ -47,6 +47,7 @@ Read `references/project-setup.md` when creating a new project, adding the NuGet
 
 - WPF: install `ThinkGeo.UI.Wpf`.   WinForms: install `ThinkGeo.UI.WinForms` and set `<UseWPF>true</UseWPF>` in the `.csproj` (the WinForms control depends on WPF assemblies).
 - Target .NET 8 or later for new projects; .NET Framework 4.6.2+ is also supported.
+- **Code-behind needs two ThinkGeo usings:** `using ThinkGeo.Core;` and `using ThinkGeo.UI.Wpf;` (WinForms: `using ThinkGeo.UI.WinForms;`).   `MapView`, `LayerOverlay`, and the other overlays live in the UI namespace.   The HowDoI samples leave the UI using out because their code is declared inside `namespace ThinkGeo.UI.Wpf.HowDoI`, so code copied from a sample into your own namespace fails with CS0246 on `LayerOverlay`.   In WPF, also add `using System.IO;` if you use `Path` or `File`; WPF projects leave it out of the implicit usings.
 - The first run without a license throws a "licenses not installed" exception.   This is expected; the developer activates an evaluation or purchased license in ThinkGeo Product Center.   Don't try to code around it.
 - Starter files are in `assets/` (`MainWindow.xaml`, `MainWindow.xaml.cs`, `MainForm.cs`, and project files).   Copy and adapt them rather than writing from scratch.
 

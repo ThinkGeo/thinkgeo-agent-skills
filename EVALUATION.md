@@ -1,5 +1,34 @@
 # Evaluation
 
+## Automated pilot (October 2, 2026)
+
+Three cases from `tests/test-cases.md` now run automatically with `claude plugin eval` (Claude Code 2.1.269 or later).   They live in `evals/`:
+
+| Case | Test case | What the graders check |
+| --- | --- | --- |
+| `wpf-shapefile` | 1 | Project file exists, `ThinkGeo.UI.Wpf` pinned to 14.5.3, `using ThinkGeo.UI.Wpf;` present, `RefreshAsync` and no `Refresh()`, no ThinkGeo Cloud, plus an AI-judged rubric on the code and an honest build-status check |
+| `airgapped-basemap` | 9 | A 14.5.3 local layer (not PMTiles), local glyphs and sprites, runtime license file, data size or licensing mentioned |
+| `extension-packages` | 11 | `ThinkGeo.Gdal` and `ThinkGeo.UI.Wpf` both at 14.5.3, no betas, `GdalFeatureLayer` and an ECW raster layer, UI using present, GDAL native-binaries note |
+
+Two arms, two runs per case, model Opus 5.5.   The "MCP only" arm is a throwaway plugin containing only `.mcp.json`, since `claude plugin eval`'s built-in baseline drops the MCP server too.   Generated projects were then built outside the runner (the runner can't run shell commands on native Windows).
+
+| | MCP only | MCP + skills |
+| --- | --- | --- |
+| Generated projects that build | 0 / 4 | 4 / 4 |
+| Air-gapped case passed | 2 / 2 | 2 / 2 |
+| Average grader score | 0.88 | 0.98 |
+| Cost | $2.46 | $2.69 |
+
+Every MCP-only build failure was a missing `using ThinkGeo.UI.Wpf;`.   HowDoI samples don't show that using because they are declared inside `namespace ThinkGeo.UI.Wpf.HowDoI`, so copied code silently loses it.   The first pilot round found the same failure in the skills arm too (1 of 4 built), which led to the namespace guidance now in `thinkgeo-desktop-maps` and the code-generation checklist.
+
+To rerun (from the repository root, with real MCP calls and file writes allowed):
+
+```powershell
+claude plugin eval . --tag pilot --runs 2 --ablation none --allow-real-servers --allow-tools Write Edit "mcp__plugin_thinkgeo-developer_thinkgeo-docs__*" --max-cost-usd 6 --keep-temp
+```
+
+`--keep-temp` keeps each run's folder so the generated projects can be built.   Copy only the `.csproj`, `.cs`, and `.xaml` files out of `home/cwd`, check the project files, and build the copies; don't build inside the kept folders.   Delete the kept folders afterwards.
+
 ## v0.2 status
 
 v0.2 merges the v0.1 workflow skills with three WPF/WinForms knowledge skills and folds the desktop troubleshooting guide into `thinkgeo-troubleshoot`.   Nothing in v0.2 has been compiled or run against real prompts yet.   One defect found during review shows why the build step matters: the v0.1 WPF project followed the official `SampleTemplate.xaml.cs` and called `mapView.Refresh()`, which the current API reference does not list.   Source verification against a sample was not enough; the member check against `tg_api` is now mandatory in `thinkgeo-code-example`.

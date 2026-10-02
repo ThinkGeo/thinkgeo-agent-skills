@@ -67,6 +67,8 @@ Point users to ThinkGeo support for license account issues.   Never suggest ways
 
 | Exception | Cause | Fix |
 | --- | --- | --- |
+| Build error CS0246: `LayerOverlay` (or `MapView`, another overlay) could not be found | Missing `using ThinkGeo.UI.Wpf;` (WinForms: `ThinkGeo.UI.WinForms`).   Common when code is copied from a HowDoI sample, which doesn't need the using because it lives in `namespace ThinkGeo.UI.Wpf.HowDoI` | Add the UI using alongside `using ThinkGeo.Core;` |
+| Build error CS0103: `Path` does not exist (WPF) | WPF projects leave `System.IO` out of the implicit usings | Add `using System.IO;` |
 | `TaskCanceledException` / `OperationCanceledException` from `ZoomToAsync`, `CenterAtAsync`, `ZoomInAsync` | A newer navigation or user pan/zoom superseded it. Navigation reports this by design. | Catch `OperationCanceledException` and ignore it, or fire-and-forget with `_ =`. `RefreshAsync` doesn't throw when superseded. |
 | `KeyNotFoundException` on `feature.ColumnValues["X"]` | Column not requested in the query | Use `ReturningColumnsType.AllColumns` or include the column name |
 | `InvalidOperationException`: the projection is not open | A standalone `ProjectionConverter` or a layer's source was used before opening | Call `layer.Open()` (or `converter.Open()`) first; close in `finally` |

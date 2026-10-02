@@ -48,7 +48,7 @@ XAML namespace:
 xmlns:thinkgeo="clr-namespace:ThinkGeo.UI.Wpf;assembly=ThinkGeo.UI.Wpf"
 ```
 
-Code-behind needs `using ThinkGeo.Core;` and, if you refer to UI types explicitly, `using ThinkGeo.UI.Wpf;`.
+Code-behind needs both `using ThinkGeo.Core;` and `using ThinkGeo.UI.Wpf;`.   Any code that creates a `LayerOverlay` or touches `MapView` members by type uses the UI namespace.   HowDoI sample files don't show this using because they're declared inside `namespace ThinkGeo.UI.Wpf.HowDoI`; add it when you copy sample code into your own namespace.   WPF projects also leave `System.IO` out of the implicit usings (it clashes with `System.Windows.Shapes.Path`), so add `using System.IO;` for `Path` and `File`.
 
 ## WinForms project
 

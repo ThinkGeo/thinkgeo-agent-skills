@@ -26,7 +26,8 @@ Use the ThinkGeo Documentation MCP server as the source of truth for ThinkGeo-sp
    - **Concepts and explanations:** the developer guides and product documentation.
    - **Version behavior:** the changelog or migration guide.
    - **Community and blog posts:** supporting material only.   Use them for symptoms and workarounds, not as authority over the API reference or samples.
-7. Two sample traps:
+7. Three sample traps:
+   - Desktop samples are declared inside `namespace ThinkGeo.UI.Wpf.HowDoI` (or the WinForms equivalent), so they use UI types without `using ThinkGeo.UI.Wpf;`.   Code copied into another namespace needs that using added.
    - Some samples define their own helper classes (for example `XyzFileTilesAsyncLayer`, `FleeBooleanStyle`).   Before presenting a type from a sample as a ThinkGeo API, check that it isn't declared in the sample's own files.
    - Samples can lag or lead the release.   Check the sample's project file for the package version, and confirm members with `tg_api` where it covers them (the WPF `SampleTemplate.xaml.cs` calls `mapView.Refresh()`, which doesn't exist in 14.5.3).
 8. If the user names a ThinkGeo version, verify behavior for that version.   If no version is given and sources differ, state which documented/sample version the answer reflects.
