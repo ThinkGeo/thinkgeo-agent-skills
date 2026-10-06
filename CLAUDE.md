@@ -44,6 +44,7 @@ The ThinkGeo Documentation MCP server (`https://ai.thinkgeo.com/mcp`, tools `tg_
 ```powershell
 python scripts/validate_package.py          # must pass before every commit
 claude plugin validate .                     # Claude Code plugin/marketplace check
+claude plugin validate .claude-plugin/plugin.json   # also parses every skill's frontmatter; run before each release
 
 # Test projects (need the .NET 8 SDK, NuGet access, and a ThinkGeo dev license from Product Center)
 git clone https://gitlab.com/thinkgeo/public/thinkgeo-desktop-maps.git ..\thinkgeo-desktop-maps
