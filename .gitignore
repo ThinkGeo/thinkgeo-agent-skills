@@ -4,3 +4,6 @@ obj/
 
 # Test data copied in by tests/projects/get-test-data.ps1
 tests/projects/WpfShapefileSample/Data/
+
+# Local drafts (blog posts and other unpublished writing)
+drafts/
