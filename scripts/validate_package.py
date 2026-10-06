@@ -73,6 +73,10 @@ for p in skill_files:
         errors.append(f"{folder}: description exceeds 1024 chars ({len(d)})")
     if len(d) < 120:
         warnings.append(f"{folder}: description is short ({len(d)} chars); it may under-trigger")
+    # An unquoted YAML value can't contain ": " or " #"; Claude Code then loads the skill
+    # with empty metadata. Reword, or quote the whole description.
+    if not d.startswith(('"', "'")) and (": " in d or " #" in d or d.endswith(":")):
+        errors.append(f"{folder}: description contains ': ' or ' #', which breaks YAML parsing; reword or quote it")
     if len(text.splitlines()) > 500:
         warnings.append(f"{folder}: SKILL.md over 500 lines; move detail to references/")
 

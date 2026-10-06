@@ -1,8 +1,11 @@
 # Changelog
 
-## Unreleased
+## 0.4.0
+
+Two new knowledge skills (`thinkgeo-cloud-maps` and `thinkgeo-web-api`), licensing for every released platform, ThinkGeo Maps Streets, and an automated evaluation suite.   The skills now tell assistants to use the latest stable ThinkGeo version from NuGet instead of naming one, and GIS Server is left out until it ships.
 
 Fixed:
+- `thinkgeo-code-example`: its description contained ": ", which broke YAML parsing, so Claude Code loaded the skill with no name or description (introduced after 0.3.0, so 0.3.0 itself is unaffected).   `validate_package.py` now rejects descriptions that would break YAML.
 - `thinkgeo-code-review`: a review missed `TileType.MultipleTiles` because `tg_api` shows enums without their values.   The skill now says to read the enum's page with `tg_get`, lists the names that don't exist in 14.5.3 (with replacements), and checks for the desktop UI using.
 
 Changed:
