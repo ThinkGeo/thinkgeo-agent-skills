@@ -1,6 +1,6 @@
 ---
 name: thinkgeo-code-example
-description: Create or modify working ThinkGeo .NET/C# implementation code and small projects using verified current ThinkGeo documentation and official HowDoI samples. Use whenever the user wants ThinkGeo code written or changed — building a map feature, generating a sample or starter project, adding layers, basemaps, styling, queries, or services, or any C# that should compile against ThinkGeo packages (ThinkGeo.Core, ThinkGeo.UI.Wpf, ThinkGeo.UI.WinForms, ThinkGeo.UI.Blazor, ThinkGeo.UI.Maui, ThinkGeo.GisServer), even if the user doesn't name ThinkGeo but the project already references it.
+description: Create or modify working ThinkGeo .NET/C# implementation code and small projects using verified current ThinkGeo documentation and official HowDoI samples. Use whenever the user wants ThinkGeo code written or changed — building a map feature, generating a sample or starter project, adding layers, basemaps, styling, queries, or services, or any C# that should compile against ThinkGeo packages (ThinkGeo.Core, ThinkGeo.UI.Wpf, ThinkGeo.UI.WinForms, ThinkGeo.UI.Blazor, ThinkGeo.UI.Maui, ThinkGeo.GisServer), even if the user doesn't name ThinkGeo but the project already references it.   Also use it to set up ThinkGeo licensing in a project: developer and runtime licenses, Product Center, and MAUI license files with LicenseLoader.
 ---
 
 Use this workflow whenever the requested output contains ThinkGeo implementation code.
@@ -27,5 +27,7 @@ For WPF and WinForms, also load the platform knowledge skills: `thinkgeo-desktop
 10. If a complete compile cannot be performed, distinguish `source-verified` from `compiled`.   Never describe uncompiled code as build-verified.
 11. Run the checklist in `references/code-generation-checklist.md` before finalizing a project.
 12. Include the most relevant official ThinkGeo source links in a project README or answer when practical.
+
+Licensing: when creating a project or answering setup questions, read `references/licensing.md` for the platform.   MAUI apps on Android, iOS, and Mac Catalyst don't run at all, even in an emulator, until a license file is added and loaded, so always include that step for those targets.
 
 When multiple official sources disagree, prefer the source matching the user's product/version and call out the discrepancy rather than silently mixing APIs.   For whether a member exists, the API reference wins; for how to use it, a current sample wins over a developer guide (see `thinkgeo-docs-research`, step 6).

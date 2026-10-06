@@ -106,6 +106,8 @@ Where WPF and WinForms differ:
 
 ## Licensing
 
+This section covers WPF and WinForms.   MAUI, Blazor, and other platforms differ; see `thinkgeo-code-example/references/licensing.md`.
+
 ThinkGeo uses two kinds of license file:
 
 - **Dev license**: installed on the developer machine by ThinkGeo Product Center.   Needed to build and debug.

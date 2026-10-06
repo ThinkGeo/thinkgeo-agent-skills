@@ -33,7 +33,7 @@ These account for most reported problems across all ThinkGeo platforms:
 - **Zoom-level styling:** a style on `ZoomLevel01` with no `ApplyUntilZoomLevel` only draws when fully zoomed out.
 - **Map unit:** `MapUnit` not set first, or not matching the map's projection.
 - **Swallowed drawing errors:** set `ThrowingExceptionMode.ThrowException` on the overlay while debugging, so pink tiles turn into real exceptions with stack traces.
-- **Licensing:** a missing or mismatched runtime license shows a watermark rather than throwing in deployed apps.
+- **Licensing:** a missing or mismatched runtime license shows a watermark rather than throwing in deployed desktop apps.   MAUI apps on Android, iOS, and Mac Catalyst throw on start ("A separate license file is required for each mobile project") until a license file is added as a `MauiAsset` and loaded with `LicenseLoader.LoadLicense`, even under the debugger.   Per-platform causes and fixes: `thinkgeo-code-example/references/licensing.md`.
 
 ## Boundaries
 

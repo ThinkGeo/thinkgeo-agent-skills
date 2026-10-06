@@ -6,6 +6,7 @@ Fixed:
 - `thinkgeo-code-review`: a review missed `TileType.MultipleTiles` because `tg_api` shows enums without their values.   The skill now says to read the enum's page with `tg_get`, lists the names that don't exist in 14.5.3 (with replacements), and checks for the desktop UI using.
 
 Added:
+- `thinkgeo-code-example/references/licensing.md`: licensing by platform, starting with MAUI (license files for Android, iOS, and Mac Catalyst loaded with `LicenseLoader.LoadLicense`, required even to debug; MAUI on Windows; symptoms).   Linked from the troubleshoot, docs-research, and desktop skills.
 - `evals/`: the other eight test cases (2-8 and 10), so all 11 run with `--tag full`.
 - `validate_package.py`: exempts `evals/code-review/prompt.md`, which contains wrong calls on purpose.
 

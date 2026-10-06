@@ -10,7 +10,7 @@ Use the ThinkGeo Documentation MCP server as the source of truth for ThinkGeo-sp
 3. Pick namespaces by the kind of question:
    - **"How do I…" or "how does X behave":** search the matching HowDoI namespace and `docs` together (or use `tg_find_sample`).   Working sample code usually answers these better than prose.
    - **"Does this class or member exist" / signatures:** `tg_api` first.
-   - **Concepts, products, licensing, formats, version history:** `docs`.
+   - **Concepts, products, licensing, formats, version history:** `docs`.   For licensing setup, `thinkgeo-code-example/references/licensing.md` summarizes each platform.
 
    HowDoI namespaces:
    - WPF: `wpfHowDoI`
