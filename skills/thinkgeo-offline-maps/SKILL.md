@@ -40,7 +40,7 @@ Sources for vector tile data include MapTiler, OpenMapTiles extracts, and Protom
 
 Check the code for each of these and replace or remove it:
 
-- `ThinkGeoCloudVectorMapsOverlay`, `ThinkGeoCloudRasterMapsOverlay`, and any `*CloudClient` (geocoding, routing, elevation).   These call ThinkGeo Cloud.
+- `ThinkGeoCloudVectorMapsOverlay`, `ThinkGeoCloudRasterMapsOverlay` (MAUI: `ThinkGeoVectorOverlay`, `ThinkGeoRasterOverlay`), and any `*CloudClient` (geocoding, routing, elevation).   These call ThinkGeo Cloud (see the `thinkgeo-cloud-maps` skill).
 - `GoogleMapsOverlay`, `AzureMapsRasterOverlay`, `OpenStreetMapOverlay`, WMS/WMTS/WFS layers pointing at public servers.
 - An `MvtTilesAsyncLayer` whose Style JSON or `sources` point at `http(s)` URLs.   Every URL inside a Style JSON must be local: tile sources, **glyphs (fonts), and sprites**.   Remote glyph or sprite URLs make labels and icons silently disappear offline.   See the "MVT with Local Fonts" sample.
 - Fonts used by `TextStyle` / `GeoFont` that may not be installed on locked-down machines.   Prefer standard Windows fonts or ship the font.

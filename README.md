@@ -16,13 +16,14 @@ The package has two layers that work together.
 | `thinkgeo-architecture` | Choosing products, rendering location, data access, and deployment design. |
 | `thinkgeo-troubleshoot` | Evidence-driven diagnosis, with a ranked symptom guide for WPF and WinForms. |
 
-**Knowledge skills** (WPF and WinForms) hold the patterns and pitfalls the assistant would otherwise have to rediscover on every task:
+**Knowledge skills** (WPF and WinForms, plus ThinkGeo Cloud on any platform) hold the patterns and pitfalls the assistant would otherwise have to rediscover on every task:
 
 | Skill | Use it for |
 | --- | --- |
 | `thinkgeo-desktop-maps` | Project setup, setup order, projections, styling, refresh rules, licensing, starter projects. |
 | `thinkgeo-desktop-interaction` | Click-to-identify, highlighting, spatial queries, drawing, editing, markers, popups. |
 | `thinkgeo-offline-maps` | Air-gapped and disconnected deployments: local basemaps, tile caches, packaging. |
+| `thinkgeo-cloud-maps` | ThinkGeo Cloud on any platform: basemap overlays, geocoding, routing, elevation, key types, coordinate systems, quotas. |
 
 ## Design principle
 
@@ -57,7 +58,7 @@ thinkgeo-agent-skills/
   .mcp.json              Claude Code MCP configuration
   plugin.json            portable Agent Plugins manifest
   mcp.json               portable MCP configuration
-  skills/                eight skills (see above)
+  skills/                nine skills (see above)
   tests/
     test-cases.md        11 A/B evaluation prompts and a 15-point rubric
     projects/            WPF test project, get-test-data.ps1

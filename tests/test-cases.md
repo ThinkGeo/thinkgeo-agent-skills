@@ -93,6 +93,23 @@ Expected skill behavior:
 - Uses `GdalFeatureLayer` and `EcwGdalRasterLayer`, verified with `tg_api` or the HowDoI samples.
 - Mentions publishing for a specific runtime because of GDAL native binaries.
 
+## 12. Cloud geocoding (WPF)
+Prompt: "My WPF ThinkGeo map (14.5.3) uses a Spherical Mercator basemap.   Add an address search: a TextBox named `AddressBox` and a Search button that geocodes the address with ThinkGeo Cloud, marks the best result on the map, and zooms to it.   Show the code and any packages I need."
+
+Expected skill behavior:
+- Activates `thinkgeo-cloud-maps`.
+- Uses `GeocodingCloudClient` from `ThinkGeo.Core`; doesn't add `ThinkGeo.Cloud.Client`.
+- Sets `ResultProjectionInSrid = 3857` and checks `result.Exception`.
+- Keys from configuration or placeholders.
+
+## 13. Cloud keys (WPF and Blazor)
+Prompt: "We ship a WPF app to our customers and also run a Blazor Server site, both with ThinkGeo Cloud basemaps (ThinkGeo 14.5.3).   Which ThinkGeo Cloud keys does each one need, and how do we keep them from being abused once the WPF app is in customers' hands?"
+
+Expected skill behavior:
+- Activates `thinkgeo-cloud-maps`.
+- WPF: NativeConfidential ClientId and ClientSecret.   Blazor overlay: JavaScript `ApiKey`, restricted by domain.
+- Shipped app: key is extractable; restrict by IP where possible, one client per app, keys out of source code.
+
 ## Scoring rubric (0 or 1 each)
 1. Correct skill activates.
 2. Correct namespaces searched.

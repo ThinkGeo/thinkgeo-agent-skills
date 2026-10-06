@@ -21,7 +21,7 @@ For WPF and WinForms, also load the platform knowledge skills: `thinkgeo-desktop
    - Overlay/layer ownership and ordering.
    - Async refresh or lifecycle requirements for the target UI.
 6. Prefer the smallest complete project or patch that demonstrates the requested capability.   Do not add unrelated frameworks or abstractions.
-7. Never embed test credentials, ThinkGeo Cloud keys, passwords, connection strings, or license material.   Use an explicit placeholder and explain where the user supplies it.
+7. Never embed test credentials, ThinkGeo Cloud keys, passwords, connection strings, or license material.   For ThinkGeo Cloud basemaps or services, follow the `thinkgeo-cloud-maps` skill (key type per platform, coordinate systems, error handling).   Use an explicit placeholder and explain where the user supplies it.
 8. For local/offline examples, prefer local data when it satisfies the request.   Avoid making a sample depend on ThinkGeo Cloud merely to provide a basemap unless the basemap is part of the requested feature.
 9. Do not hard-code a package version unless it is explicitly requested or verified from current ThinkGeo docs/official sample project files.   State the evidence used for the version.   Use the same version for every ThinkGeo package in a project; never mix release and beta packages unless the product only ships as beta (check the official sample project file).
 10. If a complete compile cannot be performed, distinguish `source-verified` from `compiled`.   Never describe uncompiled code as build-verified.

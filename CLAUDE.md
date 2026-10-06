@@ -4,10 +4,10 @@ This repo holds ThinkGeo's public Agent Skills: instructions that help AI coding
 
 ## How the skills are organized
 
-Two layers, eight skills under `skills/`:
+Two layers, nine skills under `skills/`:
 
 - **Workflow skills** (all ThinkGeo products): `thinkgeo-docs-research`, `thinkgeo-code-example`, `thinkgeo-code-review`, `thinkgeo-architecture`, `thinkgeo-troubleshoot`.   These say how to search and verify.
-- **Knowledge skills** (WPF and WinForms only, so far): `thinkgeo-desktop-maps`, `thinkgeo-desktop-interaction`, `thinkgeo-offline-maps`.   These hold stable patterns and common mistakes.
+- **Knowledge skills:** `thinkgeo-desktop-maps`, `thinkgeo-desktop-interaction`, `thinkgeo-offline-maps` (WPF and WinForms), and `thinkgeo-cloud-maps` (ThinkGeo Cloud, any platform).   These hold stable patterns and common mistakes.
 
 `thinkgeo-troubleshoot` merges the evidence-first workflow with the desktop symptom guide in `references/desktop-symptoms.md`.   Don't re-split it.
 
@@ -85,6 +85,7 @@ These were found while building the skills.   Fix them in the docs repos, then r
 6. Vector Tiles Support guide presents `VectorPmTilesAsyncLayer` as part of `ThinkGeo.Core` with no version note.   It isn't in 14.5.3; it first appears in 15.0.0-beta102.   Add a "ThinkGeo 15 and later" note, or hold the section until v15 ships.
 7. The API reference is missing classes from the extension packages (known gap, per Phil).   Through `tg_api`, none of 15 main classes checked across all seven packages (`ThinkGeo.Gdal`, `ThinkGeo.SqlServer`, `ThinkGeo.PostgreSql`, `ThinkGeo.FileGeoDatabase`, `ThinkGeo.Cad`, `ThinkGeo.NauticalCharts`, `ThinkGeo.Printers`) has an entry.   If some of these are on docs.thinkgeo.com, the MCP index is also behind the site.   Add the missing classes to the API reference so the MCP server indexes them.
 8. The API reference has no entries for the `ThinkGeo.UI.WinForms` namespace (not even `MapView` or `LayerOverlay`), so `tg_api` can't check WinForms-specific code.   The WinForms `MapView` derives from `ElementHost`, not the WPF `MapViewBase`, so the WPF pages don't fully cover it.
+9. The Cloud Maps service pages tell .NET developers to install `ThinkGeo.Cloud.Client`.   That package is the old Map Suite SDK (last release 10.6, plus 13.0 betas); in v14 the Cloud clients ship in `ThinkGeo.Core` and the Cloud overlays in the UI packages.   Point the "SDK for .NET" sections at `ThinkGeo.Core` instead.
 
 ## Working with Phil
 
