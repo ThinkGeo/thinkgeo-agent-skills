@@ -45,11 +45,23 @@ The first command uses the GitHub mirror (https://github.com/ThinkGeo/thinkgeo-a
 
 The plugin also registers the ThinkGeo Documentation MCP server through `.mcp.json`.
 
-**Claude Code (without the plugin):** copy the folders under `skills/` into your project's `.claude/skills/` or into `~/.claude/skills/`, and add the MCP server separately.
+**Any assistant (Cursor, GitHub Copilot, Codex, Claude Code, and others):** install the skills with the `skills` command-line installer, which needs Node.js:
 
-**ChatGPT / Codex:** the root `plugin.json`, `mcp.json`, and each skill's `agents/openai.yaml` follow the portable Agent Plugins layout.
+```
+npx skills add ThinkGeo/thinkgeo-agent-skills
+```
 
-**Other assistants** that support the Agent Skills format (for example Cursor and GitHub Copilot) can load the `skills/` folders from their own skills directory.   Connect the MCP server in that tool for the best results.
+It asks which assistants to install for and copies the skills into each one's skills folder (for example `.claude/skills/` or `.agents/skills/`).   Add `--list` to see the skills without installing, `-g` to install for your user instead of the current project, or `-s <name>` to install one skill.   Install all of them if you can: several skills point to each other's reference files.
+
+This route installs the skills only.   Also connect the ThinkGeo Documentation MCP server (`https://ai.thinkgeo.com/mcp`, HTTP) in your assistant; in Claude Code:
+
+```
+claude mcp add --transport http thinkgeo-docs https://ai.thinkgeo.com/mcp
+```
+
+**Manual copy:** copy the folders under `skills/` into your assistant's skills folder (for Claude Code, `.claude/skills/` in your project or `~/.claude/skills/`), and add the MCP server as above.
+
+**ChatGPT / Codex plugin layout:** the root `plugin.json`, `mcp.json`, and each skill's `agents/openai.yaml` follow the portable Agent Plugins layout.
 
 ## Package layout
 
@@ -69,6 +81,7 @@ thinkgeo-agent-skills/
     validate_package.py  structural and static checks
   EVALUATION.md
   CHANGELOG.md
+  LICENSE              MIT
 ```
 
 ## Validate locally
@@ -92,6 +105,10 @@ The test project and starter projects build against ThinkGeo 14.5.5.   On Window
 ## Versions
 
 Written and tested against ThinkGeo 14.5 (14.5.3 and 14.5.5) and the documentation as of October 2026.   The skills tell assistants to use the latest stable ThinkGeo version from NuGet for new projects and to keep an existing project's version.   APIs marked Legacy (v13 and earlier) are not covered.
+
+## License
+
+MIT.   See [LICENSE](LICENSE).
 
 ## Links
 

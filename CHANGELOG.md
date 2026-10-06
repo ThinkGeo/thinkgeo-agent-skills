@@ -3,6 +3,8 @@
 ## Unreleased
 
 Added:
+- MIT license (`LICENSE`, and `"license": "MIT"` in both plugin manifests).
+- README: install with `npx skills add ThinkGeo/thinkgeo-agent-skills` for Cursor, GitHub Copilot, Codex, Claude Code, and other assistants (tested: all twelve skills install with their reference files and starters), plus how to connect the MCP server, which that route doesn't install.
 - `EVALUATION.md`: full A/B/C evaluation (no MCP, MCP only, MCP + skills; 18 cases, 2 runs each).   Average score 0.76 / 0.92 / 0.99; generated projects that build 2 / 6 / 10 out of 10.
 
 Fixed:

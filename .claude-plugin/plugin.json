@@ -6,6 +6,7 @@
     "name": "ThinkGeo LLC",
     "url": "https://thinkgeo.com"
   },
+  "license": "MIT",
   "homepage": "https://docs.thinkgeo.com",
   "repository": "https://gitlab.com/thinkgeo/public/thinkgeo-agent-skills",
   "keywords": [

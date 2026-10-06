@@ -16,6 +16,8 @@ The ThinkGeo Documentation MCP server (`https://ai.thinkgeo.com/mcp`, tools `tg_
 ## Decisions already made
 
 - **Audience:** ThinkGeo customers.   Public repo, for marketing value.
+- **License:** MIT (`LICENSE`, October 2026), like Mapbox's agent skills.
+- **Install routes:** the Claude Code plugin (skills plus MCP server), and `npx skills add ThinkGeo/thinkgeo-agent-skills` for other assistants (skills only; the README tells users to add the MCP server).   Keep the `skills/` folder layout compatible with that installer.
 - **Hosting:** this GitLab repo is the only place skills are edited.   Push-mirror it to GitHub automatically, since most skill installers and directories expect GitHub.
 - **Claude Code distribution:** the repo is also a Claude Code plugin catalog (`.claude-plugin/plugin.json`, `.claude-plugin/marketplace.json`, `.mcp.json`).
 - **Other assistants:** root `plugin.json`, `mcp.json`, and `skills/*/agents/openai.yaml` keep the portable Agent Plugins / OpenAI layout.   Keep both layouts in sync, with the same version in each manifest.
