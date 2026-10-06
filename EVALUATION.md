@@ -1,5 +1,46 @@
 # Evaluation
 
+## Full A/B/C evaluation (October 2026, v0.5.0)
+
+Three setups, all 18 active cases in `evals/` (case 3 is retired), two runs each, 108 sessions in total:
+
+- **A:** no MCP server, no skills (the runner's built-in "without plugin" arm).
+- **B:** the ThinkGeo Documentation MCP server only (a plugin containing just `.mcp.json`).
+- **C:** MCP server plus all twelve skills (this plugin).
+
+Model: Opus 5.5; judge: the runner's default.   Usage: $28.57 API-equivalent (A and C $16.67, B $11.90).
+
+| | A: no MCP, no skills | B: MCP only | C: MCP + skills |
+| --- | --- | --- | --- |
+| Average grader score | 0.76 | 0.92 | **0.99** |
+| Sessions with a perfect score | 16 / 36 | 24 / 36 | **35 / 36** |
+| Generated projects that build | 2 / 10 | 6 / 10 | **10 / 10** |
+
+Builds were checked outside the runner: each generated project was copied to a clean folder, its project file checked for custom build steps, and built against the ThinkGeo packages it chose (Blazor pages in a .NET 8 Blazor Web App, MAUI pages for Windows).
+
+| Generated projects that build | A | B | C |
+| --- | --- | --- | --- |
+| WPF shapefile viewer (case 1) | 1 / 2 | 0 / 2 | 2 / 2 |
+| GeoPackage + ECW (case 11) | 0 / 2 | 0 / 2 | 2 / 2 |
+| WebAPI tile service (case 14) | 1 / 2 | 2 / 2 | 2 / 2 |
+| Blazor page (case 16) | 0 / 2 | 2 / 2 | 2 / 2 |
+| MAUI page (case 18) | 0 / 2 | 2 / 2 | 2 / 2 |
+
+What each layer adds:
+
+- **MCP over nothing (A to B):** A invented APIs that don't exist (`GeoPackageFeatureLayer`, `EcwRasterLayer`, `OgrFeatureLayer`, `LayerOverlay.Redraw`, `ClickedMapViewEventArgs.WorldCoordinate`, `FileAccessMode`), used floating `14.*` versions, and missed `ThrowingExceptionMode` for pink tiles.   The MCP server fixes most invented names.
+- **Skills over MCP (B to C):** all four of B's build failures were the missing `using ThinkGeo.UI.Wpf;` (sample code hides it).   The skills also fixed the code review's stale names (`TileType.MultipleTiles`), the GDAL native-binaries note, MAUI data packaging (`AppDataDirectory`), and the WinForms draw-to-select details.   On questions where documentation alone is enough (architecture, Cloud keys, troubleshooting), B and C tie at 1.00.
+
+Caveats:
+
+- Two runs per case is enough to see the pattern, not to give precise per-case percentages.
+- The `webapi-tiles` "converter" regex rejected correct code that used named constants (`new ProjectionConverter(DataEpsg, MapEpsg)`) in every run of every setup.   It was removed and the scores above leave it out.
+- A's two MAUI build failures partly come from the test harness: the test page's XAML names a `SizeChanged` handler that A's code didn't define.
+- Without web access, models can't look up the latest ThinkGeo version: C still pinned 14.5.3 in the WebAPI case (copied from the samples) even though the skills say to use the latest stable release.   Updating the sample project files (documentation issue 10) would fix this at the source.
+- The one imperfect C session was a 2-to-1 judge vote on the click-to-identify rubric.
+
+To rerun: `claude plugin eval . --tag full --runs 2 --ablation with-without ...` for A and C, and the same suite against an MCP-only plugin for B (see the pilot section for the full flags).
+
 ## Automated pilot (October 2, 2026)
 
 Three cases from `tests/test-cases.md` now run automatically with `claude plugin eval` (Claude Code 2.1.269 or later).   They live in `evals/`:

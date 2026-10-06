@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+Added:
+- `EVALUATION.md`: full A/B/C evaluation (no MCP, MCP only, MCP + skills; 18 cases, 2 runs each).   Average score 0.76 / 0.92 / 0.99; generated projects that build 2 / 6 / 10 out of 10.
+
+Fixed:
+- `evals/webapi-tiles`: removed the "converter" regex, which rejected correct code using named constants; the code rubric already checks the converter.
+
 ## 0.5.0
 
 Knowledge skills for the last two platforms, Blazor and .NET MAUI, so every released ThinkGeo platform now has one.
