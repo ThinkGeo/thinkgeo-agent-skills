@@ -22,7 +22,7 @@ The ThinkGeo Documentation MCP server (`https://ai.thinkgeo.com/mcp`, tools `tg_
 - **Claude Code distribution:** the repo is also a Claude Code plugin catalog (`.claude-plugin/plugin.json`, `.claude-plugin/marketplace.json`, `.mcp.json`).
 - **Other assistants:** root `plugin.json`, `mcp.json`, and `skills/*/agents/openai.yaml` keep the portable Agent Plugins / OpenAI layout, which is also OpenAI's current Codex plugin layout (checked October 2026; `.codex-plugin/plugin.json` is only a fallback).   `.agents/plugins/marketplace.json` makes the repo a Codex marketplace with the repo root as the plugin (`"path": "./"`), tested with Codex CLI 0.160.1.   Keep both layouts in sync, with the same version in each manifest.
 - **`AGENTS.md`:** a condensed, customer-facing version of the skills that users copy into their own project root.   It is not instructions for editing this repo (that's this file).   When a skill is added, renamed, or gains an important rule, update `AGENTS.md` too; the validator checks that every skill is in its table.   No per-skill `AGENTS.md` files: too much duplication to maintain.
-- **MCP server:** serves copies of the skills, never hosts the originals.   Planned changes, in the MCP server repo:
+- **MCP server:** serves copies of the skills, never hosts the originals.   Changes in the MCP server repo (1–3 done and tested October 6, 2026, serving release 0.6.0; 4 not done):
   1. Index the latest **tagged release** of this repo (not `main`) as a new `skills` namespace.
   2. Add `tg_list_skills` and `tg_get_skill(name)` tools that return a skill's `SKILL.md` and reference files.
   3. Add one sentence to the server instructions: the skills exist, how to install them, and that `tg_get_skill` is available otherwise.
@@ -73,7 +73,7 @@ When the validator flags a forbidden API call, fix the code.   Only add an excep
 1. ~~Create the GitLab repo, push v0.2, and set up the GitHub push mirror.~~ Done (GitHub mirror: `ThinkGeo/thinkgeo-agent-skills`).
 2. Work through the open items above, then tag v0.3.   Open items done and versions bumped to 0.3.0 (October 2, 2026); tagging is Phil's call.
 3. Run the A/B evaluation in `EVALUATION.md`: MCP only, MCP plus workflow skills, MCP plus all skills.   Cases are in `tests/test-cases.md`; score each with the 15-point rubric there.
-4. Make the MCP server changes listed above (separate repo).
+4. ~~Make the MCP server changes listed above (separate repo).~~ Done (October 6, 2026) for items 1–3; the optional MCP prompts (item 4) aren't implemented.   Tested against the live server: the server instructions mention the skills; `tg_list_skills` returns all 12 skills at version 0.6.0 with install commands; `tg_get_skill` returns every `SKILL.md`, reference file, starter file, and cross-skill file exactly as in the 0.6.0 tag, and refuses unknown names and paths outside the skill; `tg_search` covers the `skills` namespace (34 files, from the 0.6.0 tag).   Two small follow-ups for the server: `tg_get_skill` errors don't set the MCP `isError` flag, and the `tg_search` description's namespace list doesn't mention `skills` or `webApiHowDoI`.
 5. Announce: link the repo from the desktop quick starts and the HowDoI READMEs, write a blog post, and pair it with the MCP server announcement.
 6. ~~Knowledge skills for Blazor, MAUI, and WebAPI.~~ Done (October 2026).   GIS Server once it's released.
 
