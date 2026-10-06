@@ -92,6 +92,12 @@ These were found while building the skills.   Fix them in the docs repos, then r
 12. The Maps Streets page doesn't say how to get the data (Helpdesk download, PMTiles regional extracts, MBTiles on request for 14.x), and says "PMTiles is the recommended format for ThinkGeo v15.0 and later" without saying 14.x customers must request MBTiles.   The StyleJSON Schema page (`mapping-data/style-json-guide`) presents the legacy ThinkGeo StyleJSON format as current; mark it legacy and point to MapLibre Style JSON.
 13. The Blazor Quick Start uses the .NET 3-era `_Host.cshtml` page and a `cdn.thinkgeo.com/blazor/1.0.0` CDN path; since 14.5 client assets load automatically, and new projects use the .NET 8+ Blazor Web App template (needs an interactive server render mode).   The Blazor HowDoI sample also still uses the old `Startup.cs`/`_Host.cshtml` structure.   `VectorTileOverlay` (added in 14.5.3) has no API reference page.   Hosting support (Blazor Server for `LayerOverlay`; WebAssembly and Hybrid only for client-drawn overlays) is stated only in a forum post, not the docs.
 
+## Product issues found in ThinkGeo packages
+
+Found while building and testing the skills.   Fix them in the product, then remove them here.
+
+1. `ThinkGeo.UI.Maui` 14.5.5 depends on `SQLitePCLRaw.lib.e_sqlite3` 2.1.10 (plus the `.android` and `.ios` variants), which NuGet flags as a known high-severity vulnerability (GHSA-2m69-gcr7-jv3q).   Every MAUI install shows the NU1903 warning.   The desktop packages didn't show it in our builds.   Update the dependency to a patched version.
+
 ## Working with Phil
 
 - Ask clarifying questions before giving a long or detailed answer.
