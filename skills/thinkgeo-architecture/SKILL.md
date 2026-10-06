@@ -19,6 +19,6 @@ Ground architecture guidance in current ThinkGeo capabilities rather than generi
 6. Separate documented facts from design judgment.   If two architectures are both valid, explain trade-offs without pretending the documentation selects one.
 7. Verify product/package/API names before presenting a concrete architecture.
 8. Link to the ThinkGeo documentation that supports the main architectural assumptions.
-9. For offline or air-gapped requirements, use the `thinkgeo-offline-maps` skill for local basemap, caching, packaging, and licensing patterns.   For hosted basemaps, geocoding, routing, or elevation, use the `thinkgeo-cloud-maps` skill, which covers key types per platform and quotas.
+9. For offline or air-gapped requirements, use the `thinkgeo-offline-maps` skill for local basemap, caching, packaging, and licensing patterns.   For hosted basemaps, geocoding, routing, or elevation, use the `thinkgeo-cloud-maps` skill, which covers key types per platform and quotas.   For browser apps, the `thinkgeo-blazor` skill explains which Blazor hosting models support ThinkGeo layers (Blazor Server) and the `thinkgeo-web-api` skill covers tile services for JavaScript maps.
 
 Success means the design can be translated into a project structure and the ThinkGeo-specific choices are traceable to current documentation.

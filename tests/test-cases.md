@@ -126,6 +126,21 @@ Expected skill behavior:
 - Fixes the path with the content root, checks the data is published, and mentions the runtime license.
 - Fixes clipped labels with `DrawingMarginInPixel`.
 
+## 16. Blazor map page
+Prompt: "In my .NET 8 Blazor Web App, add a page at `/parcels` with a ThinkGeo map of a parcel shapefile (`App_Data\Parcels.shp`, State Plane EPSG:2276) over a ThinkGeo Cloud basemap.   When the user clicks a parcel, highlight it and show its OWNER_NAME under the map."
+
+Expected skill behavior:
+- Activates `thinkgeo-blazor`.
+- `@rendermode InteractiveServer`; Cloud overlay with `ApiKey`; `LayerOverlay` with `ProjectionConverter(2276, 3857)`; content-root path.
+- `OnClick` with `ClickedMapViewEventArgs`; query with open/close; highlight in its own overlay; `RedrawAsync`.
+
+## 17. Blazor WebAssembly with own data
+Prompt: "We want to build our ThinkGeo map app as Blazor WebAssembly so it runs entirely in the browser.   It shows our own shapefiles and a SQL Server layer with custom styles.   Will that work, and how should we set it up?"
+
+Expected skill behavior:
+- Activates `thinkgeo-blazor` (or `thinkgeo-architecture`).
+- Says `LayerOverlay` layers aren't supported in WebAssembly; recommends Blazor Server; explains client-drawn overlays are the WebAssembly option.
+
 ## Scoring rubric (0 or 1 each)
 1. Correct skill activates.
 2. Correct namespaces searched.

@@ -21,7 +21,7 @@ For WPF and WinForms details, see `thinkgeo-desktop-maps/references/project-setu
 
 ## Blazor and WebAPI
 
-For building WebAPI tile services, see the `thinkgeo-web-api` skill.
+For building WebAPI tile services, see the `thinkgeo-web-api` skill; for Blazor pages, the `thinkgeo-blazor` skill.
 
 Licensing works like the desktop: the same Product Center tab ("WPF/WinForms/Blazor/WebAPI"), a developer license for debugging, and a runtime license generated from the app's built executable for anything that runs without a debugger.   Generate the runtime license from the executable in the **published** output, and make sure the file is deployed with it.
 

@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+Added:
+- New skill `thinkgeo-blazor`: Blazor map pages with `ThinkGeo.UI.Blazor`.   Covers hosting (Blazor Server for ThinkGeo layers; WebAssembly and Hybrid only for client-drawn overlays such as `VectorTileOverlay`, per ThinkGeo support), interactive server rendering in .NET 8+ Blazor Web Apps, automatic client assets, the `MapView` settings blocks, `RedrawAsync` after data changes, click coordinates, markers, popups, `EditOverlay`, vector tiles, and navigation.   The example page builds with 0 warnings in a .NET 8 Blazor Web App on 14.5.5.
+- `evals/`: cases 16 (Blazor map page) and 17 (Blazor WebAssembly with own data).
+
 ## 0.4.0
 
 Two new knowledge skills (`thinkgeo-cloud-maps` and `thinkgeo-web-api`), licensing for every released platform, ThinkGeo Maps Streets, and an automated evaluation suite.   The skills now tell assistants to use the latest stable ThinkGeo version from NuGet instead of naming one, and GIS Server is left out until it ships.

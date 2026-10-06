@@ -4,10 +4,10 @@ This repo holds ThinkGeo's public Agent Skills: instructions that help AI coding
 
 ## How the skills are organized
 
-Two layers, ten skills under `skills/`:
+Two layers, eleven skills under `skills/`:
 
 - **Workflow skills** (all ThinkGeo products): `thinkgeo-docs-research`, `thinkgeo-code-example`, `thinkgeo-code-review`, `thinkgeo-architecture`, `thinkgeo-troubleshoot`.   These say how to search and verify.
-- **Knowledge skills:** `thinkgeo-desktop-maps`, `thinkgeo-desktop-interaction`, `thinkgeo-offline-maps` (WPF and WinForms), `thinkgeo-web-api` (WebAPI tile services), and `thinkgeo-cloud-maps` (ThinkGeo Cloud, any platform).   These hold stable patterns and common mistakes.
+- **Knowledge skills:** `thinkgeo-desktop-maps`, `thinkgeo-desktop-interaction`, `thinkgeo-offline-maps` (WPF and WinForms), `thinkgeo-blazor` (Blazor pages), `thinkgeo-web-api` (WebAPI tile services), and `thinkgeo-cloud-maps` (ThinkGeo Cloud, any platform).   These hold stable patterns and common mistakes.
 
 `thinkgeo-troubleshoot` merges the evidence-first workflow with the desktop symptom guide in `references/desktop-symptoms.md`.   Don't re-split it.
 
@@ -72,7 +72,7 @@ When the validator flags a forbidden API call, fix the code.   Only add an excep
 3. Run the A/B evaluation in `EVALUATION.md`: MCP only, MCP plus workflow skills, MCP plus all skills.   Cases are in `tests/test-cases.md`; score each with the 15-point rubric there.
 4. Make the MCP server changes listed above (separate repo).
 5. Announce: link the repo from the desktop quick starts and the HowDoI READMEs, write a blog post, and pair it with the MCP server announcement.
-6. Later: knowledge skills for Blazor and MAUI (WebAPI is done), built the same way as the desktop ones; GIS Server once it's released.
+6. Later: a knowledge skill for MAUI (Blazor and WebAPI are done), built the same way as the desktop ones; GIS Server once it's released.
 
 ## Documentation issues found in ThinkGeo's own docs
 
@@ -90,6 +90,7 @@ These were found while building the skills.   Fix them in the docs repos, then r
 10. The HowDoI sample project files (desktop and web) pin 14.5.3, but 14.5.4 and 14.5.5 have shipped (latest stable 14.5.5, August 31, 2026).   Assistants that copy the version from a sample start new projects two releases behind.   Keep the samples on the latest release.
 11. Two WebAPI samples reference `ThinkGeo.Jpeg2000` and `ThinkGeo.MrSid` 14.2.1 next to 14.5.3 packages.   Those packages (and `ThinkGeo.Ecw`) stopped at 14.2.1; their layers (`Jpeg2000GdalRasterLayer`, `MrSidGdalRasterLayer`, `EcwGdalRasterLayer`) are in `ThinkGeo.Gdal`.   Switch the samples to `ThinkGeo.Gdal`; Phil believes the old packages are replaced but hasn't confirmed.
 12. The Maps Streets page doesn't say how to get the data (Helpdesk download, PMTiles regional extracts, MBTiles on request for 14.x), and says "PMTiles is the recommended format for ThinkGeo v15.0 and later" without saying 14.x customers must request MBTiles.   The StyleJSON Schema page (`mapping-data/style-json-guide`) presents the legacy ThinkGeo StyleJSON format as current; mark it legacy and point to MapLibre Style JSON.
+13. The Blazor Quick Start uses the .NET 3-era `_Host.cshtml` page and a `cdn.thinkgeo.com/blazor/1.0.0` CDN path; since 14.5 client assets load automatically, and new projects use the .NET 8+ Blazor Web App template (needs an interactive server render mode).   The Blazor HowDoI sample also still uses the old `Startup.cs`/`_Host.cshtml` structure.   `VectorTileOverlay` (added in 14.5.3) has no API reference page.   Hosting support (Blazor Server for `LayerOverlay`; WebAssembly and Hybrid only for client-drawn overlays) is stated only in a forum post, not the docs.
 
 ## Working with Phil
 
