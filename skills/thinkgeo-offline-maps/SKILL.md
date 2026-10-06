@@ -29,6 +29,7 @@ Clarify these before writing code, because they change the design:
 | Your own vector data (shapefile, GeoPackage, SQLite, File Geodatabase) styled as a basemap | Feature layers + styles | Full control, uses data the customer already owns |
 | Nautical charts (S-57) | `NauticalChartsFeatureLayer` | Maritime |
 | Pre-generated tile cache of any overlay | `LayerOverlay` + `FileRasterTileCache` + `IsCacheOnly` | Freezing a complex, slow-to-render map into fast tiles |
+| Pre-cached ThinkGeo Cloud basemap | `ThinkGeoRasterMapsAsyncLayer` + `GenerateTileCacheAsync` + `IsCacheOnly` | The same look as the online Cloud basemap, for a fixed area.   ThinkGeo allows shipping cached Cloud tiles; see the `thinkgeo-cloud-maps` skill |
 
 Vector MBTiles are usually the best default for a general-purpose street basemap.   Details and code are in `references/local-basemaps.md`.
 

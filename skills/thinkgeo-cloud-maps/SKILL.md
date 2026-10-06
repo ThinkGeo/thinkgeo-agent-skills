@@ -94,10 +94,30 @@ await resultsOverlay.RefreshAsync();
 - **Blank cloud basemap:** check the key type for the platform (Blazor needs a JavaScript `ApiKey`, everything else a ClientId and ClientSecret), the client's IP or domain restrictions, and whether the evaluation or quota has run out.   To see the HTTP traffic, handle the overlay's `SendingHttpRequest` and `ReceivedHttpResponse` events, or set `ThinkGeoDebugger.LogType = ThinkGeoLogType.WebRequest`.
 - **Quota:** free evaluation accounts are limited to 10,000 requests per day.   Usage is shown in the Cloud console.   Tile caches and reusing results reduce it.
 
+## Caching Cloud tiles for offline use
+
+Customers may pre-generate ThinkGeo Cloud tiles into a cache and ship it for offline use (confirmed by ThinkGeo).   Use the raster Cloud layer, which can fill its cache ahead of time:
+
+```csharp
+// Build machine, online: fill the cache for the area and zoom range the app needs.
+var cloud = new ThinkGeoRasterMapsAsyncLayer(clientId, clientSecret)
+{
+    MapType = ThinkGeoCloudRasterMapsMapType.Light_V2_X1,
+    TileCache = new FileRasterTileCache(cacheRoot, "cloud_light_v2_x1")
+};
+await cloud.OpenAsync();
+await cloud.GenerateTileCacheAsync(areaInMeters, 0, 14);   // extent in 3857, start zoom, end zoom
+await cloud.CloseAsync();
+
+// Deployed app: same layer settings and cache ID, reading only from the cache.
+cloud.IsCacheOnly = true;
+```
+
+Every generated tile is a Cloud request, and tile counts grow about four times per zoom level, so estimate the count against the account's quota first.   Ship the cache folder with the app; the `thinkgeo-offline-maps` skill covers packaging and cache gotchas.
+
 ## Boundaries
 
 - Cloud is a separate subscription from the ThinkGeo developer license; Product Center doesn't manage Cloud keys.
-- Whether Cloud tiles may be pre-generated into a cache and shipped for offline use depends on the user's ThinkGeo Cloud terms; tell them to confirm with ThinkGeo before building an offline product on cached Cloud tiles.
 - Verify any service method or option not listed here with `tg_api` before using it.
 
 ## Reference files

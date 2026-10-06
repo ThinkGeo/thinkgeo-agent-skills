@@ -114,5 +114,5 @@ Gotchas:
 - Tile counts grow about four times per zoom level.   Estimate size before generating street-level zooms over large areas.
 - The scale factor (DPI) used at generation should match the screens it will be viewed on, or text and lines will look too small or too large.
 - Version the cache ID (`basemap_v1`, `basemap_v2`) so updated caches don't mix with old tiles.
-- Generating a cache from data you don't own (for example, a third-party basemap) may be restricted by that data's license.   Confirm before caching it.
+- Generating a cache from data you don't own (for example, a third-party basemap) may be restricted by that data's license.   Confirm before caching it.   ThinkGeo Cloud tiles are the exception: ThinkGeo allows customers to pre-cache and ship them (see the `thinkgeo-cloud-maps` skill for the code).
 - `LayerOverlay.GenerateTileCacheAsync` and `RasterXyzTileAsyncLayer.GenerateTileCacheAsync` also exist.   Check their signatures with `tg_api` if you prefer to generate from the overlay or a single tile layer.
