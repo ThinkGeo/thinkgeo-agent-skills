@@ -88,6 +88,7 @@ These were found while building the skills.   Fix them in the docs repos, then r
 9. The Cloud Maps service pages tell .NET developers to install `ThinkGeo.Cloud.Client`.   That package is the old Map Suite SDK (last release 10.6, plus 13.0 betas); in v14 the Cloud clients ship in `ThinkGeo.Core` and the Cloud overlays in the UI packages.   Point the "SDK for .NET" sections at `ThinkGeo.Core` instead.
 10. The HowDoI sample project files (desktop and web) pin 14.5.3, but 14.5.4 and 14.5.5 have shipped (latest stable 14.5.5, August 31, 2026).   Assistants that copy the version from a sample start new projects two releases behind.   Keep the samples on the latest release.
 11. Two WebAPI samples reference `ThinkGeo.Jpeg2000` and `ThinkGeo.MrSid` 14.2.1 next to 14.5.3 packages.   Those packages (and `ThinkGeo.Ecw`) stopped at 14.2.1; their layers (`Jpeg2000GdalRasterLayer`, `MrSidGdalRasterLayer`, `EcwGdalRasterLayer`) are in `ThinkGeo.Gdal`.   Switch the samples to `ThinkGeo.Gdal`; Phil believes the old packages are replaced but hasn't confirmed.
+12. The Maps Streets page doesn't say how to get the data (Helpdesk download, PMTiles regional extracts, MBTiles on request for 14.x), and says "PMTiles is the recommended format for ThinkGeo v15.0 and later" without saying 14.x customers must request MBTiles.   The StyleJSON Schema page (`mapping-data/style-json-guide`) presents the legacy ThinkGeo StyleJSON format as current; mark it legacy and point to MapLibre Style JSON.
 
 ## Working with Phil
 

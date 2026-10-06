@@ -118,6 +118,7 @@ Every generated tile is a Cloud request, and tile counts grow about four times p
 ## Boundaries
 
 - Cloud is a separate subscription from the ThinkGeo developer license; Product Center doesn't manage Cloud keys.
+- For the same street map without Cloud (offline, or to avoid per-request use), ThinkGeo sells the data as ThinkGeo Maps Streets, a vector tile file; see the `thinkgeo-offline-maps` skill.
 - Verify any service method or option not listed here with `tg_api` before using it.
 
 ## Reference files

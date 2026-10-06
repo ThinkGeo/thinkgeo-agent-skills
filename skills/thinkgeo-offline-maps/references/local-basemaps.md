@@ -52,6 +52,19 @@ MapView.CurrentExtent = basemap.GetBoundingBox();
 await MapView.RefreshAsync();
 ```
 
+## ThinkGeo Maps Streets
+
+ThinkGeo Maps Streets is ThinkGeo's world street basemap as vector tiles, the same data the ThinkGeo Cloud vector basemap uses.   It's built from OpenStreetMap and Natural Earth and refreshed monthly.
+
+- **Getting it:** after purchase, customers download it from the ThinkGeo Helpdesk (https://helpdesk.thinkgeo.com) as PMTiles, either the whole world (about 75 GB) or a regional extract.   Updated data can be downloaded from the Helpdesk at any time.
+- **ThinkGeo 14.x needs MBTiles.** The Helpdesk files are PMTiles, which only ThinkGeo 15 and later can read.   Customers on 14.x should email ThinkGeo to have MBTiles generated for them, then use the MBTiles code above.
+- **Style:** it comes with a `style.json` in the standard MapLibre Style JSON format.   Load it with the tile file (`StyleJsonUri`, or the second constructor argument), and follow the offline Style JSON rules above: fonts (`glyphs`) and icons (`sprite`) must be local files.
+- **Spherical Mercator only** (EPSG:3857).   The simplest setup keeps the map in `GeographyUnit.Meter` and gives other layers a `ProjectionConverter` to 3857.   If the map must use another projection, check the Vector Tiles Support guide for reprojecting the tiles.
+- **Display only.** The tiles are simplified for drawing and can't be used for routing or as a road network.
+- **Size:** plan disk space and install time for the area chosen.   A regional extract is usually enough; ship the whole world only when the app needs it.
+
+ThinkGeo's older StyleJSON format (with `styles` and `map-layers` sections, published as the `worldstreets-styles` package) is legacy.   Use MapLibre Style JSON for new work.
+
 ## Raster tiles
 
 ```csharp

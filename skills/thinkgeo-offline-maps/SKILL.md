@@ -15,13 +15,14 @@ Clarify these before writing code, because they change the design:
 
 1. **Never connected** (air-gapped) or **sometimes connected** (field laptop that syncs at base)?
 2. **What area and zoom range** must work offline?   A city at street level is a few hundred MB; a country at street level can be tens of GB.
-3. **What basemap source** are they licensed to use offline?   (Their own data, a purchased MBTiles extract, OpenMapTiles-schema data, or imagery such as GeoTIFF/ECW/MrSID.)
+3. **What basemap source** are they licensed to use offline?   (ThinkGeo Maps Streets, their own data, a purchased vector tile extract, OpenMapTiles-schema data, or imagery such as GeoTIFF/ECW/MrSID.)
 4. **How is software moved onto the machines?** (Installer, removable media, a software center.)   This affects how the runtime license and data ship.
 
 ## Step 2: choose the basemap
 
 | Option | Layer | Good for |
 | --- | --- | --- |
+| ThinkGeo Maps Streets (world street basemap) | `VectorMbTilesAsyncLayer` on 14.x, `VectorPmTilesAsyncLayer` on 15 and later | ThinkGeo's own street basemap, the same data as the Cloud vector basemap, with regional extracts.   See `references/local-basemaps.md` |
 | Vector tiles (`.mbtiles`) | `VectorMbTilesAsyncLayer` | Large areas, small footprint, crisp at every zoom, restylable |
 | Raster tiles (`.mbtiles`) | `RasterMbTilesAsyncLayer` | Pre-rendered maps or scanned charts |
 | Raster tiles in folders (z/x/y) | A small `RasterXyzTileAsyncLayer` subclass (copy `XyzFileTilesAsyncLayer` from the sample) | Tiles exported from QGIS or other tools |
@@ -35,7 +36,7 @@ Vector MBTiles are usually the best default for a general-purpose street basemap
 
 **PMTiles needs ThinkGeo 15 or later.**   `VectorPmTilesAsyncLayer` isn't in any 14.x release.   If the user has `.pmtiles` data and is on 14.x, get the same tileset as MBTiles (most providers, including ThinkGeo Maps Streets, offer both) rather than moving to a beta.
 
-Sources for vector tile data include MapTiler, OpenMapTiles extracts, and Protomaps builds.   Most need a license for production use; confirm the user has one.
+Sources for vector tile data include ThinkGeo Maps Streets, MapTiler, OpenMapTiles extracts, and Protomaps builds.   Most need a license for production use; confirm the user has one.
 
 ## Step 3: remove every network dependency
 
