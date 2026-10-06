@@ -10,23 +10,23 @@ The package has two layers that work together.
 
 | Skill | Use it for |
 | --- | --- |
-| `thinkgeo-docs-research` | Authoritative answers about ThinkGeo APIs, packages, formats, and behavior. |
-| `thinkgeo-code-example` | Writing ThinkGeo code and small projects with every API and package verified. |
-| `thinkgeo-code-review` | Reviewing and modernizing existing ThinkGeo code. |
-| `thinkgeo-architecture` | Choosing products, rendering location, data access, and deployment design. |
-| `thinkgeo-troubleshoot` | Evidence-driven diagnosis, with a ranked symptom guide for WPF and WinForms. |
+| [`thinkgeo-docs-research`](skills/thinkgeo-docs-research/SKILL.md) | Authoritative answers about ThinkGeo APIs, packages, formats, and behavior. |
+| [`thinkgeo-code-example`](skills/thinkgeo-code-example/SKILL.md) | Writing ThinkGeo code and small projects with every API and package verified. |
+| [`thinkgeo-code-review`](skills/thinkgeo-code-review/SKILL.md) | Reviewing and modernizing existing ThinkGeo code. |
+| [`thinkgeo-architecture`](skills/thinkgeo-architecture/SKILL.md) | Choosing products, rendering location, data access, and deployment design. |
+| [`thinkgeo-troubleshoot`](skills/thinkgeo-troubleshoot/SKILL.md) | Evidence-driven diagnosis, with a ranked symptom guide for WPF and WinForms. |
 
 **Knowledge skills** (WPF and WinForms, Blazor, MAUI, WebAPI, and ThinkGeo Cloud on any platform) hold the patterns and pitfalls the assistant would otherwise have to rediscover on every task:
 
 | Skill | Use it for |
 | --- | --- |
-| `thinkgeo-desktop-maps` | Project setup, setup order, projections, styling, refresh rules, licensing, starter projects. |
-| `thinkgeo-desktop-interaction` | Click-to-identify, highlighting, spatial queries, drawing, editing, markers, popups. |
-| `thinkgeo-offline-maps` | Air-gapped and disconnected deployments: local basemaps, tile caches, packaging. |
-| `thinkgeo-blazor` | Blazor map pages: Blazor Server vs WebAssembly, the MapView component, overlays and RedrawAsync, clicks, markers, popups, editing, vector tiles. |
-| `thinkgeo-maui` | .NET MAUI map apps: differences from desktop, licensing on phones, shipping data files, taps, GPS, rotation, offline. |
-| `thinkgeo-web-api` | ASP.NET Core map tile services with ThinkGeo WebAPI and Leaflet or OpenLayers: the tile endpoint, tile sizes, projections, labels at tile edges, hosting paths, concurrency, Linux. |
-| `thinkgeo-cloud-maps` | ThinkGeo Cloud on any platform: basemap overlays, geocoding, routing, elevation, key types, coordinate systems, quotas. |
+| [`thinkgeo-desktop-maps`](skills/thinkgeo-desktop-maps/SKILL.md) | Project setup, setup order, projections, styling, refresh rules, licensing, starter projects. |
+| [`thinkgeo-desktop-interaction`](skills/thinkgeo-desktop-interaction/SKILL.md) | Click-to-identify, highlighting, spatial queries, drawing, editing, markers, popups. |
+| [`thinkgeo-offline-maps`](skills/thinkgeo-offline-maps/SKILL.md) | Air-gapped and disconnected deployments: local basemaps, tile caches, packaging. |
+| [`thinkgeo-blazor`](skills/thinkgeo-blazor/SKILL.md) | Blazor map pages: Blazor Server vs WebAssembly, the MapView component, overlays and RedrawAsync, clicks, markers, popups, editing, vector tiles. |
+| [`thinkgeo-maui`](skills/thinkgeo-maui/SKILL.md) | .NET MAUI map apps: differences from desktop, licensing on phones, shipping data files, taps, GPS, rotation, offline. |
+| [`thinkgeo-web-api`](skills/thinkgeo-web-api/SKILL.md) | ASP.NET Core map tile services with ThinkGeo WebAPI and Leaflet or OpenLayers: the tile endpoint, tile sizes, projections, labels at tile edges, hosting paths, concurrency, Linux. |
+| [`thinkgeo-cloud-maps`](skills/thinkgeo-cloud-maps/SKILL.md) | ThinkGeo Cloud on any platform: basemap overlays, geocoding, routing, elevation, key types, coordinate systems, quotas. |
 
 ## Design principle
 
