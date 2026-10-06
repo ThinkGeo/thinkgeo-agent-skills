@@ -44,6 +44,8 @@ From ThinkGeo's license matrix on the Licensing page:
 
 ## MAUI
 
+For building MAUI map apps (data files, taps, GPS), see the `thinkgeo-maui` skill.
+
 ### Android, iOS, and Mac Catalyst need a license file even to debug
 
 Because of Visual Studio restrictions, Android, iOS, and Mac Catalyst apps need a license file to run at all, including in an emulator or simulator under the debugger.   A developer license alone isn't enough on these targets.   This is the most common MAUI licensing surprise.

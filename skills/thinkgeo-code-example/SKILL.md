@@ -7,7 +7,7 @@ Use this workflow whenever the requested output contains ThinkGeo implementation
 
 For WPF and WinForms, also load the platform knowledge skills: `thinkgeo-desktop-maps` (setup order, projections, styling, refresh rules, starter projects), `thinkgeo-desktop-interaction` (identify, query, draw, edit), and `thinkgeo-offline-maps` (no-internet deployments).   Those skills hold the patterns; this skill holds the verification workflow.   Follow both.
 
-1. Determine the target platform and project shape before writing code: WPF, WinForms, Blazor, WebAPI, MAUI, or headless Core.   For WebAPI tile services, also follow the `thinkgeo-web-api` skill; for Blazor pages, the `thinkgeo-blazor` skill.   Respect an explicitly requested .NET or ThinkGeo version.
+1. Determine the target platform and project shape before writing code: WPF, WinForms, Blazor, WebAPI, MAUI, or headless Core.   For WebAPI tile services, also follow the `thinkgeo-web-api` skill; for Blazor pages, the `thinkgeo-blazor` skill; for MAUI apps, the `thinkgeo-maui` skill.   Respect an explicitly requested .NET or ThinkGeo version.
 2. Search the matching official HowDoI namespace (or `tg_find_sample`) for the closest working implementation first.   Prefer an exact sample over a developer guide's prose, and over synthesizing an API pattern from memory.   Check that types the sample uses aren't helper classes declared in the sample itself.
 3. Search the `docs` namespace for the quick start, package guidance, API reference, and relevant changelog entries, and for a developer guide when the sample doesn't explain why.
 4. Retrieve the relevant source with `tg_get`, including the project file when package names, target frameworks, runtime assets, or platform settings matter.

@@ -141,6 +141,21 @@ Expected skill behavior:
 - Activates `thinkgeo-blazor` (or `thinkgeo-architecture`).
 - Says `LayerOverlay` layers aren't supported in WebAssembly; recommends Blazor Server; explains client-drawn overlays are the WebAssembly option.
 
+## 18. MAUI map page
+Prompt: "In my .NET MAUI app (Android and iOS), show a parcel shapefile that ships inside the app (`Parcels.shp` and its sidecar files, State Plane EPSG:2276) over a ThinkGeo Cloud basemap.   When the user taps a parcel, highlight it."
+
+Expected skill behavior:
+- Activates `thinkgeo-maui`.
+- Copies embedded data to `AppDataDirectory`; `ThinkGeoVectorOverlay`; `ProjectionConverter(2276, 3857)`; init once after layout.
+- `SingleTap` + `ToWorldCoordinate`; refreshes the highlight overlay; mentions the license file for Android/iOS.
+
+## 19. MAUI data works on Windows, not Android
+Prompt: "My ThinkGeo MAUI app shows our shapefile fine on Windows, but on Android the layer never appears.   I put the .shp, .shx and .dbf in Resources\Raw as MauiAsset and open the layer with `new ShapeFileFeatureLayer("Parcels.shp")`.   What's wrong?"
+
+Expected skill behavior:
+- Activates `thinkgeo-maui` or `thinkgeo-troubleshoot`.
+- Explains non-seekable asset streams and relative paths on Android; copies all sidecar files to `AppDataDirectory`.
+
 ## Scoring rubric (0 or 1 each)
 1. Correct skill activates.
 2. Correct namespaces searched.

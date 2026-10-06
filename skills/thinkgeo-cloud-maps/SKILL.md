@@ -38,7 +38,7 @@ Rules for keys:
 | MAUI | `ThinkGeoVectorOverlay` | `ThinkGeoRasterOverlay` | `ClientId`, `ClientSecret` |
 | Blazor | `ThinkGeoCloudVectorMapsOverlay` (component) | `ThinkGeoCloudRasterMapsOverlay` (component) | `ApiKey` |
 
-Note the different MAUI class names.   All Cloud basemaps are Spherical Mercator, so set the map unit to `GeographyUnit.Meter`.
+Note the different MAUI class names (the `thinkgeo-maui` skill lists the other MAUI differences).   All Cloud basemaps are Spherical Mercator, so set the map unit to `GeographyUnit.Meter`.
 
 ```csharp
 // WPF / WinForms

@@ -3,6 +3,8 @@
 ## Unreleased
 
 Added:
+- New skill `thinkgeo-maui`: .NET MAUI map apps with `ThinkGeo.UI.Maui`.   A table of differences from desktop (`ThinkGeoVectorOverlay`, `MapScale`, `SingleTap` with `ToWorldCoordinate`, `AppDataDirectory`, rotation and tilt), licensing on phones, shipping data files (embedded resources copied to `AppDataDirectory`, because Android asset streams aren't seekable), tap tolerance, GPS with projection conversion, refreshing one overlay, Cloud keys, offline, and troubleshooting.   The example page builds for Windows against 14.5.5.
+- `evals/`: cases 18 (MAUI map page) and 19 (MAUI data works on Windows, not Android).
 - New skill `thinkgeo-blazor`: Blazor map pages with `ThinkGeo.UI.Blazor`.   Covers hosting (Blazor Server for ThinkGeo layers; WebAssembly and Hybrid only for client-drawn overlays such as `VectorTileOverlay`, per ThinkGeo support), interactive server rendering in .NET 8+ Blazor Web Apps, automatic client assets, the `MapView` settings blocks, `RedrawAsync` after data changes, click coordinates, markers, popups, `EditOverlay`, vector tiles, and navigation.   The example page builds with 0 warnings in a .NET 8 Blazor Web App on 14.5.5.
 - `evals/`: cases 16 (Blazor map page) and 17 (Blazor WebAssembly with own data).
 
