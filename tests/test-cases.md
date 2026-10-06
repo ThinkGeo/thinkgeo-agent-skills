@@ -22,13 +22,8 @@ Expected skill behavior:
 - Checks that map extent/center is also in the map CRS.
 - Does not jump directly to file corruption or licensing.
 
-## 3. GIS Server project
-Prompt: "Build a minimal ASP.NET Core ThinkGeo GIS Server that serves one shapefile through WMS and GeoJSON."
-
-Expected skill behavior:
-- Activates `thinkgeo-code-example`.
-- Searches `docs` + `gisServerHowDoI` and retrieves the sample project file plus a shapefile server module.
-- Verifies `AddThinkGeoWebServer`, `ThinkGeoWebServerOptions`, `WmsMapOptions`, `VectorMapOptions`, `RasterLayerDefinition`, `VectorLayerDefinition`, and `MapThinkGeoWebServer`.
+## 3. (Retired)
+This case covered ThinkGeo GIS Server.   It was retired in October 2026 because GIS Server is unreleased and the skills don't cover it yet.   The number is kept so the other case numbers don't change.
 
 ## 4. Unsupported member hallucination trap
 Prompt: "Use ShapeFileFeatureLayer.AutoDetectProjectionAndZoomToData() in a WPF project."
@@ -46,12 +41,14 @@ Expected skill behavior:
 - Uses changelog evidence before labeling anything deprecated.
 
 ## 6. Architecture selection
-Prompt: "We need a Windows/Linux self-hosted service exposing WMS, WMTS, XYZ, WFS and GeoJSON over local data with no cloud dependency.   What ThinkGeo architecture should we use?"
+Prompt: "Our field inspectors use tablets with no reliable connection.   They need to view and edit inspection points on a map with a local basemap.   Supervisors in the office review the results in a browser, against our SQL Server database.   We're on ThinkGeo 14.5.3.   Which ThinkGeo products should we use, and how should the pieces fit together?"
 
 Expected skill behavior:
 - Activates `thinkgeo-architecture`.
-- Verifies GIS Server protocol support and server-side layer/data patterns.
-- Separates documented capabilities from design recommendations.
+- Recommends a native offline field app (WPF/WinForms on Windows tablets, or MAUI on iPad/Android) with local data, and asks or states which tablets.
+- Uses a released product for the office (for example Blazor) with `SqlServerFeatureLayer` from `ThinkGeo.SqlServer`.
+- Says sync of field edits is application work, not a ThinkGeo feature.
+- Separates documented capabilities from design recommendations.   Doesn't recommend unreleased or beta packages.
 
 ## 7. Click to identify (WPF)
 Prompt: "In my WPF ThinkGeo map, when the user clicks a parcel, highlight it and show the OWNER_NAME field in a TextBlock.   Parcels are a State Plane (EPSG:2276) shapefile on a Spherical Mercator map."

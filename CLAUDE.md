@@ -24,12 +24,13 @@ The ThinkGeo Documentation MCP server (`https://ai.thinkgeo.com/mcp`, tools `tg_
   2. Add `tg_list_skills` and `tg_get_skill(name)` tools that return a skill's `SKILL.md` and reference files.
   3. Add one sentence to the server instructions: the skills exist, how to install them, and that `tg_get_skill` is available otherwise.
   4. Optional: expose each skill as an MCP prompt for tools that show prompts as slash commands.
+- **GIS Server is out of scope until it's released.** Its API is expected to change, so the skills, evals, and test projects don't cover it (removed October 2026; the old test project and eval are in git history).
 - **Not doing now:** NuGet packaging or a separate download page.   Too much release overhead for an occasionally maintained project.
 
 ## Rules for editing skills
 
 - **Verify every ThinkGeo API name with `tg_api` before adding it, even if an official sample uses it.** Samples can be stale (see the documentation issues below).   Many extension-package classes (`ThinkGeo.Gdal`, `ThinkGeo.SqlServer`, and so on) aren't in the API reference, so `tg_api` can't confirm them.   Check those types against the package DLL instead.
-- **Keep every ThinkGeo package on one version.** The current release is 14.5.3 (October 2026).   Don't use beta packages unless the product only ships as beta (GIS Server currently does).
+- **Keep every ThinkGeo package on one version.** The current release is 14.5.3 (October 2026).   Don't use beta packages.
 - **Use placeholder credentials only** (`YOUR_CLIENT_ID`, `YOUR_CLIENT_SECRET`).   The ThinkGeo Cloud test keys in the quick-start docs must not appear here.
 - **Never add content that bypasses, patches, or fakes ThinkGeo licensing.**
 - **Keep each `SKILL.md` under ~500 lines.** Move detail into `references/`.
@@ -48,7 +49,6 @@ claude plugin validate .                     # Claude Code plugin/marketplace ch
 git clone https://gitlab.com/thinkgeo/public/thinkgeo-desktop-maps.git ..\thinkgeo-desktop-maps
 .\tests\projects\get-test-data.ps1 -SamplesRepo ..\thinkgeo-desktop-maps
 dotnet build tests\projects\WpfShapefileSample
-dotnet build tests\projects\GisServerShapefileSample
 dotnet build skills\thinkgeo-desktop-maps\assets\wpf-starter
 dotnet build skills\thinkgeo-desktop-maps\assets\winforms-starter
 ```
@@ -71,7 +71,7 @@ When the validator flags a forbidden API call, fix the code.   Only add an excep
 3. Run the A/B evaluation in `EVALUATION.md`: MCP only, MCP plus workflow skills, MCP plus all skills.   Cases are in `tests/test-cases.md`; score each with the 15-point rubric there.
 4. Make the MCP server changes listed above (separate repo).
 5. Announce: link the repo from the desktop quick starts and the HowDoI READMEs, write a blog post, and pair it with the MCP server announcement.
-6. Later: knowledge skills for Blazor, MAUI, and GIS Server, built the same way as the desktop ones.
+6. Later: knowledge skills for Blazor and MAUI, built the same way as the desktop ones; GIS Server once it's released.
 
 ## Documentation issues found in ThinkGeo's own docs
 

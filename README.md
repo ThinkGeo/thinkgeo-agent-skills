@@ -60,7 +60,7 @@ thinkgeo-agent-skills/
   skills/                eight skills (see above)
   tests/
     test-cases.md        11 A/B evaluation prompts and a 15-point rubric
-    projects/            WPF and GIS Server test projects, get-test-data.ps1
+    projects/            WPF test project, get-test-data.ps1
   scripts/
     validate_package.py  structural and static checks
   EVALUATION.md

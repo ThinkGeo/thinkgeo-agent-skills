@@ -35,6 +35,8 @@ All 11 cases in `tests/test-cases.md` are now in `evals/` (tag `full`; the three
 
 Grader check, October 2, 2026 (skills arm, one run each, the 8 new cases): 7 of 8 scored 1.00 on the first run and every case loaded the expected skill.   The GIS Server project built with 0 warnings.   The code-review case missed that `TileType.MultipleTiles` doesn't exist (it called it the default).   Cause: `tg_api` returns enums with an empty member list, so the value looked fine.   After adding a known-stale-names table and an enum-checking step to `thinkgeo-code-review`, the rerun scored 1.00.
 
+Later in October 2026, case 3 (GIS Server) was retired and case 6 was rewritten around released products, because GIS Server is unreleased and was removed from the skills.   The suite now has 10 cases.
+
 To run the whole suite: replace `--tag pilot` in the command above with `--tag full`.   The full A/B (11 cases, 2 runs, both arms) has not been run yet.
 
 ## v0.2 status

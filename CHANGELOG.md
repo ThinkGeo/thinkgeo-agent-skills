@@ -7,6 +7,7 @@ Fixed:
 
 Changed:
 - Removed GIS Server from the skills (platform lists, `gisServerHowDoI` namespace, the `ThinkGeo.GisServer` package row) while the product is unreleased and its API is expected to change.
+- Evals and tests: retired the GIS Server eval (case 3) and the GIS Server test project; rewrote case 6 (architecture) around released products, an offline field app plus office review.
 
 Added:
 - `thinkgeo-code-example/references/licensing.md`: licensing by platform, starting with MAUI (license files for Android, iOS, and Mac Catalyst loaded with `LicenseLoader.LoadLicense`, required even to debug; MAUI on Windows; symptoms).   Linked from the troubleshoot, docs-research, and desktop skills.

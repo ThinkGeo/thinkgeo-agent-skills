@@ -1,5 +1,5 @@
 # Copies the Countries02 test shapefile from a local clone of ThinkGeo's desktop samples
-# into both test projects.
+# into the WPF test project.
 #
 #   git clone https://gitlab.com/thinkgeo/public/thinkgeo-desktop-maps.git
 #   ./get-test-data.ps1 -SamplesRepo ..\..\..\thinkgeo-desktop-maps
@@ -16,8 +16,7 @@ if (-not (Test-Path (Join-Path $source "Countries02.shp"))) {
 }
 
 $targets = @(
-    (Join-Path $PSScriptRoot "WpfShapefileSample/Data"),
-    (Join-Path $PSScriptRoot "GisServerShapefileSample/App_Data/Shapefile")
+    (Join-Path $PSScriptRoot "WpfShapefileSample/Data")
 )
 
 foreach ($target in $targets) {
