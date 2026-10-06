@@ -49,10 +49,11 @@ Subclasses can override `DrawExceptionCore(GeoCanvas canvas, Exception e)` to dr
 | --- | --- | --- |
 | Exception on first run: licenses not installed | No dev license on this machine | Install ThinkGeo Product Center, sign in, start an evaluation or activate the product |
 | Blank white map, "Not Licensed for Run Time" (deployed machine) | Runtime license missing, not beside the exe, or generated for a different exe name | Regenerate with Product Center's Runtime License tab for the current exe and ship it beside the exe |
-| "Your subscription license has expired" | Evaluation or subscription ended | Renew, then regenerate the runtime license |
-| "N days left" watermark | Evaluation license | Activate a purchased license |
+| Blank map, "Not Licensed for Map Development" (while debugging) | This machine has only a runtime license, no dev license.   Typical for a teammate who works on other parts of the app | Install a dev license on that machine, or run without the debugger |
+| "Your subscription license has expired" exception while debugging | Evaluation or developer subscription ended | Renew the subscription.   Deployed apps with a runtime license keep working, since runtime licenses don't expire |
+| "N days left" watermark | Evaluation license | Activate a purchased license, then regenerate the runtime license |
 
-Point users to ThinkGeo support for license account issues.   Never suggest ways to bypass licensing.
+Product Center itself acting up (activation fails, wrong license state), or a dev license that needs to move to another machine or developer: see "Managing developer licenses" in `thinkgeo-code-example/references/licensing.md`.   Point users to ThinkGeo support for account issues.   Never suggest ways to bypass licensing.
 
 ## Symptom: map doesn't update after I change data
 

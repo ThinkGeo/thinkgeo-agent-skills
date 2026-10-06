@@ -1,6 +1,6 @@
 # ThinkGeo Licensing by Platform
 
-Sources: Licensing page, Desktop and Web Deployment Guides, and MAUI License Guide (docs.thinkgeo.com); the MAUI HowDoI `App.xaml.cs`.
+Sources: Licensing page, Product Center page, Desktop and Web Deployment Guides, and MAUI License Guide (docs.thinkgeo.com); the MAUI HowDoI `App.xaml.cs`.
 
 Every platform needs a **developer license** on each developer's machine, installed with ThinkGeo Product Center.   Deployed apps and QA builds that run without a debugger need a **runtime license** file generated in Product Center.   Never write code that bypasses, patches, or fakes license checks; send account problems to ThinkGeo support.
 
@@ -25,7 +25,7 @@ Licensing works like the desktop: the same Product Center tab ("WPF/WinForms/Bla
 
 **A server must have a runtime license, not just a developer license.** Unlike WPF and WinForms, a web app running on a machine with only a developer license shows a "subscription license has expired" watermark once the developer subscription ends.   Runtime licenses don't expire.   So a staging or production server that happens to have Product Center installed still needs the runtime license file.
 
-**Linux and containers:** the current Deployment Guide covers only the Windows `.exe` case.   The Docker steps in the WebAPI Quick Start publish with `UseAppHost=false`, which produces no executable to browse to.   Don't invent a procedure (and don't use the Product Center CLI steps from the legacy v13 docs as if they applied to v14); have the user confirm the supported approach with ThinkGeo support.
+**Linux and containers:** the current Deployment Guide covers only the Windows `.exe` case.   The Docker steps in the WebAPI Quick Start publish with `UseAppHost=false`, which produces no executable to browse to.   A command-line Product Center for Linux and macOS exists (see "Managing developer licenses" below), but no current guide explains how to license a container.   Don't invent a procedure; have the user confirm the supported approach with ThinkGeo support.
 
 ### What Blazor and WebAPI users see
 
@@ -86,3 +86,25 @@ From ThinkGeo's license matrix on the Licensing page, confirmed by ThinkGeo (Oct
 | Blank map with "Not licensed for Runtime" watermark | Windows | Runtime license missing, not copied to output, or generated for a different executable name | Regenerate for the exact executable name (no `.exe`), set Copy if newer |
 
 If the file is loaded and the watermark persists, check that the package name or bundle identifier in the built app matches the one the license was generated for.
+
+## Managing developer licenses
+
+From the Product Center page on docs.thinkgeo.com.
+
+| Task | How |
+| --- | --- |
+| Buy a license | Credit card: "Activate License" in Product Center, or the pricing page.   Purchase order or wire transfer: sales@thinkgeo.com |
+| Move a dev license to a new machine or another developer | In Product Center, select the product and click "Deactivate License".   Then sign in to Product Center on the new machine (or as the other user) and activate it there |
+| Product Center misbehaving after starting or stopping evaluations, or activating and deactivating licenses | Reset it (below).   Resetting doesn't affect licenses or the account |
+| Work on Linux or macOS | Download the command-line Product Center from the Helpdesk.   It does the same things as the Windows version; the current Product Center page links to a command reference in the legacy deployment docs |
+| Older Product Center for an older ThinkGeo version | "Legacy Downloads" on the Helpdesk main page |
+
+Runtime licenses are free and perpetual, so deactivating or moving a dev license doesn't affect apps already deployed with a runtime license.
+
+### Resetting Product Center
+
+1. Open Product Center.
+2. If you have a purchased license, select each product marked "Activated" and click "Deactivate License".   (Evaluators skip this step.)
+3. Click "Log Out" (upper right) and close Product Center.
+4. Delete the folder `C:\ProgramData\ThinkGeo\Map Suite xx.x`, where `xx.x` is the version folder present on the machine.
+5. Open Product Center, sign in, and reactivate your purchases or evaluations.

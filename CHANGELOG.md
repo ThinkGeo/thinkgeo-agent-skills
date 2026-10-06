@@ -12,6 +12,8 @@ Changed:
 Added:
 - `thinkgeo-code-example/references/licensing.md`: licensing by platform, starting with MAUI (license files for Android, iOS, and Mac Catalyst loaded with `LicenseLoader.LoadLicense`, required even to debug; MAUI on Windows; symptoms).   Linked from the troubleshoot, docs-research, and desktop skills.
 - `licensing.md`: Blazor and WebAPI (same Product Center tab as desktop; servers need a runtime license because a web app on an expired developer license shows a watermark; symptom table).   Linux and container licensing isn't in the current docs, so the skill sends users to ThinkGeo support for now.
+- `licensing.md`: managing developer licenses (buying, moving a license to another machine or developer, the command-line Product Center for Linux and macOS, legacy downloads) and the Product Center reset procedure.
+- Desktop license symptoms: added "Not Licensed for Map Development" (debugging with only a runtime license); the expired-subscription row no longer says to regenerate the runtime license, since runtime licenses don't expire.
 - `evals/`: the other eight test cases (2-8 and 10), so all 11 run with `--tag full`.
 - `validate_package.py`: exempts `evals/code-review/prompt.md`, which contains wrong calls on purpose.
 
