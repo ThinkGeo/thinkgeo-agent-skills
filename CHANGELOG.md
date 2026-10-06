@@ -5,6 +5,9 @@
 Fixed:
 - `thinkgeo-code-review`: a review missed `TileType.MultipleTiles` because `tg_api` shows enums without their values.   The skill now says to read the enum's page with `tg_get`, lists the names that don't exist in 14.5.3 (with replacements), and checks for the desktop UI using.
 
+Changed:
+- Removed GIS Server from the skills (platform lists, `gisServerHowDoI` namespace, the `ThinkGeo.GisServer` package row) while the product is unreleased and its API is expected to change.
+
 Added:
 - `thinkgeo-code-example/references/licensing.md`: licensing by platform, starting with MAUI (license files for Android, iOS, and Mac Catalyst loaded with `LicenseLoader.LoadLicense`, required even to debug; MAUI on Windows; symptoms).   Linked from the troubleshoot, docs-research, and desktop skills.
 - `licensing.md`: Blazor and WebAPI (same Product Center tab as desktop; servers need a runtime license because a web app on an expired developer license shows a watermark; symptom table).   Linux and container licensing isn't in the current docs, so the skill sends users to ThinkGeo support for now.

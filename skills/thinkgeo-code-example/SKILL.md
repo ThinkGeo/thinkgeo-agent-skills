@@ -1,13 +1,13 @@
 ---
 name: thinkgeo-code-example
-description: Create or modify working ThinkGeo .NET/C# implementation code and small projects using verified current ThinkGeo documentation and official HowDoI samples. Use whenever the user wants ThinkGeo code written or changed — building a map feature, generating a sample or starter project, adding layers, basemaps, styling, queries, or services, or any C# that should compile against ThinkGeo packages (ThinkGeo.Core, ThinkGeo.UI.Wpf, ThinkGeo.UI.WinForms, ThinkGeo.UI.Blazor, ThinkGeo.UI.Maui, ThinkGeo.GisServer), even if the user doesn't name ThinkGeo but the project already references it.   Also use it to set up ThinkGeo licensing in a project: developer and runtime licenses, Product Center, and MAUI license files with LicenseLoader.
+description: Create or modify working ThinkGeo .NET/C# implementation code and small projects using verified current ThinkGeo documentation and official HowDoI samples. Use whenever the user wants ThinkGeo code written or changed — building a map feature, generating a sample or starter project, adding layers, basemaps, styling, queries, or services, or any C# that should compile against ThinkGeo packages (ThinkGeo.Core, ThinkGeo.UI.Wpf, ThinkGeo.UI.WinForms, ThinkGeo.UI.Blazor, ThinkGeo.UI.Maui), even if the user doesn't name ThinkGeo but the project already references it.   Also use it to set up ThinkGeo licensing in a project: developer and runtime licenses, Product Center, and MAUI license files with LicenseLoader.
 ---
 
 Use this workflow whenever the requested output contains ThinkGeo implementation code.
 
 For WPF and WinForms, also load the platform knowledge skills: `thinkgeo-desktop-maps` (setup order, projections, styling, refresh rules, starter projects), `thinkgeo-desktop-interaction` (identify, query, draw, edit), and `thinkgeo-offline-maps` (no-internet deployments).   Those skills hold the patterns; this skill holds the verification workflow.   Follow both.
 
-1. Determine the target platform and project shape before writing code: WPF, WinForms, Blazor, MAUI, GIS Server, or headless Core.   Respect an explicitly requested .NET or ThinkGeo version.
+1. Determine the target platform and project shape before writing code: WPF, WinForms, Blazor, MAUI, or headless Core.   Respect an explicitly requested .NET or ThinkGeo version.
 2. Search the matching official HowDoI namespace (or `tg_find_sample`) for the closest working implementation first.   Prefer an exact sample over a developer guide's prose, and over synthesizing an API pattern from memory.   Check that types the sample uses aren't helper classes declared in the sample itself.
 3. Search the `docs` namespace for the quick start, package guidance, API reference, and relevant changelog entries, and for a developer guide when the sample doesn't explain why.
 4. Retrieve the relevant source with `tg_get`, including the project file when package names, target frameworks, runtime assets, or platform settings matter.

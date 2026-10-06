@@ -6,7 +6,7 @@ description: Design a ThinkGeo application architecture and select appropriate T
 Ground architecture guidance in current ThinkGeo capabilities rather than generic GIS assumptions.
 
 1. Extract requirements that materially affect architecture: desktop/web/mobile/server, operating systems, online/offline or air-gapped use, data formats, expected data volume, editing/querying, raster/vector/3D, rendering location, OGC/XYZ/MVT requirements, database use, deployment model, and security constraints.
-2. Search `docs` for the ThinkGeo architecture guide, current product quick starts, relevant data-format guides, GIS Server guidance, and product-specific limitations.
+2. Search `docs` for the ThinkGeo architecture guide, current product quick starts, relevant data-format guides, and product-specific limitations.
 3. Search official HowDoI samples when a proposed architecture depends on a concrete pattern rather than a documented feature list.
 4. Build the design around ThinkGeo's shared Core GIS model and the appropriate platform UI/server package.   Do not introduce a product merely because it exists.
 5. Explicitly address:

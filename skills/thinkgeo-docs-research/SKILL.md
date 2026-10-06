@@ -5,7 +5,7 @@ description: Research and answer factual questions about current ThinkGeo APIs, 
 
 Use the ThinkGeo Documentation MCP server as the source of truth for ThinkGeo-specific facts.   It holds the API reference, the developer guides, the HowDoI sample code, and community and blog posts.   These are not equally reliable for every kind of question; step 6 says which one wins.
 
-1. Identify the relevant ThinkGeo product or platform from the request: WPF, WinForms, Blazor, MAUI, GIS Server, Core, Cloud, or cross-platform.   If the platform is not material, search the primary `docs` namespace first.
+1. Identify the relevant ThinkGeo product or platform from the request: WPF, WinForms, Blazor, MAUI, Core, Cloud, or cross-platform.   If the platform is not material, search the primary `docs` namespace first.
 2. When namespace availability is unknown, call `tg_index_stats` once.   Do not repeatedly call it in the same task.
 3. Pick namespaces by the kind of question:
    - **"How do I…" or "how does X behave":** search the matching HowDoI namespace and `docs` together (or use `tg_find_sample`).   Working sample code usually answers these better than prose.
@@ -17,7 +17,6 @@ Use the ThinkGeo Documentation MCP server as the source of truth for ThinkGeo-sp
    - WinForms: `winformHowDoI`
    - Blazor: `blazorHowDoI`
    - MAUI: `mauiHowDoI`
-   - GIS Server: `gisServerHowDoI`
 4. Start with a focused `tg_search`.   If an AND-style query is too sparse, retry with `requireAll: false` rather than guessing.
 5. Use `tg_get` on the best hits.   Fetch only the relevant line range when possible; fetch the whole file when surrounding code or project context is required.
 6. Decide which source wins by the kind of claim:

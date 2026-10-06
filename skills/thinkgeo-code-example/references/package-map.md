@@ -2,7 +2,7 @@
 
 Which NuGet package a ThinkGeo type comes from.   A missing extension package is a common reason generated code fails to build.
 
-Evidence: every row below was checked against the public types in the 14.5.3 package DLLs (October 2026).   The current WPF and WinForms HowDoI project files reference the same seven extension packages alongside the UI package.   Note that extension types still use the `ThinkGeo.Core` namespace, so the namespace doesn't tell you which package a type needs.   For a type not listed here, check the HowDoI project file with `tg_get` (`wpfHowDoI:HowDoI.csproj`, `winformHowDoI:HowDoI.csproj`, `gisServerHowDoI:ThinkGeo.GisServer.Samples.csproj`) and the sample that uses the type.
+Evidence: every row below was checked against the public types in the 14.5.3 package DLLs (October 2026).   The current WPF and WinForms HowDoI project files reference the same seven extension packages alongside the UI package.   Note that extension types still use the `ThinkGeo.Core` namespace, so the namespace doesn't tell you which package a type needs.   For a type not listed here, check the HowDoI project file with `tg_get` (`wpfHowDoI:HowDoI.csproj`, `winformHowDoI:HowDoI.csproj`) and the sample that uses the type.
 
 Some HowDoI samples define their own helper classes (for example `XyzFileTilesAsyncLayer`, `DynamicPointStyle`, `FleeBooleanStyle`, `TimeBasedPointStyle`).   These aren't in any package.   If generated code uses one, copy the class from the sample or write it.
 
@@ -14,7 +14,6 @@ Some HowDoI samples define their own helper classes (for example `XyzFileTilesAs
 | `ThinkGeo.UI.WinForms` | WinForms `MapView`, overlays.   Needs `<UseWPF>true</UseWPF>`. |
 | `ThinkGeo.UI.Blazor` | Blazor `MapView` component |
 | `ThinkGeo.UI.Maui` | .NET MAUI `MapView` |
-| `ThinkGeo.GisServer` | ASP.NET Core OGC/XYZ/GeoJSON service host.   The official sample currently references a beta build; check before pinning. |
 | `ThinkGeo.Core` | Engine only, for headless tools and services |
 
 ## Covered by ThinkGeo.Core (no extension package)
