@@ -1,0 +1,20 @@
+{
+  "name": "thinkgeo",
+  "interface": {
+    "displayName": "ThinkGeo"
+  },
+  "plugins": [
+    {
+      "name": "thinkgeo-developer",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}

@@ -17,7 +17,8 @@ warnings: list[str] = []
 
 # ---------------------------------------------------------------- manifests
 for rel in ("plugin.json", "mcp.json", ".mcp.json",
-            ".claude-plugin/plugin.json", ".claude-plugin/marketplace.json"):
+            ".claude-plugin/plugin.json", ".claude-plugin/marketplace.json",
+            ".agents/plugins/marketplace.json"):
     p = ROOT / rel
     if not p.exists():
         errors.append(f"missing {rel}")
@@ -92,7 +93,11 @@ for p in skill_files:
             errors.append(f"{folder}: references missing file {ref}")
 
 # Cross-skill references must point at skills that exist.
-all_md = list((ROOT / "skills").rglob("*.md")) + [ROOT / "README.md"]
+all_md = list((ROOT / "skills").rglob("*.md")) + [ROOT / "README.md", ROOT / "AGENTS.md"]
+agents_md = (ROOT / "AGENTS.md").read_text(encoding="utf-8") if (ROOT / "AGENTS.md").exists() else ""
+for name in names:
+    if f"`{name}`" not in agents_md:
+        errors.append(f"AGENTS.md: skill `{name}` missing from the skills table")
 for md in all_md:
     for ref in set(re.findall(r"`(thinkgeo-[a-z0-9-]+)`", md.read_text(encoding="utf-8"))):
         if ref not in names:

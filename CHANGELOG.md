@@ -3,6 +3,8 @@
 ## Unreleased
 
 Added:
+- `AGENTS.md`: a condensed version of the skills (key rules, names that don't exist, platform notes, and the skill list) for assistants that read `AGENTS.md` but not Agent Skills.   Users copy it into their project root.
+- Codex plugin install: `.agents/plugins/marketplace.json` makes the repo a Codex plugin marketplace (`codex plugin marketplace add ThinkGeo/thinkgeo-agent-skills`), and `plugin.json` gains Codex display metadata (`extensions.com.openai.interface`) and a `repository` link.   Tested with Codex CLI 0.160.1: the plugin installs, all 12 skills load, and the MCP server registers.
 - MIT license (`LICENSE`, and `"license": "MIT"` in both plugin manifests).
 - README: install with `npx skills add ThinkGeo/thinkgeo-agent-skills` for Cursor, GitHub Copilot, Codex, Claude Code, and other assistants (tested: all twelve skills install with their reference files and starters), plus how to connect the MCP server, which that route doesn't install.
 - `EVALUATION.md`: full A/B/C evaluation (no MCP, MCP only, MCP + skills; 18 cases, 2 runs each).   Average score 0.76 / 0.92 / 0.99; generated projects that build 2 / 6 / 10 out of 10.

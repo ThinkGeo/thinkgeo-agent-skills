@@ -61,7 +61,16 @@ claude mcp add --transport http thinkgeo-docs https://ai.thinkgeo.com/mcp
 
 **Manual copy:** copy the folders under `skills/` into your assistant's skills folder (for Claude Code, `.claude/skills/` in your project or `~/.claude/skills/`), and add the MCP server as above.
 
-**ChatGPT / Codex plugin layout:** the root `plugin.json`, `mcp.json`, and each skill's `agents/openai.yaml` follow the portable Agent Plugins layout.
+**Codex (plugin):** the plugin includes the skills and the MCP server.
+
+```
+codex plugin marketplace add ThinkGeo/thinkgeo-agent-skills
+codex plugin add thinkgeo-developer@thinkgeo
+```
+
+Or run `/plugins` inside Codex and install ThinkGeo Developer from the ThinkGeo marketplace.   The root `plugin.json`, `mcp.json`, `.agents/plugins/marketplace.json`, and each skill's `agents/openai.yaml` follow the portable Agent Plugins layout that Codex and ChatGPT use.
+
+**Assistants that read `AGENTS.md` but not skills:** copy [AGENTS.md](AGENTS.md) into your project root (or append it to your existing one), and add the MCP server.   It's a condensed version of the skills: the key rules, names that don't exist, platform notes, and the skill list.
 
 ## Package layout
 
@@ -70,9 +79,12 @@ thinkgeo-agent-skills/
   .claude-plugin/
     plugin.json          Claude Code plugin manifest
     marketplace.json     lets this repo act as a Claude Code plugin catalog
+  .agents/plugins/
+    marketplace.json     lets this repo act as a Codex plugin marketplace
   .mcp.json              Claude Code MCP configuration
-  plugin.json            portable Agent Plugins manifest
+  plugin.json            portable Agent Plugins manifest (Codex, ChatGPT)
   mcp.json               portable MCP configuration
+  AGENTS.md              condensed rules for AGENTS.md-based assistants
   skills/                twelve skills (see above)
   tests/
     test-cases.md        11 A/B evaluation prompts and a 15-point rubric

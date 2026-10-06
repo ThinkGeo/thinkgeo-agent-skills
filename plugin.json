@@ -9,6 +9,7 @@
   },
   "license": "MIT",
   "homepage": "https://docs.thinkgeo.com",
+  "repository": "https://github.com/ThinkGeo/thinkgeo-agent-skills",
   "keywords": [
     "thinkgeo",
     "gis",
@@ -20,5 +21,26 @@
     "winforms",
     "offline",
     "air-gapped"
-  ]
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "ThinkGeo Developer",
+        "shortDescription": "Build, review, and debug ThinkGeo map apps in .NET",
+        "longDescription": "Skills for ThinkGeo developers, backed by the ThinkGeo Documentation MCP server: verified code for WPF, WinForms, Blazor, MAUI, and WebAPI map apps, code review, architecture, troubleshooting, offline maps, and ThinkGeo Cloud services.",
+        "developerName": "ThinkGeo LLC",
+        "category": "Developer Tools",
+        "capabilities": [
+          "Read",
+          "Write"
+        ],
+        "websiteURL": "https://thinkgeo.com",
+        "defaultPrompt": [
+          "Add a ThinkGeo map with a shapefile layer to this WPF app.",
+          "Review this ThinkGeo code for stale or wrong API usage.",
+          "Why does my ThinkGeo map show pink tiles?"
+        ]
+      }
+    }
+  }
 }
