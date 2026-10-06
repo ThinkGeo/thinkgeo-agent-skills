@@ -1,4 +1,4 @@
-# ThinkGeo Agent Skills - v0.5
+# ThinkGeo Agent Skills - v0.6
 
 Agent Skills that help AI coding assistants build, review, and debug applications with ThinkGeo, backed by the live ThinkGeo Documentation MCP server at `https://ai.thinkgeo.com/mcp`.
 
@@ -87,7 +87,8 @@ thinkgeo-agent-skills/
   AGENTS.md              condensed rules for AGENTS.md-based assistants
   skills/                twelve skills (see above)
   tests/
-    test-cases.md        11 A/B evaluation prompts and a 15-point rubric
+    test-cases.md        evaluation prompts and a 15-point rubric
+  evals/                 automated eval cases for claude plugin eval
     projects/            WPF test project, get-test-data.ps1
   scripts/
     validate_package.py  structural and static checks

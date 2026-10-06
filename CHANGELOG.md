@@ -1,6 +1,8 @@
 # Changelog
 
-## Unreleased
+## 0.6.0
+
+More ways to install, an open-source license, and the first full evaluation.   Codex users can install the plugin (skills plus MCP server) from this repo, any assistant can install the skills with `npx skills add`, and assistants that only read `AGENTS.md` get a condensed version.
 
 Added:
 - `AGENTS.md`: a condensed version of the skills (key rules, names that don't exist, platform notes, and the skill list) for assistants that read `AGENTS.md` but not Agent Skills.   Users copy it into their project root.
