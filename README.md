@@ -1,4 +1,4 @@
-# ThinkGeo Agent Skills - v0.4
+# ThinkGeo Agent Skills - v0.5
 
 Agent Skills that help AI coding assistants build, review, and debug applications with ThinkGeo, backed by the live ThinkGeo Documentation MCP server at `https://ai.thinkgeo.com/mcp`.
 

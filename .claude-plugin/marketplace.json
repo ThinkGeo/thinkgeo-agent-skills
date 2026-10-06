@@ -11,7 +11,7 @@
       "name": "thinkgeo-developer",
       "source": "./",
       "description": "ThinkGeo developer skills: documentation-grounded workflows (research, code, review, architecture, troubleshooting) plus WPF/WinForms desktop, interaction, and offline mapping knowledge, Blazor maps, MAUI apps, WebAPI tile services, and ThinkGeo Cloud services, backed by the ThinkGeo Documentation MCP server.",
-      "version": "0.4.0"
+      "version": "0.5.0"
     }
   ]
 }
