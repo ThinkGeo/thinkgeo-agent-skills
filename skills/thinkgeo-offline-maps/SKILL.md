@@ -33,7 +33,7 @@ Clarify these before writing code, because they change the design:
 
 Vector MBTiles are usually the best default for a general-purpose street basemap.   Details and code are in `references/local-basemaps.md`.
 
-**PMTiles needs ThinkGeo 15.**   `VectorPmTilesAsyncLayer` isn't in 14.5.3; it's only in 15.0 beta builds (October 2026).   If the user has `.pmtiles` data and is on 14.5.3, get the same tileset as MBTiles (most providers, including ThinkGeo Maps Streets, offer both) rather than moving to a beta.
+**PMTiles needs ThinkGeo 15 or later.**   `VectorPmTilesAsyncLayer` isn't in any 14.x release.   If the user has `.pmtiles` data and is on 14.x, get the same tileset as MBTiles (most providers, including ThinkGeo Maps Streets, offer both) rather than moving to a beta.
 
 Sources for vector tile data include MapTiler, OpenMapTiles extracts, and Protomaps builds.   Most need a license for production use; confirm the user has one.
 

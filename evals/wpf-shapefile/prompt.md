@@ -1,5 +1,5 @@
 ---
-description: "Test case 1: minimal WPF shapefile viewer that must build against 14.5.3 with no cloud dependency."
+description: "Test case 1: minimal WPF shapefile viewer that must build against the latest stable ThinkGeo release with no cloud dependency."
 tags: [pilot, full, codegen, wpf]
 max_turns: 40
 timeout_seconds: 900

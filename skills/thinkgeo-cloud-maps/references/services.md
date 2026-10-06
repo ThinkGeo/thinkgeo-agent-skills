@@ -1,6 +1,6 @@
 # ThinkGeo Cloud Services and Their .NET Clients
 
-Sources: ThinkGeo Cloud Quickstart and service pages, Client Keys page (docs.thinkgeo.com), the ThinkGeo.Core API reference, and the WPF HowDoI "ThinkGeo Cloud Integration" samples.   Names checked against the 14.5.3 API reference.
+Sources: ThinkGeo Cloud Quickstart and service pages, Client Keys page (docs.thinkgeo.com), the ThinkGeo.Core API reference, and the WPF HowDoI "ThinkGeo Cloud Integration" samples.   Names checked against the ThinkGeo 14.5 API reference and packages.
 
 All clients live in `ThinkGeo.Core`, take a NativeConfidential key (`new XxxCloudClient(clientId, clientSecret)` or the `ClientId` and `ClientSecret` properties), and expose `TimeoutInSeconds` and `WebProxy`.   Each method below also has an `Async` version (`SearchAsync`, `GetRouteAsync`, and so on); use those from UI code.
 

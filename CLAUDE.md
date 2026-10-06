@@ -30,7 +30,7 @@ The ThinkGeo Documentation MCP server (`https://ai.thinkgeo.com/mcp`, tools `tg_
 ## Rules for editing skills
 
 - **Verify every ThinkGeo API name with `tg_api` before adding it, even if an official sample uses it.** Samples can be stale (see the documentation issues below).   Many extension-package classes (`ThinkGeo.Gdal`, `ThinkGeo.SqlServer`, and so on) aren't in the API reference, so `tg_api` can't confirm them.   Check those types against the package DLL instead.
-- **Keep every ThinkGeo package on one version.** The current release is 14.5.3 (October 2026).   Don't use beta packages.
+- **Keep every ThinkGeo package on one version, and don't name a "current" version in the skills.** ThinkGeo releases about monthly and 15.0 is coming, so skills say: latest stable from NuGet for new projects, the project's own version for existing ones, no betas.   Version-specific facts are phrased to survive releases ("needs ThinkGeo 15 or later").   The starter and test projects pin a real version (14.5.5 as of October 2026); bump them when you release.
 - **Use placeholder credentials only** (`YOUR_CLIENT_ID`, `YOUR_CLIENT_SECRET`).   The ThinkGeo Cloud test keys in the quick-start docs must not appear here.
 - **Never add content that bypasses, patches, or fakes ThinkGeo licensing.**
 - **Keep each `SKILL.md` under ~500 lines.** Move detail into `references/`.
@@ -86,6 +86,8 @@ These were found while building the skills.   Fix them in the docs repos, then r
 7. The API reference is missing classes from the extension packages (known gap, per Phil).   Through `tg_api`, none of 15 main classes checked across all seven packages (`ThinkGeo.Gdal`, `ThinkGeo.SqlServer`, `ThinkGeo.PostgreSql`, `ThinkGeo.FileGeoDatabase`, `ThinkGeo.Cad`, `ThinkGeo.NauticalCharts`, `ThinkGeo.Printers`) has an entry.   If some of these are on docs.thinkgeo.com, the MCP index is also behind the site.   Add the missing classes to the API reference so the MCP server indexes them.
 8. The API reference has no entries for the `ThinkGeo.UI.WinForms` namespace (not even `MapView` or `LayerOverlay`), so `tg_api` can't check WinForms-specific code.   The WinForms `MapView` derives from `ElementHost`, not the WPF `MapViewBase`, so the WPF pages don't fully cover it.
 9. The Cloud Maps service pages tell .NET developers to install `ThinkGeo.Cloud.Client`.   That package is the old Map Suite SDK (last release 10.6, plus 13.0 betas); in v14 the Cloud clients ship in `ThinkGeo.Core` and the Cloud overlays in the UI packages.   Point the "SDK for .NET" sections at `ThinkGeo.Core` instead.
+10. The HowDoI sample project files (desktop and web) pin 14.5.3, but 14.5.4 and 14.5.5 have shipped (latest stable 14.5.5, August 31, 2026).   Assistants that copy the version from a sample start new projects two releases behind.   Keep the samples on the latest release.
+11. Two WebAPI samples reference `ThinkGeo.Jpeg2000` and `ThinkGeo.MrSid` 14.2.1 next to 14.5.3 packages.   Those packages (and `ThinkGeo.Ecw`) stopped at 14.2.1; their layers (`Jpeg2000GdalRasterLayer`, `MrSidGdalRasterLayer`, `EcwGdalRasterLayer`) are in `ThinkGeo.Gdal`.   Switch the samples to `ThinkGeo.Gdal`; Phil believes the old packages are replaced but hasn't confirmed.
 
 ## Working with Phil
 

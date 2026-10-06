@@ -30,8 +30,8 @@ dotnet add package ThinkGeo.UI.Wpf
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <!-- Current release as of October 2026; use the same version for every ThinkGeo package -->
-    <PackageReference Include="ThinkGeo.UI.Wpf" Version="14.5.3" />
+    <!-- Use the latest stable version from nuget.org, and the same version for every ThinkGeo package -->
+    <PackageReference Include="ThinkGeo.UI.Wpf" Version="14.5.5" />
   </ItemGroup>
   <ItemGroup>
     <!-- Copy local data next to the executable -->
@@ -62,8 +62,8 @@ The WinForms control relies on WPF assemblies (`WindowsBase`, `WindowsFormsInteg
   <UseWPF>true</UseWPF>
 </PropertyGroup>
 <ItemGroup>
-  <!-- Current release as of October 2026; use the same version for every ThinkGeo package -->
-  <PackageReference Include="ThinkGeo.UI.WinForms" Version="14.5.3" />
+  <!-- Use the latest stable version from nuget.org, and the same version for every ThinkGeo package -->
+  <PackageReference Include="ThinkGeo.UI.WinForms" Version="14.5.5" />
 </ItemGroup>
 ```
 

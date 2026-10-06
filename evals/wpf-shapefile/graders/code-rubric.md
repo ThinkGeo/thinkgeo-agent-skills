@@ -5,7 +5,7 @@ focus:
   path: "ShapefileViewer/MainWindow.xaml.cs"
 ---
 
-This is the code-behind of a .NET 8 WPF ThinkGeo 14.5.3 app that should show a local polygon shapefile (`Data\Countries02.shp`, WGS84 / EPSG:4326) with no ThinkGeo Cloud dependency.
+This is the code-behind of a .NET 8 WPF ThinkGeo app that should show a local polygon shapefile (`Data\Countries02.shp`, WGS84 / EPSG:4326) with no ThinkGeo Cloud dependency.
 
 PASS only if all of these hold:
 - Map unit and data projection agree: either `MapUnit = GeographyUnit.DecimalDegree` with no conversion, or `GeographyUnit.Meter` with a `ProjectionConverter(4326, 3857)` assigned to the layer's `FeatureSource.ProjectionConverter`.

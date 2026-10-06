@@ -34,9 +34,9 @@ The Style JSON follows the MapLibre Style Spec.   For offline use:
 
 Without a Style JSON, the MBTiles (and v15 PMTiles) layers draw the data with ThinkGeo's built-in default line, area, and point styles.   A remote-source `MvtTilesAsyncLayer` with no Style JSON draws nothing, because the style is what tells it where the tiles are.
 
-## Vector tiles: PMTiles (ThinkGeo 15 only)
+## Vector tiles: PMTiles (ThinkGeo 15 and later)
 
-`VectorPmTilesAsyncLayer` is not in 14.5.3.   It first appears in the 15.0 beta builds (October 2026).   Use this only if the project already targets ThinkGeo 15; on 14.5.3, use MBTiles above.
+`VectorPmTilesAsyncLayer` isn't in any 14.x release.   Use this only if the project targets ThinkGeo 15 or later; on 14.x, use MBTiles above.
 
 ```csharp
 var basemap = new VectorPmTilesAsyncLayer(

@@ -1,8 +1,8 @@
 # WPF Shapefile Sample
 
-Status: **source-verified, not compiled in the generation environment**.
+Status: builds with `ThinkGeo.UI.Wpf` 14.5.5 (the latest stable release when last checked; update the version to the latest stable on nuget.org).
 
-This is a minimal .NET 8 WPF project using `ThinkGeo.UI.Wpf` 14.5.3.   Place an EPSG:4326 polygon shapefile named `Countries02.shp` and its sidecar files (`.shx`, `.dbf`, `.prj`; `.idx`/`.ids` if present) in `Data/`.   ThinkGeo's WPF HowDoI repository ships this file under `samples/wpf/HowDoISample/Data/Shapefile/`; run `../get-test-data.ps1` to copy it from a local clone.
+This is a minimal .NET 8 WPF project using `ThinkGeo.UI.Wpf`.   Place an EPSG:4326 polygon shapefile named `Countries02.shp` and its sidecar files (`.shx`, `.dbf`, `.prj`; `.idx`/`.ids` if present) in `Data/`.   ThinkGeo's WPF HowDoI repository ships this file under `samples/wpf/HowDoISample/Data/Shapefile/`; run `../get-test-data.ps1` to copy it from a local clone.
 
 Changes from v0.1: replaced `mapView.Refresh()` with `await mapView.RefreshAsync()` (the current API reference lists only `RefreshAsync` on the desktop `MapView`), resolved the data path from the application folder, keyed the layer and overlay, and disposed the map when the window closes.
 

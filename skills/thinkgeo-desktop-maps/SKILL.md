@@ -128,11 +128,11 @@ The HowDoI samples initialize in `SizeChanged` with an `_initialized` guard so t
 | SQLite / GeoPackage | `SqliteFeatureLayer` / `GdalFeatureLayer` | GeoPackage needs `ThinkGeo.Gdal` |
 | SQL Server / PostgreSQL | `SqlServerFeatureLayer` / `PostgreSqlFeatureLayer` | `ThinkGeo.SqlServer` / `ThinkGeo.PostgreSql`.   Filter in SQL where possible |
 | GeoTIFF, ECW, MrSID, JPEG2000 | `GeoTiffRasterLayer`, `EcwGdalRasterLayer`, `MrSidGdalRasterLayer`, `Jpeg2000GdalRasterLayer` | The `...Gdal...` layers need `ThinkGeo.Gdal` |
-| Vector tiles (MBTiles / MVT) | `VectorMbTilesAsyncLayer`, `MvtTilesAsyncLayer` | Call `await layer.OpenAsync()` before reading bounds.   PMTiles (`VectorPmTilesAsyncLayer`) needs ThinkGeo 15, not 14.5.3 |
+| Vector tiles (MBTiles / MVT) | `VectorMbTilesAsyncLayer`, `MvtTilesAsyncLayer` | Call `await layer.OpenAsync()` before reading bounds.   PMTiles (`VectorPmTilesAsyncLayer`) needs ThinkGeo 15 or later |
 | WMS / WMTS / WFS / OGC API | `WmsAsyncLayer`, `WmtsAsyncLayer`, `WfsV2AsyncLayer`, `OgcApiFeatureLayer` | |
 | KML, GPX, TAB, CAD (.dwg), File Geodatabase, S-57 | `KmlGdalFeatureLayer`, `GpxFeatureLayer`, `TabFeatureLayer`, `CadFeatureLayer`, `FileGeoDatabaseFeatureLayer`, `NauticalChartsFeatureLayer` | KML needs `ThinkGeo.Gdal`; CAD, File Geodatabase and S-57 need `ThinkGeo.Cad`, `ThinkGeo.FileGeoDatabase`, `ThinkGeo.NauticalCharts` |
 
-Use one version for every ThinkGeo package (14.5.3 is the current release as of October 2026).   The full type-to-package list is in the `thinkgeo-code-example` skill's `references/package-map.md`.   For anything else, check `references/sample-catalog.md`, which lists every WPF HowDoI sample with its key API.
+Use one version for every ThinkGeo package: the latest stable version from NuGet for new projects, or the project's existing version.   The full type-to-package list is in the `thinkgeo-code-example` skill's `references/package-map.md`.   For anything else, check `references/sample-catalog.md`, which lists every WPF HowDoI sample with its key API.
 
 ## Overlay order
 

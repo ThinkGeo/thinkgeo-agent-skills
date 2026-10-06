@@ -80,7 +80,7 @@ For the Claude Code plugin, also run `claude plugin validate .` from the reposit
 
 ## Real project testing
 
-The test projects and starter projects build against ThinkGeo 14.5.3.   On Windows with the .NET 8 SDK and NuGet access:
+The test project and starter projects build against ThinkGeo 14.5.5.   On Windows with the .NET 8 SDK and NuGet access:
 
 1. Clone https://gitlab.com/thinkgeo/public/thinkgeo-desktop-maps and run `tests/projects/get-test-data.ps1 -SamplesRepo <clone path>` to copy the test shapefile.
 2. Run `dotnet build` in each test project.
@@ -88,7 +88,7 @@ The test projects and starter projects build against ThinkGeo 14.5.3.   On Windo
 
 ## Versions
 
-Written against ThinkGeo 14.5.3 (current release as of October 2026) and the documentation as of that date.   APIs marked Legacy (v13 and earlier) are not covered.
+Written and tested against ThinkGeo 14.5 (14.5.3 and 14.5.5) and the documentation as of October 2026.   The skills tell assistants to use the latest stable ThinkGeo version from NuGet for new projects and to keep an existing project's version.   APIs marked Legacy (v13 and earlier) are not covered.
 
 ## Links
 

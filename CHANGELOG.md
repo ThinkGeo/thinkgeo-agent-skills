@@ -6,6 +6,9 @@ Fixed:
 - `thinkgeo-code-review`: a review missed `TileType.MultipleTiles` because `tg_api` shows enums without their values.   The skill now says to read the enum's page with `tg_get`, lists the names that don't exist in 14.5.3 (with replacements), and checks for the desktop UI using.
 
 Changed:
+- Versions: the skills no longer name a "current" release.   New projects use the latest stable ThinkGeo version from NuGet; existing projects keep their version unless the user asks to upgrade; never mix versions or use betas.   Version-specific facts are phrased to survive releases (for example, PMTiles "needs ThinkGeo 15 or later").   The latest stable release turned out to be 14.5.5 (August 31, 2026), not 14.5.3: the sample project files lag behind.   All DLL-based findings were re-checked on 14.5.5.
+- Starter and test projects moved to 14.5.5 (all build with 0 warnings).   Eval graders for new projects accept any stable version as long as the ThinkGeo packages match.
+- `package-map.md`: `ThinkGeo.Ecw`, `ThinkGeo.MrSid`, and `ThinkGeo.Jpeg2000` stopped at 14.2.1; use `ThinkGeo.Gdal`, which contains the same layers.
 - Removed GIS Server from the skills (platform lists, `gisServerHowDoI` namespace, the `ThinkGeo.GisServer` package row) while the product is unreleased and its API is expected to change.
 - Evals and tests: retired the GIS Server eval (case 3) and the GIS Server test project; rewrote case 6 (architecture) around released products, an offline field app plus office review.
 
