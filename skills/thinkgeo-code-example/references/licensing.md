@@ -1,12 +1,13 @@
 # ThinkGeo Licensing by Platform
 
-Sources: Licensing page, Desktop Deployment Guide, and MAUI License Guide (docs.thinkgeo.com); the MAUI HowDoI `App.xaml.cs`.
+Sources: Licensing page, Desktop and Web Deployment Guides, and MAUI License Guide (docs.thinkgeo.com); the MAUI HowDoI `App.xaml.cs`.
 
 Every platform needs a **developer license** on each developer's machine, installed with ThinkGeo Product Center.   Deployed apps and QA builds that run without a debugger need a **runtime license** file generated in Product Center.   Never write code that bypasses, patches, or fakes license checks; send account problems to ThinkGeo support.
 
 | Platform | Product Center tab | Runtime license is generated for | Where the file goes |
 | --- | --- | --- | --- |
 | WPF, WinForms | WPF/WinForms/Blazor/WebAPI | The built executable (browse to the `.exe`) | Next to the executable |
+| Blazor, WebAPI on Windows | WPF/WinForms/Blazor/WebAPI | The built executable (browse to the `.exe`) | Next to the executable, in the published output |
 | MAUI on Android | Maui | The Android package name | `Resources\Raw`, Build Action `MauiAsset`, loaded in code |
 | MAUI on iOS or Mac Catalyst | Maui | The bundle identifier | `Resources\Raw`, Build Action `MauiAsset`, loaded in code |
 | MAUI on Windows | Maui (Windows Runtime License section) | The executable name, without `.exe` | Project root, Copy to Output Directory: Copy if newer |
@@ -17,6 +18,27 @@ For WPF and WinForms details, see `thinkgeo-desktop-maps/references/project-setu
 
 1. Register at https://helpdesk.thinkgeo.com/register and download Product Center.
 2. Sign in, open the tab for the product (for MAUI, the **Maui** tab), and click "Start Evaluation" (30-day trial) or "Activate" for a purchased license.
+
+## Blazor and WebAPI
+
+Licensing works like the desktop: the same Product Center tab ("WPF/WinForms/Blazor/WebAPI"), a developer license for debugging, and a runtime license generated from the app's built executable for anything that runs without a debugger.   Generate the runtime license from the executable in the **published** output, and make sure the file is deployed with it.
+
+**A server must have a runtime license, not just a developer license.** Unlike WPF and WinForms, a web app running on a machine with only a developer license shows a "subscription license has expired" watermark once the developer subscription ends.   Runtime licenses don't expire.   So a staging or production server that happens to have Product Center installed still needs the runtime license file.
+
+**Linux and containers:** the current Deployment Guide covers only the Windows `.exe` case.   The Docker steps in the WebAPI Quick Start publish with `UseAppHost=false`, which produces no executable to browse to.   Don't invent a procedure (and don't use the Product Center CLI steps from the legacy v13 docs as if they applied to v14); have the user confirm the supported approach with ThinkGeo support.
+
+### What Blazor and WebAPI users see
+
+From ThinkGeo's license matrix on the Licensing page:
+
+| What the user sees | When | Likely cause | Fix |
+| --- | --- | --- | --- |
+| Exception: "Welcome to ThinkGeo components! Please sign up at https://helpdesk.thinkgeo.com/register ..." | Debugging | No developer license on this machine | Install Product Center, start an evaluation or activate |
+| Blank map, "Not Licensed for Map Development" watermark | Debugging | Only a runtime license is present (for example a teammate who doesn't develop the map) | Install a developer license on that machine, or run without the debugger |
+| Exception: "Your ThinkGeo ... subscription license has expired ..." (the product name varies) | Debugging | Developer subscription expired | Renew the subscription |
+| Map with "subscription license has expired" watermark | Running without a debugger | Relying on an expired developer license instead of a runtime license | Generate and deploy a runtime license |
+| Map with "Not licensed for Runtime" watermark | Running without a debugger | No runtime license deployed, or generated for a different executable name | Regenerate from the published executable and deploy it with the app |
+| Map with "XX Days Left" watermark | Any | Evaluation license | Activate a purchased license, then regenerate the runtime license |
 
 ## MAUI
 
