@@ -16,6 +16,7 @@ Use the ThinkGeo Documentation MCP server as the source of truth for ThinkGeo-sp
    - WPF: `wpfHowDoI`
    - WinForms: `winformHowDoI`
    - Blazor: `blazorHowDoI`
+   - WebAPI: `webApiHowDoI`
    - MAUI: `mauiHowDoI`
 4. Start with a focused `tg_search`.   If an AND-style query is too sparse, retry with `requireAll: false` rather than guessing.
 5. Use `tg_get` on the best hits.   Fetch only the relevant line range when possible; fetch the whole file when surrounding code or project context is required.

@@ -13,6 +13,8 @@ Changed:
 - Evals and tests: retired the GIS Server eval (case 3) and the GIS Server test project; rewrote case 6 (architecture) around released products, an offline field app plus office review.
 
 Added:
+- New skill `thinkgeo-web-api`: ASP.NET Core map tile services with `ThinkGeo.UI.WebApi` and Leaflet or OpenLayers (the tile endpoint, Spherical Mercator, matching tile sizes, labels at tile edges, content-root data paths, concurrent drawing and `ThreadSafe`, SkiaSharp libraries on Linux, the browser side).   No recommendation yet on sharing layers across requests or on server tile caching.   Examples compile against 14.5.5.   The workflow skills now search the new `webApiHowDoI` sample namespace.
+- `evals/`: cases 14 (WebAPI tile service) and 15 (WebAPI blank tiles after publishing).
 - New skill `thinkgeo-cloud-maps`: ThinkGeo Cloud on any platform.   Covers which key type each platform needs (ClientId and ClientSecret vs the Blazor `ApiKey`), keeping keys out of code and restricting them by IP or domain, the overlay names per platform (MAUI uses `ThinkGeoVectorOverlay`), service clients in `ThinkGeo.Core` (not the old `ThinkGeo.Cloud.Client` package), coordinate systems, `result.Exception` error handling, and quotas.   Examples compile against 14.5.3.   Linked from the architecture, code-example, and offline skills.
 - `evals/`: cases 12 (Cloud geocoding) and 13 (Cloud keys).
 - Offline use of Cloud tiles: ThinkGeo allows customers to pre-cache and ship Cloud tiles.   `thinkgeo-cloud-maps` shows how (`ThinkGeoRasterMapsAsyncLayer.GenerateTileCacheAsync`, then `IsCacheOnly`), and `thinkgeo-offline-maps` lists it as a basemap option.

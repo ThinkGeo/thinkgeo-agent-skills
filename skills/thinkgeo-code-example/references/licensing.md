@@ -21,6 +21,8 @@ For WPF and WinForms details, see `thinkgeo-desktop-maps/references/project-setu
 
 ## Blazor and WebAPI
 
+For building WebAPI tile services, see the `thinkgeo-web-api` skill.
+
 Licensing works like the desktop: the same Product Center tab ("WPF/WinForms/Blazor/WebAPI"), a developer license for debugging, and a runtime license generated from the app's built executable for anything that runs without a debugger.   Generate the runtime license from the executable in the **published** output, and make sure the file is deployed with it.
 
 **A server must have a runtime license, not just a developer license.** Unlike WPF and WinForms, a web app running on a machine with only a developer license shows a "subscription license has expired" watermark once the developer subscription ends.   Runtime licenses don't expire.   So a staging or production server that happens to have Product Center installed still needs the runtime license file.

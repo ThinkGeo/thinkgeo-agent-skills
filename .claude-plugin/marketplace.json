@@ -10,7 +10,7 @@
     {
       "name": "thinkgeo-developer",
       "source": "./",
-      "description": "ThinkGeo developer skills: documentation-grounded workflows (research, code, review, architecture, troubleshooting) plus WPF/WinForms desktop, interaction, and offline mapping knowledge and ThinkGeo Cloud services, backed by the ThinkGeo Documentation MCP server.",
+      "description": "ThinkGeo developer skills: documentation-grounded workflows (research, code, review, architecture, troubleshooting) plus WPF/WinForms desktop, interaction, and offline mapping knowledge, WebAPI tile services, and ThinkGeo Cloud services, backed by the ThinkGeo Documentation MCP server.",
       "version": "0.3.0"
     }
   ]

@@ -110,6 +110,22 @@ Expected skill behavior:
 - WPF: NativeConfidential ClientId and ClientSecret.   Blazor overlay: JavaScript `ApiKey`, restricted by domain.
 - Shipped app: key is extractable; restrict by IP where possible, one client per app, keys out of source code.
 
+## 14. WebAPI tile service
+Prompt: "Build a minimal ASP.NET Core Web API that serves map tiles of a parcel shapefile (`App_Data\Parcels.shp`, State Plane EPSG:2276) with ThinkGeo, labelled with the OWNER_NAME column, plus a small Leaflet page that shows the tiles.   It will be deployed to IIS."
+
+Expected skill behavior:
+- Activates `thinkgeo-web-api`.
+- Tile action with `GeoImage`, `GetBoundingBoxForXyz`, and a PNG response; `ProjectionConverter(2276, 3857)`; content-root data path; `DrawingMarginInPixel` for labels.
+- Leaflet `L.tileLayer` with a matching `{z}/{x}/{y}` route and tile size.
+
+## 15. WebAPI blank tiles after publishing
+Prompt: "Our ThinkGeo WebAPI tile service works when I run it from Visual Studio, but after publishing to IIS every tile is blank.   Also, even locally, street labels are chopped off at the edges of tiles."   (Includes a `Directory.GetCurrentDirectory()` data path.)
+
+Expected skill behavior:
+- Activates `thinkgeo-web-api` or `thinkgeo-troubleshoot`.
+- Fixes the path with the content root, checks the data is published, and mentions the runtime license.
+- Fixes clipped labels with `DrawingMarginInPixel`.
+
 ## Scoring rubric (0 or 1 each)
 1. Correct skill activates.
 2. Correct namespaces searched.

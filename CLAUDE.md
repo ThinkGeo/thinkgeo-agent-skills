@@ -4,10 +4,10 @@ This repo holds ThinkGeo's public Agent Skills: instructions that help AI coding
 
 ## How the skills are organized
 
-Two layers, nine skills under `skills/`:
+Two layers, ten skills under `skills/`:
 
 - **Workflow skills** (all ThinkGeo products): `thinkgeo-docs-research`, `thinkgeo-code-example`, `thinkgeo-code-review`, `thinkgeo-architecture`, `thinkgeo-troubleshoot`.   These say how to search and verify.
-- **Knowledge skills:** `thinkgeo-desktop-maps`, `thinkgeo-desktop-interaction`, `thinkgeo-offline-maps` (WPF and WinForms), and `thinkgeo-cloud-maps` (ThinkGeo Cloud, any platform).   These hold stable patterns and common mistakes.
+- **Knowledge skills:** `thinkgeo-desktop-maps`, `thinkgeo-desktop-interaction`, `thinkgeo-offline-maps` (WPF and WinForms), `thinkgeo-web-api` (WebAPI tile services), and `thinkgeo-cloud-maps` (ThinkGeo Cloud, any platform).   These hold stable patterns and common mistakes.
 
 `thinkgeo-troubleshoot` merges the evidence-first workflow with the desktop symptom guide in `references/desktop-symptoms.md`.   Don't re-split it.
 
@@ -71,7 +71,7 @@ When the validator flags a forbidden API call, fix the code.   Only add an excep
 3. Run the A/B evaluation in `EVALUATION.md`: MCP only, MCP plus workflow skills, MCP plus all skills.   Cases are in `tests/test-cases.md`; score each with the 15-point rubric there.
 4. Make the MCP server changes listed above (separate repo).
 5. Announce: link the repo from the desktop quick starts and the HowDoI READMEs, write a blog post, and pair it with the MCP server announcement.
-6. Later: knowledge skills for Blazor and MAUI, built the same way as the desktop ones; GIS Server once it's released.
+6. Later: knowledge skills for Blazor and MAUI (WebAPI is done), built the same way as the desktop ones; GIS Server once it's released.
 
 ## Documentation issues found in ThinkGeo's own docs
 
