@@ -34,34 +34,36 @@ The skills do not copy the ThinkGeo documentation corpus.   The MCP server remai
 
 ## Installing
 
-**Claude Code (plugin):**
+### Recommended: the `skills` installer
 
-```
-/plugin marketplace add ThinkGeo/thinkgeo-agent-skills
-/plugin install thinkgeo-developer@thinkgeo
-```
-
-The first command uses the GitHub mirror (https://github.com/ThinkGeo/thinkgeo-agent-skills).   To install from GitLab instead, where the skills are maintained, use `/plugin marketplace add https://gitlab.com/thinkgeo/public/thinkgeo-agent-skills.git`.   Both give the same plugin.
-
-The plugin also registers the ThinkGeo Documentation MCP server through `.mcp.json`.
-
-**Any assistant (Cursor, GitHub Copilot, Codex, Claude Code, and others):** install the skills with the `skills` command-line installer, which needs Node.js:
+One command installs the skills for Claude Code (terminal or desktop app), Cursor, GitHub Copilot, Codex, and other assistants.   It needs Node.js:
 
 ```
 npx skills add ThinkGeo/thinkgeo-agent-skills
 ```
 
-It asks which assistants to install for and copies the skills into each one's skills folder (for example `.claude/skills/` or `.agents/skills/`).   Add `--list` to see the skills without installing, `-g` to install for your user instead of the current project, or `-s <name>` to install one skill.   Install all of them if you can: several skills point to each other's reference files.
+It asks which assistants to install for and copies the skills into each one's skills folder (for example `.claude/skills/` or `.agents/skills/`).   Add `-g` to install for your user account instead of the current project, `--list` to see the skills without installing, or `-s <name>` to install one skill.   Install all of them if you can: several skills point to each other's reference files.
 
-This route installs the skills only.   Also connect the ThinkGeo Documentation MCP server (`https://ai.thinkgeo.com/mcp`, HTTP) in your assistant; in Claude Code:
+Then connect the ThinkGeo Documentation MCP server (`https://ai.thinkgeo.com/mcp`, HTTP, no sign-in) if your assistant doesn't have it yet.   In Claude Code:
 
 ```
-claude mcp add --transport http thinkgeo-docs https://ai.thinkgeo.com/mcp
+claude mcp add --transport http --scope user thinkgeo-docs https://ai.thinkgeo.com/mcp
 ```
 
-**Manual copy:** copy the folders under `skills/` into your assistant's skills folder (for Claude Code, `.claude/skills/` in your project or `~/.claude/skills/`), and add the MCP server as above.
+For other assistants, see the setup steps on the [ThinkGeo MCP Server](https://docs.thinkgeo.com/products/misc/mcp-server/) page.
 
-**Codex (plugin):** the plugin includes the skills and the MCP server.
+### Other ways to install
+
+**Claude Code plugin:** installs the skills and connects the MCP server in one step.   Run these in a terminal:
+
+```
+claude plugin marketplace add https://github.com/ThinkGeo/thinkgeo-agent-skills.git
+claude plugin install thinkgeo-developer@thinkgeo
+```
+
+In a Claude Code terminal session, `/plugin marketplace add <url>` and `/plugin install thinkgeo-developer@thinkgeo` do the same.   Use the full HTTPS address: the short form `ThinkGeo/thinkgeo-agent-skills` clones over SSH and fails unless you have an SSH key set up for GitHub.   To install from GitLab, where the skills are maintained, use `https://gitlab.com/thinkgeo/public/thinkgeo-agent-skills.git`.
+
+**Codex plugin:** installs the skills and connects the MCP server in one step.
 
 ```
 codex plugin marketplace add ThinkGeo/thinkgeo-agent-skills
@@ -70,7 +72,9 @@ codex plugin add thinkgeo-developer@thinkgeo
 
 Or run `/plugins` inside Codex and install ThinkGeo Developer from the ThinkGeo marketplace.   The root `plugin.json`, `mcp.json`, `.agents/plugins/marketplace.json`, and each skill's `agents/openai.yaml` follow the portable Agent Plugins layout that Codex and ChatGPT use.
 
-**Assistants that read `AGENTS.md` but not skills:** copy [AGENTS.md](AGENTS.md) into your project root (or append it to your existing one), and add the MCP server.   It's a condensed version of the skills: the key rules, names that don't exist, platform notes, and the skill list.
+**Manual copy:** copy the folders under `skills/` into your assistant's skills folder (for Claude Code, `.claude/skills/` in your project or `~/.claude/skills/`), and connect the MCP server as above.
+
+**Assistants that read `AGENTS.md` but not skills:** copy [AGENTS.md](AGENTS.md) into your project root (or append it to your existing one), and connect the MCP server.   It's a condensed version of the skills: the key rules, names that don't exist, platform notes, and the skill list.
 
 ## Package layout
 
