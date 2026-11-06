@@ -100,8 +100,9 @@ These were found while building the skills.   Fix them in the docs repos, then r
 
 Found while testing the ThinkGeo 15 betas (`15.0.0-beta264`, November 2026).   Handle these when 15 ships.
 
-1. `ThinkGeoCloudVectorMapsOverlay` is obsolete in 15 ("will be removed in version 15.4"); its replacement is `ThinkGeoVectorTileOverlay`.   The skills, starters, and `AGENTS.md` use `ThinkGeoCloudVectorMapsOverlay` throughout.   Verify the new class and its settings, then make the basemap guidance version-aware like licensing.
+1. ~~Cloud basemap classes.~~ Done (November 2026): the skills show `ThinkGeoVectorTileOverlay` (API key, `StyleUri`) for 15 and `ThinkGeoCloudVectorMapsOverlay` for 14, and both WPF approaches (overlay for 2D, GPU basemap for tilt and 3D), per Phil.   Still to do when 15 ships: move the starter and test projects to 15 (they pin 14.5.5 and use `ThinkGeoCloudVectorMapsOverlay`), and confirm which Cloud console key the 15 basemap's `ApiKey` is (Phil wasn't sure; the skills just say "Cloud API key").
 2. The ThinkGeo 15 MAUI package targets .NET 10 (`net10.0-android36.0`, `net10.0-ios26.0`, `net10.0-maccatalyst26.0`, `net10.0-windows10.0.19041`).   Check the MAUI skill's project setup against it.
+3. Other ThinkGeo 15 changes found in `15.0.0-beta264`, not yet in the skills: `MapsQueryCloudClient` (Maps Query) is sunset after 15.3; `CloudGeocodingLocationType`, `CloudGeocodingResultDetail`, and `CloudGeocodingSearchMode` are obsolete (a v3 geocoding service); MAUI's `CurrentScaleChanged` and `CurrentScaleChanging` are replaced by `CurrentExtentChanged` with `e.IsMapScaleChanged`; the GPU basemap's `AddRasterSource` is superseded by `MapStyle.AddRaster` (removed after 15.3).
 
 ## Product issues found in ThinkGeo packages
 

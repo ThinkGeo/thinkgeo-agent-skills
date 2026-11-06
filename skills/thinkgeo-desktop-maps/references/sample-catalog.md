@@ -5,7 +5,7 @@ Every WPF sample in the ThinkGeo Desktop Maps HowDoI project, with the key API i
 - Browse: https://gitlab.com/thinkgeo/public/thinkgeo-desktop-maps/-/tree/master/samples/wpf/HowDoISample
 - With the ThinkGeo Documentation MCP server: `tg_find_sample(query: "<title or task>", platform: "wpf")`, then `tg_get` on the returned `docId` to read the code.
 
-When the user asks for a feature, find the closest sample here, read it, and adapt it.   The samples use `SampleKeys.ClientId` / `SampleKeys.ClientSecret` and `./Data/...` paths; replace those with the user's own keys and data.
+When the user asks for a feature, find the closest sample here, read it, and adapt it.   The samples use `SampleKeys.ClientId` / `SampleKeys.ClientSecret` and `./Data/...` paths; replace those with the user's own keys and data.   This catalog lists the ThinkGeo 14 samples (the `master` branch).   ThinkGeo 15 samples are on the `develop` branch of the same repository and use `ThinkGeoVectorTileOverlay` (WinForms) or the GPU basemap (WPF) with `SampleKeys.ApiKey`.
 
 ## Map Navigation
 

@@ -1,6 +1,6 @@
 ---
 name: thinkgeo-desktop-maps
-description: Build WPF and WinForms map applications with ThinkGeo Desktop Maps (ThinkGeo.UI.Wpf, ThinkGeo.UI.WinForms, ThinkGeo.Core). Use this skill whenever the user is writing or changing C# code that uses ThinkGeo, MapView, LayerOverlay, ShapeFileFeatureLayer, InMemoryFeatureLayer, ThinkGeoCloudVectorMapsOverlay, ZoomLevelSet, ProjectionConverter, or ThinkGeo styles, or asks how to add a map, basemap, shapefile, layer, label, or thematic style to a .NET desktop app, even if they don't say "ThinkGeo" explicitly but the project references ThinkGeo packages.
+description: Build WPF and WinForms map applications with ThinkGeo Desktop Maps (ThinkGeo.UI.Wpf, ThinkGeo.UI.WinForms, ThinkGeo.Core). Use this skill whenever the user is writing or changing C# code that uses ThinkGeo, MapView, LayerOverlay, ShapeFileFeatureLayer, InMemoryFeatureLayer, ThinkGeoVectorTileOverlay, ThinkGeoCloudVectorMapsOverlay, ZoomLevelSet, ProjectionConverter, or ThinkGeo styles, or asks how to add a map, basemap, shapefile, layer, label, or thematic style to a .NET desktop app, even if they don't say "ThinkGeo" explicitly but the project references ThinkGeo packages.
 ---
 
 # ThinkGeo Desktop Maps (WPF & WinForms)
@@ -29,7 +29,7 @@ If the server is not connected, rely on this skill and its references, and point
 ```
 MapView                      MapUnit, CenterPoint, CurrentScale
 └── Overlays (ordered, first added = bottom)
-    ├── ThinkGeoCloudVectorMapsOverlay    basemap
+    ├── ThinkGeoVectorTileOverlay         Cloud basemap (ThinkGeoCloudVectorMapsOverlay on 14)
     ├── LayerOverlay                      your data
     │   └── Layers (ordered)
     │       └── FeatureLayer              ShapeFile, InMemory, Sqlite, ...
@@ -69,14 +69,21 @@ private async void MapView_SizeChanged(object sender, SizeChangedEventArgs e)
         // 1. Map unit FIRST. Meter = Spherical Mercator (EPSG:3857), which matches ThinkGeo Cloud and most web basemaps.
         MapView.MapUnit = GeographyUnit.Meter;
 
-        // 2. Basemap (bottom of the stack), always with a tile cache.
-        MapView.Overlays.Add(new ThinkGeoCloudVectorMapsOverlay
+        // 2. Basemap (bottom of the stack), always with a tile cache. Keys from https://cloud.thinkgeo.com
+        //    ThinkGeo 15 and later: an API key and a style.
+        MapView.Overlays.Add(new ThinkGeoVectorTileOverlay("YOUR_API_KEY")
         {
-            ClientId = "YOUR_CLIENT_ID",          // from https://cloud.thinkgeo.com
-            ClientSecret = "YOUR_CLIENT_SECRET",
-            MapType = ThinkGeoCloudVectorMapsMapType.Light,
+            StyleUri = ThinkGeoVectorStyles.Light,
             TileCache = new FileRasterTileCache(@".\cache", "basemap_light")
         });
+        //    ThinkGeo 14 and earlier: use this instead (obsolete in 15).
+        // MapView.Overlays.Add(new ThinkGeoCloudVectorMapsOverlay
+        // {
+        //     ClientId = "YOUR_CLIENT_ID",
+        //     ClientSecret = "YOUR_CLIENT_SECRET",
+        //     MapType = ThinkGeoCloudVectorMapsMapType.Light,
+        //     TileCache = new FileRasterTileCache(@".\cache", "basemap_light")
+        // });
 
         // 3. Data layer: projection converter, then styles.
         var parcels = new ShapeFileFeatureLayer(@".\Data\Parcels.shp");
@@ -102,6 +109,8 @@ private async void MapView_SizeChanged(object sender, SizeChangedEventArgs e)
     }
 }
 ```
+
+**Pick the basemap for the project's ThinkGeo version** (step 2 shows both).   On ThinkGeo 15, `ThinkGeoCloudVectorMapsOverlay` still compiles but is obsolete (removed in 15.4); on ThinkGeo 14, `ThinkGeoVectorTileOverlay` doesn't exist.   WPF on ThinkGeo 15 can also use the GPU basemap (`MapView.Basemap`) for tilt and 3D.   The `thinkgeo-cloud-maps` skill has both versions, key types, and styles.
 
 The HowDoI samples initialize in `SizeChanged` with an `_initialized` guard so that sizes and extents are valid.   The WPF quick start uses `Loaded`, which also works for simple maps.   In WinForms, use the form's `Load` event.   Never read `MapView.MapWidth` or `MapHeight` before the control is laid out; they are zero.
 

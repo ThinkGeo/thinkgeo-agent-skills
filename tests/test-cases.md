@@ -107,7 +107,7 @@ Prompt: "We ship a WPF app to our customers and also run a Blazor Server site, b
 
 Expected skill behavior:
 - Activates `thinkgeo-cloud-maps`.
-- WPF: NativeConfidential ClientId and ClientSecret.   Blazor overlay: JavaScript `ApiKey`, restricted by domain.
+- WPF: NativeConfidential ClientId and ClientSecret (ThinkGeo 14 vector or any raster basemap), or a Cloud API key on ThinkGeo 15's `ThinkGeoVectorTileOverlay`.   Blazor overlay: JavaScript `ApiKey`, restricted by domain.
 - Shipped app: key is extractable; restrict by IP where possible, one client per app, keys out of source code.
 
 ## 14. WebAPI tile service
@@ -146,7 +146,7 @@ Prompt: "In my .NET MAUI app (Android and iOS), show a parcel shapefile that shi
 
 Expected skill behavior:
 - Activates `thinkgeo-maui`.
-- Copies embedded data to `AppDataDirectory`; `ThinkGeoVectorOverlay`; `ProjectionConverter(2276, 3857)`; init once after layout.
+- Copies embedded data to `AppDataDirectory`; `ThinkGeoVectorTileOverlay` (ThinkGeo 15) or `ThinkGeoVectorOverlay` (ThinkGeo 14); `ProjectionConverter(2276, 3857)`; init once after layout.
 - `SingleTap` + `ToWorldCoordinate`; refreshes the highlight overlay; licensing matches the version (ThinkGeo 14: the license file for Android/iOS; ThinkGeo 15: no `LicenseLoader`).
 
 ## 19. MAUI data works on Windows, not Android

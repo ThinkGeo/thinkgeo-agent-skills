@@ -30,7 +30,7 @@ Check in this order.   The first three account for most cases.
 7. **Order.** Is an opaque overlay (a basemap added last, or an imagery layer) covering the data?   Overlays draw in the order added.
 8. **Initialization timing.** Did setup run before the control had a size?   Use `SizeChanged` with an `_initialized` guard in WPF, or the form `Load` event in WinForms.
 9. **File paths.** Relative paths resolve from the working directory, which differs between Visual Studio, shortcuts, and services.   Check the file exists at runtime; for shapefiles, the `.shx` and `.dbf` must sit beside the `.shp`.
-10. **Basemap only is blank.** For `ThinkGeoCloudVectorMapsOverlay`, check the ClientId/ClientSecret, network or proxy access to ThinkGeo Cloud, and that the machine isn't offline.   For offline basemaps, see the `thinkgeo-offline-maps` skill.
+10. **Basemap only is blank.** For `ThinkGeoVectorTileOverlay` (ThinkGeo 15), check the `ApiKey`; for `ThinkGeoCloudVectorMapsOverlay` (ThinkGeo 14), the ClientId/ClientSecret.   Then check network or proxy access to ThinkGeo Cloud, and that the machine isn't offline.   For offline basemaps, see the `thinkgeo-offline-maps` skill.
 
 ## Symptom: pink or magenta tiles
 

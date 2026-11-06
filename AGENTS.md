@@ -41,7 +41,8 @@ Without the server, use https://docs.thinkgeo.com and the HowDoI sample reposito
 ## Platform notes
 
 - **Blazor:** `LayerOverlay` (server-side drawing) works only in Blazor Server.   WebAssembly and Hybrid support only client-drawn overlays such as `VectorTileOverlay` and `WmtsTileOverlay`.
-- **MAUI:** the basemap classes are `ThinkGeoVectorOverlay` and `ThinkGeoRasterOverlay`, taps use `SingleTap` with `ToWorldCoordinate`, and data files must be copied to `FileSystem.Current.AppDataDirectory` (Android asset streams aren't seekable files).
+- **Cloud basemap:** on ThinkGeo 15, desktop and MAUI use `ThinkGeoVectorTileOverlay` with a Cloud `ApiKey` and `StyleUri = ThinkGeoVectorStyles.Light` (or `.Dark`); WPF can also use the GPU basemap, `MapView.Basemap = new GpuBasemap(...)`, for tilt and 3D.   ThinkGeo 14 uses `ThinkGeoCloudVectorMapsOverlay` (MAUI: `ThinkGeoVectorOverlay`) with a ClientId and ClientSecret; those classes are obsolete in 15.
+- **MAUI:** on ThinkGeo 14 the basemap classes are `ThinkGeoVectorOverlay` and `ThinkGeoRasterOverlay`, taps use `SingleTap` with `ToWorldCoordinate`, and data files must be copied to `FileSystem.Current.AppDataDirectory` (Android asset streams aren't seekable files).
 - **WebAPI:** each tile request draws a `{z}/{x}/{y}` tile on the server; use `WebApiExtentHelper.GetBoundingBoxForXyz` and keep data in EPSG:3857 or convert it.
 - **Offline:** use local MBTiles or a tile cache instead of Cloud basemaps.
 - **Pink or magenta tiles** mean a layer threw while drawing.   Set `ThrowingExceptionMode = ThrowingExceptionMode.ThrowException` on the overlay to see the real error.

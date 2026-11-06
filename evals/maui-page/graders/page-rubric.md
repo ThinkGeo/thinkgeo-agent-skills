@@ -8,7 +8,7 @@ focus:
 This is the code-behind of a .NET MAUI ThinkGeo page: a State Plane (EPSG:2276) parcel shapefile shipped in the app, over a ThinkGeo Cloud basemap, with tap-to-highlight, for Android and iOS.
 
 PASS only if all of these hold:
-- The basemap is `ThinkGeoVectorOverlay` or `ThinkGeoRasterOverlay` (the MAUI classes) with ClientId/ClientSecret placeholders or configuration values, and `MapUnit` is meters with `ProjectionConverter(2276, 3857)` on the parcel layer.
+- The basemap is a MAUI Cloud overlay with its keys as placeholders or configuration values: on ThinkGeo 15, `ThinkGeoVectorTileOverlay` (API key) or `ThinkGeoRasterOverlay`; on ThinkGeo 14, `ThinkGeoVectorOverlay` or `ThinkGeoRasterOverlay` (ClientId/ClientSecret), and `MapUnit` is meters with `ProjectionConverter(2276, 3857)` on the parcel layer.
 - The parcel layer opens its file from a full path under `FileSystem.Current.AppDataDirectory`, not from `Resources\Raw` or a bare relative path.
 - The map is initialized once after layout (`SizeChanged` with a guard, or `Loaded`).
 - The tap handler uses `SingleTap`, converts the screen position with `ToWorldCoordinate` before querying, and refreshes the highlight overlay.

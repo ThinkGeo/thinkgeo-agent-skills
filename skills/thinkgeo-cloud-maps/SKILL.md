@@ -1,6 +1,6 @@
 ---
 name: thinkgeo-cloud-maps
-description: Use ThinkGeo Cloud (Cloud Maps) services from ThinkGeo apps on any platform — WPF, WinForms, Blazor, MAUI, or plain .NET. Use this skill whenever the user mentions ThinkGeo Cloud, Cloud Maps, a cloud basemap (ThinkGeoCloudVectorMapsOverlay, ThinkGeoCloudRasterMapsOverlay, ThinkGeoVectorOverlay), ClientId and ClientSecret, an ApiKey, client keys, geocoding, reverse geocoding, routing, service areas, elevation, time zones, Maps Query, the Cloud console, quota or "hits per day", or errors such as a blank cloud basemap, 401 or unauthorized responses, or results landing in the wrong place on the map.
+description: Use ThinkGeo Cloud (Cloud Maps) services from ThinkGeo apps on any platform — WPF, WinForms, Blazor, MAUI, or plain .NET. Use this skill whenever the user mentions ThinkGeo Cloud, Cloud Maps, a cloud basemap (ThinkGeoVectorTileOverlay, GpuBasemap with ThinkGeoVectorTileSource, ThinkGeoVectorStyles, StyleUri, ThinkGeoCloudVectorMapsOverlay, ThinkGeoCloudRasterMapsOverlay, ThinkGeoVectorOverlay), an obsolete ThinkGeoCloudVectorMapsOverlay warning, ClientId and ClientSecret, an ApiKey, client keys, geocoding, reverse geocoding, routing, service areas, elevation, time zones, Maps Query, the Cloud console, quota or "hits per day", or errors such as a blank cloud basemap, 401 or unauthorized responses, or results landing in the wrong place on the map.
 ---
 
 # ThinkGeo Cloud (Cloud Maps)
@@ -9,9 +9,9 @@ ThinkGeo Cloud is a set of hosted REST services: vector and raster map tiles, WM
 
 Cloud needs an internet connection.   For apps that must work without one, use the `thinkgeo-offline-maps` skill instead.   For API details, use the ThinkGeo Documentation MCP server: `tg_api` for class and member names, and `tg_find_sample` with `platform: "wpf"` for the "ThinkGeo Cloud Integration" samples (geocoding, reverse geocoding, routing, elevation, and more).
 
-## Packages: nothing extra to install (v14)
+## Packages: nothing extra to install
 
-In ThinkGeo 14, the Cloud client classes (`GeocodingCloudClient`, `RoutingCloudClient`, and the rest) ship inside `ThinkGeo.Core`, and the Cloud basemap overlays ship in each UI package.   **Don't add `ThinkGeo.Cloud.Client`.** The Cloud docs still point .NET developers to it, but it's the old Map Suite SDK (last release 10.6, plus 13.0 betas) and doesn't belong in a v14 project.
+Since ThinkGeo 14, the Cloud client classes (`GeocodingCloudClient`, `RoutingCloudClient`, and the rest) ship inside `ThinkGeo.Core`, and the Cloud basemap overlays ship in each UI package.   In ThinkGeo 15 on .NET 8 or later, `ThinkGeo.UI.Wpf` and `ThinkGeo.UI.WinForms` also bring in `ThinkGeo.Gpu` for the GPU basemap, so don't add it separately.   **Don't add `ThinkGeo.Cloud.Client`.** The Cloud docs still point .NET developers to it, but it's the old Map Suite SDK (last release 10.6, plus 13.0 betas) and doesn't belong in a v14 or later project.
 
 ## Keys: which kind each platform needs
 
@@ -22,15 +22,56 @@ The Cloud console issues two kinds of client key.   New accounts get one of each
 | NativeConfidential | `ClientId` + `ClientSecret`, exchanged for a token behind the scenes | WPF and WinForms overlays, MAUI overlays, every `*CloudClient`, and server-side code (including a Blazor server's own service calls) |
 | JavaScript | One `ApiKey` string, sent with each request from the browser | The Blazor overlays (`ThinkGeoCloudVectorMapsOverlay` and `ThinkGeoCloudRasterMapsOverlay` in `ThinkGeo.UI.Blazor`).   Their only key property is a single `ApiKey`, so a NativeConfidential ClientId and ClientSecret pair can't be used there |
 
+**ThinkGeo 15 vector basemaps take an API key too.** On ThinkGeo 15 and later, the desktop and MAUI vector basemap (`ThinkGeoVectorTileOverlay`, and `ThinkGeoVectorTileSource` for the GPU basemap) takes a single ThinkGeo Cloud `ApiKey` instead of a ClientId and ClientSecret.   Raster basemaps and every `*CloudClient` still take a ClientId and ClientSecret.   If a ThinkGeo 15 vector basemap stays blank, check that the key is the API key from the Cloud console, not a client ID.
+
 Rules for keys:
 
 - **Never put real keys in source code or commit them.** Use placeholders (`YOUR_CLIENT_ID`, `YOUR_CLIENT_SECRET`, `YOUR_API_KEY`) in samples, and load real values from configuration (an app settings file, environment variables, or the platform's secret store).
-- **Desktop and mobile apps embed their NativeConfidential key** in the shipped configuration.   Anyone with the app can extract it, so restrict the client by IP address or range in the Cloud console (NativeConfidential clients support IP restriction only).   IP restriction works when the app's users reach the internet from known networks, such as a company's offices; tell the user if their users don't.
+- **Desktop and mobile apps embed their keys** (the NativeConfidential key, and on ThinkGeo 15 the basemap's API key) in the shipped configuration.   Anyone with the app can extract it, so restrict the client by IP address or range in the Cloud console (NativeConfidential clients support IP restriction only).   IP restriction works when the app's users reach the internet from known networks, such as a company's offices; tell the user if their users don't.
 - **Restrict JavaScript keys by domain** (for example `*.example.com`) in the Cloud console.
 - **Use one client per application** so a leaked key can be revoked without breaking other apps.   Clients can also drop the "User" role if they only call services.
 - Don't use the two pre-generated test keys from an account in shipped apps.
 
 ## Basemap overlays
+
+The vector basemap classes changed in ThinkGeo 15, so check the ThinkGeo version in the project file first.   All Cloud basemaps are Spherical Mercator, so set the map unit to `GeographyUnit.Meter` on every version.
+
+### ThinkGeo 15 and later
+
+| Platform | Vector basemap | Raster basemap |
+| --- | --- | --- |
+| WPF | `ThinkGeoVectorTileOverlay` (`ApiKey`) for a standard 2D map, or the GPU basemap (`MapView.Basemap = new GpuBasemap(...)`) for tilt, 3D buildings, and terrain | `ThinkGeoCloudRasterMapsOverlay` (`ClientId`, `ClientSecret`) |
+| WinForms | `ThinkGeoVectorTileOverlay` (`ApiKey`) | `ThinkGeoCloudRasterMapsOverlay` (`ClientId`, `ClientSecret`) |
+| MAUI | `ThinkGeoVectorTileOverlay` (`ApiKey`) | `ThinkGeoRasterOverlay` (`ClientId`, `ClientSecret`) |
+| Blazor | `ThinkGeoCloudVectorMapsOverlay` component (`ApiKey`), unchanged | `ThinkGeoCloudRasterMapsOverlay` component (`ApiKey`) |
+
+`ThinkGeoCloudVectorMapsOverlay` (desktop) and `ThinkGeoVectorOverlay` (MAUI) are obsolete in ThinkGeo 15 and will be removed in 15.4; their build warning says to use `ThinkGeoVectorTileOverlay`, which draws the newer ThinkGeo vector tiles.   What changes:
+
+- **Key:** one `ApiKey` (constructor argument or property) instead of `ClientId` and `ClientSecret`.
+- **Style:** a `StyleUri` string instead of `MapType`.   Use `ThinkGeoVectorStyles.Light` or `ThinkGeoVectorStyles.Dark`, or the address of your own MapLibre style JSON.   `TransparentBackground = true` draws roads and labels for laying over imagery, and `LabelDisplayMode` (`LabelsAndShapes`, `LabelsOnly`, `ShapesOnly`) picks what to draw.
+- **Cache:** `TileCache` (a `FileRasterTileCache` of drawn tiles) works as before; the raw vector tile cache, `VectorTileCache`, is now a `FileTileCache`.
+
+```csharp
+// WPF or WinForms, ThinkGeo 15: standard 2D basemap
+MapView.MapUnit = GeographyUnit.Meter;
+MapView.Overlays.Add("Basemap", new ThinkGeoVectorTileOverlay(settings.ThinkGeoApiKey)   // from configuration, never hard-coded
+{
+    StyleUri = ThinkGeoVectorStyles.Light,
+    TileCache = new FileRasterTileCache(cacheFolder, "thinkgeo_vector_light")
+});
+```
+
+```csharp
+// WPF, ThinkGeo 15: GPU basemap, for tilt, 3D buildings, and terrain (using ThinkGeo.Core.Styling;)
+MapView.MapUnit = GeographyUnit.Meter;
+MapView.Basemap = new GpuBasemap(new MapStyle(ThinkGeoVectorStyles.Light,
+    new ThinkGeoVectorTileSource(settings.ThinkGeoApiKey) { VectorTileCache = new FileTileCache(vectorCacheFolder) }));
+```
+
+- **Choosing for WPF:** use `ThinkGeoVectorTileOverlay` for an ordinary 2D map, and the GPU basemap when the app needs tilt (`IsTiltInteractionEnabled`, `TiltAngle`), 3D buildings, or terrain.   ThinkGeo's ThinkGeo 15 WPF samples use the GPU basemap.   It's set through `MapView.Basemap`, not added to `Overlays`, and data layers still go in `LayerOverlay`s on top.   It draws on the GPU, so test it on the target hardware, including virtual machines and remote desktop sessions.
+- **Blazor:** the `ThinkGeoCloudVectorMapsOverlay` component isn't obsolete.   Only its constructors with arguments are; set the key and map type as properties (in markup, as before).
+
+### ThinkGeo 14 and earlier
 
 | Platform | Vector basemap | Raster basemap | Key properties |
 | --- | --- | --- | --- |
@@ -38,10 +79,10 @@ Rules for keys:
 | MAUI | `ThinkGeoVectorOverlay` | `ThinkGeoRasterOverlay` | `ClientId`, `ClientSecret` |
 | Blazor | `ThinkGeoCloudVectorMapsOverlay` (component) | `ThinkGeoCloudRasterMapsOverlay` (component) | `ApiKey` |
 
-Note the different MAUI class names (the `thinkgeo-maui` skill lists the other MAUI differences).   All Cloud basemaps are Spherical Mercator, so set the map unit to `GeographyUnit.Meter`.
+Note the different MAUI class names (the `thinkgeo-maui` skill lists the other MAUI differences).
 
 ```csharp
-// WPF / WinForms
+// WPF / WinForms, ThinkGeo 14
 MapView.MapUnit = GeographyUnit.Meter;
 MapView.Overlays.Add("Basemap", new ThinkGeoCloudVectorMapsOverlay
 {
@@ -57,9 +98,9 @@ MapView.Overlays.Add("Basemap", new ThinkGeoCloudVectorMapsOverlay
 <ThinkGeoCloudVectorMapsOverlay Id="VectorOverlay" ApiKey="@thinkGeoApiKey" MapType="ThinkGeoCloudVectorMapsMapType.Light" />
 ```
 
-- **Vector map types:** `Light`, `Dark`, `TransparentBackground` (roads and labels to lay over imagery), and `CustomizedByStyleJson` (with `StyleJsonUri`).   Avoid `Default`, a legacy alias for `Light`.
+- **Vector map types (ThinkGeo 14):** `Light`, `Dark`, `TransparentBackground` (roads and labels to lay over imagery), and `CustomizedByStyleJson` (with `StyleJsonUri`).   Avoid `Default`, a legacy alias for `Light`.
 - **Aerial and hybrid imagery are raster only.** The raster map types come in versioned names such as `Aerial2_V2_X2` and `Light_V2_X1`: `X1` tiles suit 100% display scaling, `X2` suit high-DPI screens and mobile.   The plain names (`Light`, `Aerial`, and so on) are legacy.   Check current names with `tg_get` on `ThinkGeoCloudRasterMapsMapType`, since `tg_api` doesn't list enum values.
-- **Set a `TileCache` on desktop and mobile overlays.** It cuts requests (and quota use) and speeds up panning.   Give each map type its own cache ID.
+- **Set a `TileCache` on desktop and mobile overlays** (every version).   It cuts requests (and quota use) and speeds up panning.   Give each map type or style its own cache ID.
 
 ## Service clients
 
@@ -91,7 +132,7 @@ await resultsOverlay.RefreshAsync();
 ### Errors
 
 - **Check `result.Exception` on every result.** Cloud results (`CloudGeocodingResult`, `CloudRoutingGetRouteResult`, `CloudReverseGeocodingResult`, and the others) report service failures in an `Exception` property instead of throwing.   Code that only uses `try`/`catch` silently shows nothing.   Still wrap calls in `try`/`catch` for network failures.
-- **Blank cloud basemap:** check the key type for the platform (Blazor needs a JavaScript `ApiKey`, everything else a ClientId and ClientSecret), the client's IP or domain restrictions, and whether the evaluation or quota has run out.   To see the HTTP traffic, handle the overlay's `SendingHttpRequest` and `ReceivedHttpResponse` events, or set `ThinkGeoDebugger.LogType = ThinkGeoLogType.WebRequest`.
+- **Blank cloud basemap:** check the key type for the platform and version (Blazor needs a JavaScript `ApiKey`; on ThinkGeo 15 the desktop and MAUI vector basemap needs an `ApiKey`; everything else a ClientId and ClientSecret), the client's IP or domain restrictions, and whether the evaluation or quota has run out.   To see the HTTP traffic, handle the overlay's `SendingHttpRequest` and `ReceivedHttpResponse` events, or set `ThinkGeoDebugger.LogType = ThinkGeoLogType.WebRequest`.
 - **Quota:** free evaluation accounts are limited to 10,000 requests per day.   Usage is shown in the Cloud console.   Tile caches and reusing results reduce it.
 
 ## Caching Cloud tiles for offline use

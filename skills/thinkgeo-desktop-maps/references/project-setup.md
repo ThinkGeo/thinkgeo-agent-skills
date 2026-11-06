@@ -144,6 +144,6 @@ For any version, do not write code that bypasses, patches, or fakes license chec
 
 ## ThinkGeo Cloud keys
 
-`ThinkGeoCloudVectorMapsOverlay`, `ThinkGeoCloudRasterMapsOverlay`, and the Cloud clients (geocoding, routing, elevation, etc.) need a ClientId and ClientSecret from https://cloud.thinkgeo.com/clients.html.   The keys in ThinkGeo's quick-start guide are for testing only; tell users to create their own.   Load real keys from configuration, user secrets, or environment variables rather than source code.
+`ThinkGeoCloudRasterMapsOverlay`, the Cloud clients (geocoding, routing, elevation, etc.), and on ThinkGeo 14 `ThinkGeoCloudVectorMapsOverlay` need a ClientId and ClientSecret from https://cloud.thinkgeo.com/clients.html.   On ThinkGeo 15, the vector basemap (`ThinkGeoVectorTileOverlay`, or the GPU basemap's `ThinkGeoVectorTileSource`) takes a Cloud API key instead; see the `thinkgeo-cloud-maps` skill.   The keys in ThinkGeo's quick-start guide are for testing only; tell users to create their own.   Load real keys from configuration, user secrets, or environment variables rather than source code.
 
 Desktop apps that must run without internet access should not use Cloud overlays at all.   See the `thinkgeo-offline-maps` skill.

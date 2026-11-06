@@ -1,6 +1,6 @@
 ---
 name: thinkgeo-maui
-description: Build .NET MAUI map apps with ThinkGeo (ThinkGeo.UI.Maui) for Android, iOS, Mac Catalyst, and Windows. Use this skill whenever the user mentions ThinkGeo MAUI, ThinkGeo.UI.Maui, a MAUI MapView, ThinkGeoVectorOverlay or ThinkGeoRasterOverlay, SingleTap, ToWorldCoordinate, MapScale, map rotation or tilt, GPS or current location on a ThinkGeo map, shipping shapefiles or MBTiles inside a mobile app, FileSystem.AppDataDirectory, or symptoms such as a map that works on Windows but not on Android or iOS, a license exception in the emulator, an obsolete LicenseLoader warning, data files that can't be opened on a phone, or taps that don't select features.
+description: Build .NET MAUI map apps with ThinkGeo (ThinkGeo.UI.Maui) for Android, iOS, Mac Catalyst, and Windows. Use this skill whenever the user mentions ThinkGeo MAUI, ThinkGeo.UI.Maui, a MAUI MapView, ThinkGeoVectorTileOverlay, ThinkGeoVectorOverlay or ThinkGeoRasterOverlay, SingleTap, ToWorldCoordinate, MapScale, map rotation or tilt, GPS or current location on a ThinkGeo map, shipping shapefiles or MBTiles inside a mobile app, FileSystem.AppDataDirectory, or symptoms such as a map that works on Windows but not on Android or iOS, a license exception in the emulator, an obsolete LicenseLoader warning, data files that can't be opened on a phone, or taps that don't select features.
 ---
 
 # ThinkGeo for .NET MAUI
@@ -20,7 +20,7 @@ Search the official samples with `tg_search` in the `mauiHowDoI` namespace, and 
 
 | Task | WPF / WinForms | MAUI |
 | --- | --- | --- |
-| Cloud basemap | `ThinkGeoCloudVectorMapsOverlay` | `ThinkGeoVectorOverlay` (raster: `ThinkGeoRasterOverlay`) |
+| Cloud basemap | ThinkGeo 15: `ThinkGeoVectorTileOverlay` on both.   ThinkGeo 14: `ThinkGeoCloudVectorMapsOverlay` | ThinkGeo 15: `ThinkGeoVectorTileOverlay`.   ThinkGeo 14: `ThinkGeoVectorOverlay`.   Raster on both: `ThinkGeoRasterOverlay` |
 | Zoom level of the view | `CurrentScale` | `MapScale` |
 | Click or tap | `MapClick` with `e.WorldLocation` | `SingleTap` (also `DoubleTap`, `LongPress`) with screen `e.X`, `e.Y`; convert with `mapView.ToWorldCoordinate(e.X, e.Y)` |
 | Data files | Next to the executable | Copied into `FileSystem.Current.AppDataDirectory` on first run (below) |
@@ -48,13 +48,20 @@ public partial class MainPage : ContentPage
         _initialized = true;
 
         mapView.MapUnit = GeographyUnit.Meter;
-        mapView.Overlays.Add(new ThinkGeoVectorOverlay
+        // ThinkGeo 15 and later: Cloud API key, from configuration.
+        mapView.Overlays.Add(new ThinkGeoVectorTileOverlay(AppSettings.ThinkGeoApiKey)
         {
-            ClientId = AppSettings.ThinkGeoClientId,           // NativeConfidential key, from configuration
-            ClientSecret = AppSettings.ThinkGeoClientSecret,
-            MapType = ThinkGeoCloudVectorMapsMapType.Light,
+            StyleUri = ThinkGeoVectorStyles.Light,
             TileCache = new FileRasterTileCache(FileSystem.Current.CacheDirectory, "cloud_light")
         });
+        // ThinkGeo 14 and earlier: use this instead (obsolete in 15).
+        // mapView.Overlays.Add(new ThinkGeoVectorOverlay
+        // {
+        //     ClientId = AppSettings.ThinkGeoClientId,        // NativeConfidential key, from configuration
+        //     ClientSecret = AppSettings.ThinkGeoClientSecret,
+        //     MapType = ThinkGeoCloudVectorMapsMapType.Light,
+        //     TileCache = new FileRasterTileCache(FileSystem.Current.CacheDirectory, "cloud_light")
+        // });
 
         _parcels = new ShapeFileFeatureLayer(Path.Combine(FileSystem.Current.AppDataDirectory, "Data", "Parcels.shp"));
         _parcels.FeatureSource.ProjectionConverter = new ProjectionConverter(2276, 3857);
@@ -104,7 +111,7 @@ public partial class MainPage : ContentPage
 4. **Projection:** Cloud basemaps are Spherical Mercator (`GeographyUnit.Meter`); give layers in other projections a `ProjectionConverter(dataEpsg, 3857)`.   GPS readings are WGS84 longitude/latitude: convert with `ProjectionConverter.Convert(4326, 3857, longitude, latitude)` before centering or drawing.
 5. **Location:** use MAUI's `Geolocation.GetLocationAsync` (see the "Navigation" sample).   Each platform needs its location permission declared (Android manifest, iOS `Info.plist`) and requested at runtime; a missing declaration shows up as a permission exception or no location, not a ThinkGeo error.
 6. **Refresh the overlay that changed** (`overlay.RefreshAsync()`), and keep changing data (highlights, GPS position, results) in its own overlay.   Update the map from the UI thread (`MainThread.BeginInvokeOnMainThread`) when results come from background work.
-7. **Cloud keys:** `ThinkGeoVectorOverlay` and `ThinkGeoRasterOverlay` take a ClientId and ClientSecret; restrict the client by IP where possible and keep keys out of source code (see the `thinkgeo-cloud-maps` skill).
+7. **Cloud keys:** on ThinkGeo 15, `ThinkGeoVectorTileOverlay` takes a Cloud API key, and `ThinkGeoRasterOverlay` a ClientId and ClientSecret (on ThinkGeo 14, the obsolete `ThinkGeoVectorOverlay` also takes a ClientId and ClientSecret); restrict the client by IP where possible and keep keys out of source code (see the `thinkgeo-cloud-maps` skill).
 8. **Offline:** for maps without a connection, use a local basemap (MBTiles on 14.x, PMTiles on 15 and later) or a pre-generated tile cache; see the `thinkgeo-offline-maps` skill.   Plan app size: phones have limited storage, so prefer regional extracts.
 
 ## Troubleshooting quick list
@@ -117,4 +124,5 @@ public partial class MainPage : ContentPage
 | Taps select nothing | Screen coordinates not converted (rule 3); tap tolerance for points and lines |
 | Map blank or the wrong size | Initialized before layout (rule 1); `MapUnit` and converters (rule 4) |
 | GPS position in the wrong place | Longitude/latitude not converted to 3857 (rule 4) |
-| Blank Cloud basemap | ClientId/ClientSecret, network access, or quota (`thinkgeo-cloud-maps`) |
+| Blank Cloud basemap | The key (ThinkGeo 15 vector basemap: API key; otherwise ClientId/ClientSecret), network access, or quota (`thinkgeo-cloud-maps`) |
+| Warning that `ThinkGeoVectorOverlay` is obsolete | ThinkGeo 15: switch to `ThinkGeoVectorTileOverlay` with an API key and `StyleUri` |

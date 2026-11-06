@@ -5,7 +5,7 @@ type: llm
 Judge advice on ThinkGeo Cloud keys for a shipped WPF app and a Blazor Server site.
 
 PASS only if all of these hold:
-- WPF uses a NativeConfidential key (ClientId and ClientSecret) on `ThinkGeoCloudVectorMapsOverlay` or `ThinkGeoCloudRasterMapsOverlay`.
+- WPF uses the right key for its basemap class: a NativeConfidential key (ClientId and ClientSecret) on `ThinkGeoCloudVectorMapsOverlay` (ThinkGeo 14) or `ThinkGeoCloudRasterMapsOverlay`, or a Cloud API key on `ThinkGeoVectorTileOverlay` (ThinkGeo 15).
 - The Blazor basemap overlay uses a JavaScript key (`ApiKey`), because the browser fetches the tiles; it says to restrict that key to the site's domain in the ThinkGeo Cloud console.
 - For the shipped WPF app it acknowledges the key can be extracted, recommends restricting the client by IP address or range in the Cloud console where users come from known networks, and suggests a separate client per application so a leaked key can be revoked.
 - Keys are kept out of source code and loaded from configuration.
