@@ -16,7 +16,7 @@ Clarify these before writing code, because they change the design:
 1. **Never connected** (air-gapped) or **sometimes connected** (field laptop that syncs at base)?
 2. **What area and zoom range** must work offline?   A city at street level is a few hundred MB; a country at street level can be tens of GB.
 3. **What basemap source** are they licensed to use offline?   (ThinkGeo Maps Streets, their own data, a purchased vector tile extract, OpenMapTiles-schema data, or imagery such as GeoTIFF/ECW/MrSID.)
-4. **How is software moved onto the machines?** (Installer, removable media, a software center.)   This affects how the runtime license and data ship.
+4. **How is software moved onto the machines?** (Installer, removable media, a software center.)   This affects how the data ship (and, on ThinkGeo 14, the runtime license).
 
 ## Step 2: choose the basemap
 
@@ -60,7 +60,12 @@ Then test the way the user will deploy: on a machine or VM with the network adap
 
 ## Step 5: licensing on disconnected machines
 
-Read `references/deployment.md`.   In short: generate the runtime license on a connected development machine with ThinkGeo Product Center, then ship the license file next to the application executable.   Regenerate it if the executable name changes.   Target machines need no activation and no connection: the file is tied to the executable name, not the machine, and is perpetual.   Don't generate licenses at install time on target machines; generate once and ship the file.   Never write code that bypasses or fakes license checks.
+Read `references/deployment.md`.   In short, it depends on the ThinkGeo version:
+
+- **ThinkGeo 15 and later:** nothing to ship.   The build embeds the license in the app, so target machines need no file, activation, or connection.   The build machine needs only the developer's key file; the build check works offline, so an air-gapped build machine works too.
+- **ThinkGeo 14 and earlier:** generate the runtime license on a connected development machine with ThinkGeo Product Center, then ship the license file next to the application executable.   Regenerate it if the executable name changes.   Target machines need no activation and no connection: the file is tied to the executable name, not the machine, and is perpetual.   Don't generate licenses at install time on target machines; generate once and ship the file.
+
+Never write code that bypasses or fakes license checks.
 
 ## Pre-generating a tile cache
 
@@ -81,5 +86,5 @@ The generation code (`LayerBase.GenerateTileCacheAsync`) and its gotchas are in 
 - Data paths are absolute or base-directory relative, and configurable.
 - Caches and anything the app writes go to a writable location.
 - Spatial indexes are built before shipping.
-- The runtime license file ships next to the executable.
+- Licensing: on ThinkGeo 15, the app was built with a key (no `TG0001` warning in the build); on ThinkGeo 14, the runtime license file ships next to the executable.
 - The app was tested with networking disabled.

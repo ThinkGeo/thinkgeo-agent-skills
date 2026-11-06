@@ -1,6 +1,6 @@
 ---
 name: thinkgeo-maui
-description: Build .NET MAUI map apps with ThinkGeo (ThinkGeo.UI.Maui) for Android, iOS, Mac Catalyst, and Windows. Use this skill whenever the user mentions ThinkGeo MAUI, ThinkGeo.UI.Maui, a MAUI MapView, ThinkGeoVectorOverlay or ThinkGeoRasterOverlay, SingleTap, ToWorldCoordinate, MapScale, map rotation or tilt, GPS or current location on a ThinkGeo map, shipping shapefiles or MBTiles inside a mobile app, FileSystem.AppDataDirectory, or symptoms such as a map that works on Windows but not on Android or iOS, a license exception in the emulator, data files that can't be opened on a phone, or taps that don't select features.
+description: Build .NET MAUI map apps with ThinkGeo (ThinkGeo.UI.Maui) for Android, iOS, Mac Catalyst, and Windows. Use this skill whenever the user mentions ThinkGeo MAUI, ThinkGeo.UI.Maui, a MAUI MapView, ThinkGeoVectorOverlay or ThinkGeoRasterOverlay, SingleTap, ToWorldCoordinate, MapScale, map rotation or tilt, GPS or current location on a ThinkGeo map, shipping shapefiles or MBTiles inside a mobile app, FileSystem.AppDataDirectory, or symptoms such as a map that works on Windows but not on Android or iOS, a license exception in the emulator, an obsolete LicenseLoader warning, data files that can't be opened on a phone, or taps that don't select features.
 ---
 
 # ThinkGeo for .NET MAUI
@@ -14,7 +14,7 @@ Search the official samples with `tg_search` in the `mauiHowDoI` namespace, and 
 - Package: `ThinkGeo.UI.Maui`, plus any extension packages the data needs, all at the same version.   Nothing ThinkGeo-specific goes in `MauiProgram.cs`.
 - XAML: `xmlns:thinkgeo="clr-namespace:ThinkGeo.UI.Maui;assembly=ThinkGeo.UI.Maui"` and `<thinkgeo:MapView x:Name="mapView" SizeChanged="MapView_SizeChanged" />`.
 - Code-behind: `using ThinkGeo.Core;` and `using ThinkGeo.UI.Maui;`.
-- **Licensing is different on phones.** Android, iOS, and Mac Catalyst need a license file loaded with `LicenseLoader.LoadLicense` before any map draws, even in an emulator under the debugger; a developer license alone isn't enough there.   Follow `thinkgeo-code-example/references/licensing.md` (MAUI section) for every new MAUI project.
+- **Licensing depends on the version.** ThinkGeo 15 and later: nothing goes in the app.   The build checks the developer's Mobile key (`mobile.thinkgeokey`), and the device needs nothing.   Don't call `LicenseLoader.LoadLicense` or add `.mapsuitelicense` files; the call is obsolete in ThinkGeo 15.   ThinkGeo 14 and earlier: Android, iOS, and Mac Catalyst need a license file loaded with `LicenseLoader.LoadLicense` before any map draws, even in an emulator under the debugger; a developer license alone isn't enough there.   Follow `thinkgeo-code-example/references/licensing.md` for the project's version in every new MAUI project.
 
 ## Different from desktop
 
@@ -99,7 +99,7 @@ public partial class MainPage : ContentPage
 ## Rules
 
 1. **Initialize once, after layout.** Set up the map in `SizeChanged` with an `_initialized` guard (it fires repeatedly, including on rotation), or in `Loaded`.   `MapWidth` and `MapHeight` are zero before layout.
-2. **Ship data as files in `AppDataDirectory`.** ThinkGeo file layers need a real, seekable file path.   On Android, files packaged as `MauiAsset` (`Resources\Raw`) are only available as non-seekable streams.   The official pattern: add data files as **embedded resources**, and on first start (for example in `App.OnStart`) copy them to `FileSystem.Current.AppDataDirectory` if they aren't there yet, then open them from there.   License files are the exception: they go in `Resources\Raw` and load with `LicenseLoader`.
+2. **Ship data as files in `AppDataDirectory`.** ThinkGeo file layers need a real, seekable file path.   On Android, files packaged as `MauiAsset` (`Resources\Raw`) are only available as non-seekable streams.   The official pattern: add data files as **embedded resources**, and on first start (for example in `App.OnStart`) copy them to `FileSystem.Current.AppDataDirectory` if they aren't there yet, then open them from there.   On ThinkGeo 14, license files are the exception: they go in `Resources\Raw` and load with `LicenseLoader`.
 3. **Taps give screen coordinates.** Convert `e.X`, `e.Y` with `ToWorldCoordinate` before querying.   A layer with a `ProjectionConverter` takes the converted point directly.   Finger taps are imprecise: for points and lines, query with a tolerance (`GetFeaturesWithinDistanceOf`) rather than `GetFeaturesContaining`.
 4. **Projection:** Cloud basemaps are Spherical Mercator (`GeographyUnit.Meter`); give layers in other projections a `ProjectionConverter(dataEpsg, 3857)`.   GPS readings are WGS84 longitude/latitude: convert with `ProjectionConverter.Convert(4326, 3857, longitude, latitude)` before centering or drawing.
 5. **Location:** use MAUI's `Geolocation.GetLocationAsync` (see the "Navigation" sample).   Each platform needs its location permission declared (Android manifest, iOS `Info.plist`) and requested at runtime; a missing declaration shows up as a permission exception or no location, not a ThinkGeo error.
@@ -111,7 +111,8 @@ public partial class MainPage : ContentPage
 
 | Symptom | Check first |
 | --- | --- |
-| License exception in the Android or iOS emulator | License file for the package name or bundle ID, loaded with `LicenseLoader` (`licensing.md`) |
+| License exception in the Android or iOS emulator | ThinkGeo 14: license file for the package name or bundle ID, loaded with `LicenseLoader`.   ThinkGeo 15 uses no license files; check the build output for `TG` messages (`licensing.md`) |
+| Build warning that `LicenseLoader` is obsolete | ThinkGeo 15: remove the `LoadLicense` calls and the `.mapsuitelicense` files |
 | Works on Windows, data missing on Android or iOS | Data opened from `Resources\Raw` or a relative path instead of `AppDataDirectory` (rule 2) |
 | Taps select nothing | Screen coordinates not converted (rule 3); tap tolerance for points and lines |
 | Map blank or the wrong size | Initialized before layout (rule 1); `MapUnit` and converters (rule 4) |

@@ -129,6 +129,16 @@ for f in code_files:
                 continue
             errors.append(f"{rel}: {m.group(0)} ({why})")
 
+# ThinkGeo 15 license keys: never in the repo, as files or as pasted key text.
+for f in ROOT.rglob("*.thinkgeokey"):
+    if ".git" not in f.parts:
+        errors.append(f"{f.relative_to(ROOT)}: ThinkGeo license key file in the repo")
+KEY_TEXT = re.compile(r"tgk_[A-Za-z0-9+/=_-]{12,}")
+for f in ROOT.rglob("*"):
+    if f.is_file() and ".git" not in f.parts and f.suffix in {".md", ".cs", ".json", ".yaml", ".yml", ".xaml", ".csproj", ".ps1", ".txt"}:
+        if KEY_TEXT.search(f.read_text(encoding="utf-8", errors="replace")):
+            errors.append(f"{f.relative_to(ROOT)}: looks like ThinkGeo license key text (tgk_...)")
+
 # Package versions in test and starter projects must be consistent per project.
 for proj in ROOT.rglob("*.csproj"):
     vers = set(re.findall(r'Include="ThinkGeo\.[^"]+"\s+Version="([^"]+)"', proj.read_text(encoding="utf-8")))

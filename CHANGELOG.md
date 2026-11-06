@@ -1,5 +1,18 @@
 # Changelog
 
+## Unreleased
+
+ThinkGeo 15 licensing.   ThinkGeo 15 replaces Product Center and runtime license files with a personal license key per developer, checked at build time.   Every skill that covers licensing now checks the project's ThinkGeo version and gives the matching instructions; the ThinkGeo 14 material is kept, labeled "ThinkGeo 14 and earlier".
+
+Added:
+- `licensing.md`: a "ThinkGeo 15 and later" section from the License Guide for ThinkGeo 15: key files per product family and where they go, the 30-day trial, the non-map key, every build message (`TG0001` to `TG0007`), deploying with nothing to ship, build servers and Docker with `THINKGEO_LICENSE` and `-warnaserror:TG0001`, upgrading from 14, and seats.   Checked against `15.0.0-beta264`: the `TG0001` trial warning, `-warnaserror:TG0001` failing the build, `TG0004` for a malformed `THINKGEO_LICENSE`, and `LicenseLoader` marked obsolete in every MAUI target.
+- `validate_package.py`: fails on a `.thinkgeokey` file or `tgk_...` key text in the repo.   `.gitignore` skips `*.thinkgeokey`.
+
+Changed:
+- Version-aware licensing in `thinkgeo-desktop-maps` (`SKILL.md`, `project-setup.md`), `thinkgeo-troubleshoot` (`SKILL.md`, `desktop-symptoms.md`; the description now names the `TG` build messages, `.thinkgeokey`, and `THINKGEO_LICENSE`), `thinkgeo-maui` (no `LicenseLoader` on ThinkGeo 15), `thinkgeo-code-example`, `thinkgeo-offline-maps` (nothing to ship on ThinkGeo 15; air-gapped build machines need only the key file), `thinkgeo-web-api` and `thinkgeo-blazor` (nothing on the server; Docker builds use a BuildKit secret), `thinkgeo-cloud-maps`, and `AGENTS.md`.
+- `evals/maui-page`: the app grader accepts either version's correct licensing (`LicenseLoader` on 14, none on 15).   `tests/test-cases.md` updated to match.
+- README: `npx skills add` is the recommended install; the Claude Code plugin instructions use the HTTPS address with `claude plugin` commands (the `ThinkGeo/thinkgeo-agent-skills` short form clones over SSH and fails without a GitHub SSH key).   Each skill in the README tables links to its `SKILL.md`.
+
 ## 0.6.0
 
 More ways to install, an open-source license, and the first full evaluation.   Codex users can install the plugin (skills plus MCP server) from this repo, any assistant can install the skills with `npx skills add`, and assistants that only read `AGENTS.md` get a condensed version.

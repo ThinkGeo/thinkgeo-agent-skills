@@ -106,7 +106,19 @@ Where WPF and WinForms differ:
 
 ## Licensing
 
-This section covers WPF and WinForms.   MAUI, Blazor, and other platforms differ; see `thinkgeo-code-example/references/licensing.md`.
+This section covers WPF and WinForms.   MAUI, Blazor, and other platforms differ; see `thinkgeo-code-example/references/licensing.md`, which also covers build servers and every build message.
+
+Licensing depends on the ThinkGeo version in the project file.   ThinkGeo 14 licenses don't work with ThinkGeo 15 packages.
+
+### ThinkGeo 15 and later
+
+1. Each developer signs in at https://helpdesk.thinkgeo.com, opens the licensing link under the SDKs card, and downloads the Desktop key, `desktop.thinkgeokey`.
+2. They save it, with its name unchanged, in `%LOCALAPPDATA%\ThinkGeo\`.
+3. Build.   The build checks the key and stamps a license token into the assembly.   Without a key, the first build on a machine starts a 30-day trial: warning `TG0001`, and maps show a "Not Licensed for Runtime" watermark.   After 30 days the build fails with `TG0002`.
+
+To deploy, ship the build output; there's no runtime license file and nothing to activate on target machines.   If the project uses `ThinkGeo.Dependency.MicrosoftVisualCRunTime140`, install the Visual C++ Redistributable on target machines.   Never commit the key file; build servers use the `THINKGEO_LICENSE` environment variable.
+
+### ThinkGeo 14 and earlier
 
 ThinkGeo uses two kinds of license file:
 
@@ -128,7 +140,7 @@ Steps to deploy:
 
 A deployed app with a missing or invalid runtime license shows a blank white map with a "Not Licensed for Run Time" watermark rather than crashing.   Expired evaluation licenses show a "subscription license has expired" message.   See the `thinkgeo-troubleshoot` skill for diagnosis.
 
-Do not write code that bypasses, patches, or fakes license checks.   If the user asks, explain the supported process above and point them to ThinkGeo support.
+For any version, do not write code that bypasses, patches, or fakes license checks.   If the user asks, explain the supported process above and point them to ThinkGeo support.
 
 ## ThinkGeo Cloud keys
 

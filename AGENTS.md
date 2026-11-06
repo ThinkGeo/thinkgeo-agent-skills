@@ -24,7 +24,7 @@ Without the server, use https://docs.thinkgeo.com and the HowDoI sample reposito
 - Redraw with `await mapView.RefreshAsync()` (desktop and MAUI) or `RedrawAsync` (Blazor).   Refresh only the overlay that changed.
 - Shapefile editing needs `FileAccess.ReadWrite` on the layer.   With a `ProjectionConverter` on the layer, `EditTools.Add` and `Update` take map coordinates and convert on their own; don't convert first.
 - Use placeholders for credentials (`YOUR_CLIENT_ID`, `YOUR_CLIENT_SECRET`, `YOUR_API_KEY`).   Never paste keys from documentation or samples.
-- Desktop apps need a ThinkGeo license from Product Center; deployed apps need a runtime license, which is tied to the executable name.   MAUI apps load a license file with `LicenseLoader.LoadLicense`, even in emulators.   Never bypass or fake licensing.
+- Licensing depends on the ThinkGeo version.   ThinkGeo 15 and later: each developer keeps a license key file (`desktop.thinkgeokey`, `web.thinkgeokey`, or `mobile.thinkgeokey`, from the ThinkGeo Helpdesk) in `%LOCALAPPDATA%\ThinkGeo\` or `~/.thinkgeo/`; the build checks it (`TG0001` to `TG0007` messages) and deployed apps need nothing.   Build servers use the `THINKGEO_LICENSE` environment variable.   Don't call `LicenseLoader.LoadLicense` (obsolete in 15).   ThinkGeo 14 and earlier: developers activate a license in Product Center, deployed apps need a runtime license tied to the executable name, and MAUI apps load a license file with `LicenseLoader.LoadLicense`, even in emulators.   Never commit key files, and never bypass or fake licensing.
 - Say whether code was compiled, checked against the docs, or is illustrative.
 
 ## Names that don't exist

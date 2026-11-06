@@ -25,7 +25,7 @@ Search the official samples with `tg_search` in the `blazorHowDoI` namespace, an
 
 - Package: `ThinkGeo.UI.Blazor`, plus any extension packages the data needs, all at the same version (see `thinkgeo-code-example/references/package-map.md`).
 - `_Imports.razor`: `@using ThinkGeo.Core` and `@using ThinkGeo.UI.Blazor`.
-- Licensing: same Product Center tab as desktop; a server needs a runtime license (see `thinkgeo-code-example/references/licensing.md`).
+- Licensing depends on the version.   ThinkGeo 15 and later: the build checks the developer's Web key (`web.thinkgeokey`) and the server needs nothing.   ThinkGeo 14 and earlier: same Product Center tab as desktop, and a server needs a runtime license.   See `thinkgeo-code-example/references/licensing.md`.
 - ThinkGeo Cloud basemaps take a JavaScript-type `ApiKey`, restricted to your domain (see the `thinkgeo-cloud-maps` skill).
 
 ## A map page
@@ -109,4 +109,4 @@ Search the official samples with `tg_search` in the `blazorHowDoI` namespace, an
 | Changes don't appear | `RedrawAsync` on the overlay (rule 2) |
 | Clicks do nothing | Interactive render mode; `OnClick` handler signature takes `ClickedMapViewEventArgs` |
 | Works on Blazor Server, blank in WebAssembly | `LayerOverlay` isn't supported in WebAssembly (hosting table) |
-| Watermark | Runtime license on the server (`licensing.md`) |
+| Watermark | ThinkGeo 15: built without a key (a `TG0001` trial build), so rebuild with the key.   ThinkGeo 14: the runtime license on the server (`licensing.md`) |

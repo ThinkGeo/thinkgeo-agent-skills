@@ -13,7 +13,7 @@ Search the official samples with `tg_search` in the `webApiHowDoI` namespace (ea
 
 - Project: ASP.NET Core Web API.   Package: `ThinkGeo.UI.WebApi`, plus any extension packages the data needs (see the `thinkgeo-code-example` skill's `references/package-map.md`), all at the same version.
 - Usings: `ThinkGeo.Core` for layers and styles, `ThinkGeo.UI.WebApi` for `WebApiExtentHelper`.
-- Licensing: a server needs a runtime license; a developer license isn't enough once the subscription ends.   See `thinkgeo-code-example/references/licensing.md` (Blazor and WebAPI section).
+- Licensing depends on the version.   ThinkGeo 15 and later: the build checks the developer's Web key and embeds the license, so the server (Windows, Linux, or a container) needs nothing; build servers and Docker builds pass the key in `THINKGEO_LICENSE`.   ThinkGeo 14 and earlier: a server needs a runtime license; a developer license isn't enough once the subscription ends.   See `thinkgeo-code-example/references/licensing.md`.
 
 ## The tile endpoint
 
@@ -69,7 +69,7 @@ public class TilesController : ControllerBase
 4. **Find data from the app's content root,** not the current directory.   `Directory.GetCurrentDirectory()` and paths like `../../../Data` only work when started from the project folder in Visual Studio; under IIS, a Windows service, or Docker they point elsewhere.   Use `IWebHostEnvironment.ContentRootPath` (or `AppContext.BaseDirectory`) and make sure the data is copied to the publish output.
 5. **dBASE code pages:** if attribute text from a `.dbf` comes out garbled or throws an encoding error, call `Encoding.RegisterProvider(CodePagesEncodingProvider.Instance)` once at startup, as the samples do.
 6. **Tiles are drawn concurrently.** A JavaScript map requests many tiles at once, so several requests can draw at the same moment.   The samples show two patterns: building the layer and overlay inside each request (simple, but the file is reopened for every tile), and keeping layers in `static` fields shared across requests.   If you share a layer, check its `ThreadSafe` property: a layer marked `ThreadSafetyLevel.Unsafe` must not be drawn or changed by two requests at once (the samples use `lock` around changes).   Choosing between the patterns and adding tile caching depend on the application; ask the user about traffic and how often the data changes rather than assuming.
-7. **Linux and Docker:** ThinkGeo draws with SkiaSharp, whose native libraries need extra packages in Linux images (`libfontconfig1`, `libfreetype6`, and others; the WebAPI Quick Start's Dockerfile lists them).   A tile service that works on Windows but fails in a Linux container is often missing these.   Licensing for Linux and containers isn't covered by the current docs; see `licensing.md`.
+7. **Linux and Docker:** ThinkGeo draws with SkiaSharp, whose native libraries need extra packages in Linux images (`libfontconfig1`, `libfreetype6`, and others; the WebAPI Quick Start's Dockerfile lists them).   A tile service that works on Windows but fails in a Linux container is often missing these.   On ThinkGeo 15, license a Docker build with a BuildKit secret in `THINKGEO_LICENSE` (`licensing.md` has the Dockerfile lines); ThinkGeo 14's docs don't cover licensing for Linux and containers.
 
 ## The browser side
 
@@ -95,7 +95,7 @@ new ol.layer.Tile({ source: new ol.source.XYZ({ url: 'https://your-server/tiles/
 | Blank tiles | Data path (rule 4); map unit and projection converter (rule 1); the layer's zoom-level styles cascade with `ApplyUntilZoomLevel.Level20` |
 | Tiles in the wrong place or wrong scale | Tile size mismatch (rule 2); missing `ProjectionConverter` (rule 1) |
 | Labels cut off | `DrawingMarginInPixel` (rule 3) |
-| Works in Visual Studio, fails when published | Data path (rule 4); data files not copied to the publish output; runtime license |
+| Works in Visual Studio, fails when published | Data path (rule 4); data files not copied to the publish output; on ThinkGeo 14, the runtime license |
 | Fails only on Linux or in Docker | SkiaSharp native libraries (rule 7); licensing for containers (`licensing.md`) |
-| Watermark on the tiles | Licensing (`licensing.md`) |
+| Watermark on the tiles | ThinkGeo 15: the app was built without a key (a `TG0001` trial build), so rebuild with the key.   ThinkGeo 14: the runtime license (`licensing.md`) |
 | Pink or error tiles | A layer threw while drawing; see the `thinkgeo-troubleshoot` skill |

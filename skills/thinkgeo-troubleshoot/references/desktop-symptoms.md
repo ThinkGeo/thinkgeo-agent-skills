@@ -43,7 +43,20 @@ A layer threw while drawing.   Turn on `ThrowingExceptionMode.ThrowException` (a
 
 Subclasses can override `DrawExceptionCore(GeoCanvas canvas, Exception e)` to draw a friendlier error tile in production.
 
-## Symptom: license watermark or license exception
+## Symptom: license build error, watermark, or license exception
+
+Check the ThinkGeo version in the project file first.
+
+**ThinkGeo 15 and later:** licensing problems show up when the project **builds**, as messages `TG0001` to `TG0007`.   Match the code in the "Build messages" table in `thinkgeo-code-example/references/licensing.md`.   The common ones:
+
+- `TG0001` warning, watermark on the map: no key file on this machine, so it's building on the 30-day trial.   Put `desktop.thinkgeokey` in `%LOCALAPPDATA%\ThinkGeo\`.
+- `TG0002` error: the trial on this machine has ended; same fix.
+- `TG0004` error: the key is revoked or malformed, or it's the wrong family (for example a Web key in a WPF project).
+- `TG0003` error: the subscription ended more than 14 days ago, or the package is newer than the perpetual license's Software Assurance date.
+
+A watermark on a deployed ThinkGeo 15 app means it was built without a key (on a trial).   Rebuild it on a machine with the key; there's nothing to copy to the target machine.   On a build server, check the `THINKGEO_LICENSE` secret.
+
+**ThinkGeo 14 and earlier:**
 
 | What they see | Cause | Fix |
 | --- | --- | --- |
@@ -53,7 +66,7 @@ Subclasses can override `DrawExceptionCore(GeoCanvas canvas, Exception e)` to dr
 | "Your subscription license has expired" exception while debugging | Evaluation or developer subscription ended | Renew the subscription.   Deployed apps with a runtime license keep working, since runtime licenses don't expire |
 | "N days left" watermark | Evaluation license | Activate a purchased license, then regenerate the runtime license |
 
-Product Center itself acting up (activation fails, wrong license state), or a dev license that needs to move to another machine or developer: see "Managing developer licenses" in `thinkgeo-code-example/references/licensing.md`.   Point users to ThinkGeo support for account issues.   Never suggest ways to bypass licensing.
+On ThinkGeo 14, Product Center itself acting up (activation fails, wrong license state), or a dev license that needs to move to another machine or developer: see "Managing developer licenses" in `thinkgeo-code-example/references/licensing.md`.   Point users to ThinkGeo support for account issues.   Never suggest ways to bypass licensing.
 
 ## Symptom: map doesn't update after I change data
 

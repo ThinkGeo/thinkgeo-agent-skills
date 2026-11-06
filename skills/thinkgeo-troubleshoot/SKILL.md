@@ -1,6 +1,6 @@
 ---
 name: thinkgeo-troubleshoot
-description: Diagnose and fix problems in ThinkGeo applications (WPF, WinForms, Blazor, WebAPI, MAUI) using evidence from the user's code, error text, current ThinkGeo docs, and official samples. Use whenever ThinkGeo code does not work or behaves unexpectedly — blank or empty map, layer not showing or in the wrong place, pink or magenta tiles, "Not Licensed for Run Time" or "Not Licensed for Map Development" watermark, license exception, Product Center won't activate or behaves oddly, tiles not updating, missing labels, slow rendering, delayed clicks, edit handles not appearing, TaskCanceledException or OperationCanceledException from ZoomToAsync, KeyNotFoundException on ColumnValues, "projection is not open", package or version conflicts, or a service endpoint that returns nothing — even if the user only pastes an error message or describes what they see.
+description: Diagnose and fix problems in ThinkGeo applications (WPF, WinForms, Blazor, WebAPI, MAUI) using evidence from the user's code, error text, current ThinkGeo docs, and official samples. Use whenever ThinkGeo code does not work or behaves unexpectedly — blank or empty map, layer not showing or in the wrong place, pink or magenta tiles, "Not Licensed for Run Time" or "Not Licensed for Map Development" watermark, license exception, a ThinkGeo build warning or error from TG0001 to TG0007 such as "No ThinkGeo key found", a .thinkgeokey or THINKGEO_LICENSE problem, Product Center won't activate or behaves oddly, tiles not updating, missing labels, slow rendering, delayed clicks, edit handles not appearing, TaskCanceledException or OperationCanceledException from ZoomToAsync, KeyNotFoundException on ColumnValues, "projection is not open", package or version conflicts, or a service endpoint that returns nothing — even if the user only pastes an error message or describes what they see.
 ---
 
 # Troubleshoot ThinkGeo Problems
@@ -33,11 +33,11 @@ These account for most reported problems across all ThinkGeo platforms:
 - **Zoom-level styling:** a style on `ZoomLevel01` with no `ApplyUntilZoomLevel` only draws when fully zoomed out.
 - **Map unit:** `MapUnit` not set first, or not matching the map's projection.
 - **Swallowed drawing errors:** set `ThrowingExceptionMode.ThrowException` on the overlay while debugging, so pink tiles turn into real exceptions with stack traces.
-- **Licensing:** a missing or mismatched runtime license shows a watermark rather than throwing in deployed desktop apps.   MAUI apps on Android, iOS, and Mac Catalyst throw on start ("A separate license file is required for each mobile project") until a license file is added as a `MauiAsset` and loaded with `LicenseLoader.LoadLicense`, even under the debugger.   Per-platform causes and fixes: `thinkgeo-code-example/references/licensing.md`.
+- **Licensing depends on the version.** ThinkGeo 15 and later check licensing at build time: `TG0001` to `TG0007` messages in the build output, a watermark only when the app was built without a key, and no runtime license files or `LicenseLoader` on any platform.   ThinkGeo 14 and earlier check at run time: a missing or mismatched runtime license shows a watermark rather than throwing in deployed desktop apps, and MAUI apps on Android, iOS, and Mac Catalyst throw on start ("A separate license file is required for each mobile project") until a license file is added as a `MauiAsset` and loaded with `LicenseLoader.LoadLicense`, even under the debugger.   Per-platform causes and fixes: `thinkgeo-code-example/references/licensing.md`.
 
 ## Boundaries
 
-- Never suggest bypassing, patching, or faking license checks.   For license account problems, direct the user to ThinkGeo Product Center and ThinkGeo support.
+- Never suggest bypassing, patching, or faking license checks.   For license account problems, direct the user to the licensing page on the ThinkGeo Helpdesk (ThinkGeo 15) or ThinkGeo Product Center (ThinkGeo 14), and to ThinkGeo support.
 - If the user's package versions are mixed (stable and beta, or different minor versions across ThinkGeo packages), align them before chasing other causes.
 
 ## Escalation

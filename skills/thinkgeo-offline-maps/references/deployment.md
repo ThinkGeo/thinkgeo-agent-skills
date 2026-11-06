@@ -1,15 +1,28 @@
 # Deploying to Disconnected Machines
 
-Sources: Desktop Deployment Guide and Licensing pages (docs.thinkgeo.com).
+Sources: License Guide for ThinkGeo 15, Desktop Deployment Guide, and Licensing pages (docs.thinkgeo.com).
 
-## Runtime license
+## Licensing
+
+Check the ThinkGeo version in the project file.
+
+### ThinkGeo 15 and later
+
+There's nothing to ship or activate.   The build checks the developer's key file and embeds a signed license token in the application's assemblies, so target machines need no license file, no activation, and no connection to ThinkGeo.
+
+- The build machine needs the key file (`desktop.thinkgeokey` in `%LOCALAPPDATA%\ThinkGeo\`) or the `THINKGEO_LICENSE` environment variable.   The check works offline, so the build machine can be on the air-gapped network too.
+- Build without warning `TG0001`.   An app built without a key runs on the 30-day trial and shows a "Not Licensed for Runtime" watermark everywhere it's deployed.   Add `-warnaserror:TG0001` to release builds so this can't happen unnoticed.
+- After a renewal, a key file refreshes itself on the next build.   If the build machine never connects and the build still reports the old date (`TG0006` or `TG0003`), download the key again on a connected machine and copy it over.
+- If a deployed app shows a watermark, rebuild it with the key; there's nothing to fix on the target machine.
+
+### ThinkGeo 14 and earlier: runtime license
 
 1. On a connected development machine with ThinkGeo Product Center and an activated license, open the "Runtime License" tab.
 2. Browse to the application's built executable and click "Save".   The runtime license file is written next to the executable.
 3. Include that file in the installer so it lands in the same folder as the executable on target machines.
 4. Re-generate it whenever the executable's file name changes.
 
-Symptoms on the target machine:
+Symptoms on the target machine (ThinkGeo 14):
 
 | What the user sees | Likely cause |
 | --- | --- |
@@ -17,7 +30,7 @@ Symptoms on the target machine:
 | "Your subscription license has expired" message | Evaluation or subscription expired; renew and regenerate |
 | Map renders with a "days left" watermark | Running on an evaluation license |
 
-### Machines that never connect
+#### Machines that never connect
 
 No extra procedure is needed.   Target machines never activate anything and never contact ThinkGeo:
 
@@ -29,7 +42,7 @@ So the build machine, or any developer machine with Product Center, generates th
 
 Never write code that bypasses, patches, or fakes license checks.
 
-### Diagnosing a license watermark on a locked-down machine
+#### Diagnosing a license watermark on a locked-down machine
 
 If the watermark appears and the file looks correct, log ThinkGeo's licensing messages to a file the user can send back:
 
@@ -54,7 +67,7 @@ Turn this off after diagnosing; logging slows rendering.   Common causes: the fi
 ```
 C:\Program Files\YourApp\              (read-only after install)
     YourApp.exe
-    <runtime license file>
+    <runtime license file>               (ThinkGeo 14 only)
     ThinkGeo and other DLLs
 C:\ProgramData\YourApp\Maps\           (data, installed or updated separately)
     region.mbtiles
@@ -70,5 +83,5 @@ Make the data path configurable (app settings or a command-line argument) so adm
 
 - Install on a clean VM with networking disabled.
 - Confirm the basemap, every data layer, labels, and icons render at the lowest and highest zoom the app allows.
-- Confirm there is no license watermark.
+- Confirm there is no license watermark (on ThinkGeo 15, also that the release build showed no `TG0001` warning).
 - Check application logs for swallowed drawing exceptions (see the `thinkgeo-troubleshoot` skill for `ThrowingExceptionMode`).

@@ -7,3 +7,6 @@ tests/projects/WpfShapefileSample/Data/
 
 # Local drafts (blog posts and other unpublished writing)
 drafts/
+
+# ThinkGeo 15 license keys belong in the user profile folder, never in the repo
+*.thinkgeokey

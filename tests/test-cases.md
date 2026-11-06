@@ -75,7 +75,7 @@ Expected skill behavior:
 - Asks (or states assumptions) about area, zoom range, and licensed data source before picking a format.
 - Uses `VectorMbTilesAsyncLayer` (or another local layer) and removes the Cloud overlay.   Doesn't use `VectorPmTilesAsyncLayer`, which isn't in 14.5.3.
 - Warns that Style JSON `glyphs`, `sprite`, and `sources` must be local.
-- Covers runtime license file deployment without suggesting any license bypass.
+- Covers licensing for the version (ThinkGeo 14: runtime license file next to the executable; ThinkGeo 15: nothing to ship, build with the key) without suggesting any license bypass.
 
 ## 10. Pink tiles
 Prompt: "Half my map tiles are pink after I added a TextStyle on the NAME column.   WPF, ThinkGeo 14.5.3."
@@ -123,7 +123,7 @@ Prompt: "Our ThinkGeo WebAPI tile service works when I run it from Visual Studio
 
 Expected skill behavior:
 - Activates `thinkgeo-web-api` or `thinkgeo-troubleshoot`.
-- Fixes the path with the content root, checks the data is published, and mentions the runtime license.
+- Fixes the path with the content root, checks the data is published, and mentions licensing on the server (ThinkGeo 14 runtime license, or a ThinkGeo 15 build without a key).
 - Fixes clipped labels with `DrawingMarginInPixel`.
 
 ## 16. Blazor map page
@@ -147,7 +147,7 @@ Prompt: "In my .NET MAUI app (Android and iOS), show a parcel shapefile that shi
 Expected skill behavior:
 - Activates `thinkgeo-maui`.
 - Copies embedded data to `AppDataDirectory`; `ThinkGeoVectorOverlay`; `ProjectionConverter(2276, 3857)`; init once after layout.
-- `SingleTap` + `ToWorldCoordinate`; refreshes the highlight overlay; mentions the license file for Android/iOS.
+- `SingleTap` + `ToWorldCoordinate`; refreshes the highlight overlay; licensing matches the version (ThinkGeo 14: the license file for Android/iOS; ThinkGeo 15: no `LicenseLoader`).
 
 ## 19. MAUI data works on Windows, not Android
 Prompt: "My ThinkGeo MAUI app shows our shapefile fine on Windows, but on Android the layer never appears.   I put the .shp, .shx and .dbf in Resources\Raw as MauiAsset and open the layer with `new ShapeFileFeatureLayer("Parcels.shp")`.   What's wrong?"

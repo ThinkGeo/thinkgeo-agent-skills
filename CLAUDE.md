@@ -33,6 +33,7 @@ The ThinkGeo Documentation MCP server (`https://ai.thinkgeo.com/mcp`, tools `tg_
 ## Rules for editing skills
 
 - **Verify every ThinkGeo API name with `tg_api` before adding it, even if an official sample uses it.** Samples can be stale (see the documentation issues below).   Many extension-package classes (`ThinkGeo.Gdal`, `ThinkGeo.SqlServer`, and so on) aren't in the API reference, so `tg_api` can't confirm them.   Check those types against the package DLL instead.
+- **Licensing is version-specific.** ThinkGeo 15 replaced Product Center and runtime license files with a per-developer key file checked at build time (`TG0001` to `TG0007`; build servers use `THINKGEO_LICENSE`; MAUI drops `LicenseLoader`).   Skills tell the assistant to check the project's ThinkGeo version and use the "ThinkGeo 15 and later" or "ThinkGeo 14 and earlier" instructions; `thinkgeo-code-example/references/licensing.md` holds both.   Source: https://docs.thinkgeo.com/products/misc/license-guide-v15/.   Per Phil (November 2026): the build check works offline with just the key file, and the `ThinkGeoDebugger` licensing log isn't relevant in 15.
 - **Keep every ThinkGeo package on one version, and don't name a "current" version in the skills.** ThinkGeo releases about monthly and 15.0 is coming, so skills say: latest stable from NuGet for new projects, the project's own version for existing ones, no betas.   Version-specific facts are phrased to survive releases ("needs ThinkGeo 15 or later").   The starter and test projects pin a real version (14.5.5 as of October 2026); bump them when you release.
 - **Use placeholder credentials only** (`YOUR_CLIENT_ID`, `YOUR_CLIENT_SECRET`).   The ThinkGeo Cloud test keys in the quick-start docs must not appear here.
 - **Never add content that bypasses, patches, or fakes ThinkGeo licensing.**
@@ -66,7 +67,7 @@ When the validator flags a forbidden API call, fix the code.   Only add an excep
 3. ~~**Marketplace source.**~~ Done (October 2, 2026).   `"source": "./"` passes `claude plugin validate .`, and installing from the GitLab URL loads all 8 skills and the MCP server.   Because the source is the repo root, installs copy the whole repo (including `tests/`, `scripts/`, and `CLAUDE.md`), and validating `plugin.json` warns about `CLAUDE.md`.   This is expected and harmless: those files cost no tokens, and they stay in this repo on purpose.
 4. ~~**Install instructions.**~~ Done (October 2, 2026).   `README.md` now leads with the GitHub short form (`ThinkGeo/thinkgeo-agent-skills`), with the GitLab address as the alternative.   Both install correctly.
 5. ~~**Editing round trip.**~~ Done (October 2, 2026).   Tested on 14.5.3: with a `ProjectionConverter` on the layer, `EditTools.Add` and `Update` take map coordinates and write the file's projection.   Converting first moves features twice, so `editing.md` now says not to.   The test also showed that shapefile editing needs `FileAccess.ReadWrite`, which `editing.md` had said wasn't needed.
-6. ~~**Offline licensing.**~~ Done (October 2, 2026).   No special procedure exists or is needed: the runtime license is generated on a developer machine, is tied to the executable name rather than the machine, and is perpetual, so never-connected machines just receive the file.   `deployment.md` now says so and shows how to log licensing messages with `ThinkGeoDebugger`.
+6. ~~**Offline licensing.**~~ Done (October 2, 2026).   No special procedure exists or is needed: the runtime license is generated on a developer machine, is tied to the executable name rather than the machine, and is perpetual, so never-connected machines just receive the file.   `deployment.md` now says so and shows how to log licensing messages with `ThinkGeoDebugger`.   This is ThinkGeo 14 behavior; ThinkGeo 15 needs nothing on target machines (see the licensing rule above).
 
 ## Next steps, in order
 
@@ -94,6 +95,13 @@ These were found while building the skills.   Fix them in the docs repos, then r
 11. Two WebAPI samples reference `ThinkGeo.Jpeg2000` and `ThinkGeo.MrSid` 14.2.1 next to 14.5.3 packages.   Those packages (and `ThinkGeo.Ecw`) stopped at 14.2.1; their layers (`Jpeg2000GdalRasterLayer`, `MrSidGdalRasterLayer`, `EcwGdalRasterLayer`) are in `ThinkGeo.Gdal`.   Switch the samples to `ThinkGeo.Gdal`; Phil believes the old packages are replaced but hasn't confirmed.
 12. The Maps Streets page doesn't say how to get the data (Helpdesk download, PMTiles regional extracts, MBTiles on request for 14.x), and says "PMTiles is the recommended format for ThinkGeo v15.0 and later" without saying 14.x customers must request MBTiles.   The StyleJSON Schema page (`mapping-data/style-json-guide`) presents the legacy ThinkGeo StyleJSON format as current; mark it legacy and point to MapLibre Style JSON.
 13. The Blazor Quick Start uses the .NET 3-era `_Host.cshtml` page and a `cdn.thinkgeo.com/blazor/1.0.0` CDN path; since 14.5 client assets load automatically, and new projects use the .NET 8+ Blazor Web App template (needs an interactive server render mode).   The Blazor HowDoI sample also still uses the old `Startup.cs`/`_Host.cshtml` structure.   `VectorTileOverlay` (added in 14.5.3) has no API reference page.   Hosting support (Blazor Server for `LayerOverlay`; WebAssembly and Hybrid only for client-drawn overlays) is stated only in a forum post, not the docs.
+
+## ThinkGeo 15 changes still to handle in the skills
+
+Found while testing the ThinkGeo 15 betas (`15.0.0-beta264`, November 2026).   Handle these when 15 ships.
+
+1. `ThinkGeoCloudVectorMapsOverlay` is obsolete in 15 ("will be removed in version 15.4"); its replacement is `ThinkGeoVectorTileOverlay`.   The skills, starters, and `AGENTS.md` use `ThinkGeoCloudVectorMapsOverlay` throughout.   Verify the new class and its settings, then make the basemap guidance version-aware like licensing.
+2. The ThinkGeo 15 MAUI package targets .NET 10 (`net10.0-android36.0`, `net10.0-ios26.0`, `net10.0-maccatalyst26.0`, `net10.0-windows10.0.19041`).   Check the MAUI skill's project setup against it.
 
 ## Product issues found in ThinkGeo packages
 
